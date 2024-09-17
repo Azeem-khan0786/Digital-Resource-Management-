@@ -81,12 +81,15 @@ body {
 
                                         <th>CategoryID</th>
                                         <th>CategoryName</th>
+                                        <th>Created_At</th>
                                         <th>operation</th>
                                     </tr>
                                     <?php foreach($category as $cata):?>
                                     <tr>
                                         <td><?php  echo $cata['categoryId'];?></td>
                                         <td><?php   echo $cata['categoryName'];?></td>
+                                        <td><?php   echo $cata['created_at'];?></td>
+
                                         <td> <a href="<?= base_url('Management/delete_category/'. $cata['categoryId']) ?>"
                                                 class="btn btn-dark btn-sm">Delete</a></td>
                                     </tr>

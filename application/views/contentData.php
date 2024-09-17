@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous">
-        <link rel="stylesheet" href="<?php echo base_url().'assets/css/dashboard.css'?> ">
+    <link rel="stylesheet" href="<?php echo base_url().'assets/css/dashboard.css'?> ">
 
     <title>Content List</title>
     <style>
@@ -53,52 +53,55 @@
                 <!--Main layout-->
             </div>
             <div class="col-md-10">
-            <h4 class="text-center"><b class="">Your Resources management Table</b></h4>
-            <table class="">
-                        <thead>
-                            <tr>
-                                <th>Content ID</th>
-                                <th>Content Title</th>
-                                <th>Catagory Id</th>
-                                <th>Catagory Name</th>
-                                <!-- <th>Uploaded File</th> -->
-                                <th>Content Description</th>
-                                <th>Download</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach($contents as $content): ?>
-                            <tr>
-                                <td><?php echo $content->content_id; ?></td>
-                                <td><?php echo $content->content_title; ?></td>
-                                <td><?php echo $content->categoryId; ?></td>
-                                <td><?php echo $content->categoryName; ?></td>
-                                <!-- <td><?php echo $content->filename; ?></td> -->
-                                <td><?php echo $content->content_description; ?></td>
-                                <td> <a href="">Download</a></td>
-                                <td> <button class="btn btn-primary btn-sm"><a href=""></a>Edit</button></td>
-                                <td> <a href="<?= base_url('welcome/delete_content/'.$content->content_id) ?>" class="btn btn-dark btn-sm">Delete</a></td>
-                                
-                                <?php endforeach; ?>
-                        </tbody>
-                    </table> <br>
-                    <a href="<?=base_url().'welcome/content_add_form'?>" class="btn btn-primary btn-block">Add Catagory</a>
-                    <?php if ($this->session->flashdata('success')): ?>
-                    <div class="alert alert-success">
-                        <?= $this->session->flashdata('success'); ?>
-                    </div>
-                        <?php endif; ?>
+                <h4 class="text-center"><b class="">Your Resources management Table</b></h4>
+                <table class="">
+                    <thead>
+                        <tr>
+                            <th>Content ID</th>
+                            <th>Content Title</th>
+                            <th>Catagory Id</th>
+                            <th>Catagory Name</th>
+                            <!-- <th>Uploaded File</th> -->
+                            <th>Content Description</th>
+                            <th>Download</th>
+                            
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($contents as $content): ?>
+                        <tr>
+                            <td><?php echo $content->content_id; ?></td>
+                            <td><?php echo $content->content_title; ?></td>
+                            <td><?php echo $content->categoryId; ?></td>
+                            <td><?php echo $content->categoryName; ?></td>
+                            <!-- <td><?php echo $content->filename; ?></td> -->
+                            <td><?php echo $content->content_description; ?></td>
+                            <td> <a href="">Download</a></td>
+                            
+                            <td> <button class="btn btn-primary btn-sm"><a href=""></a>Edit</button></td>
+                            <td> <a href="<?= base_url('welcome/delete_content/'.$content->content_id) ?>"
+                                    class="btn btn-dark btn-sm">Delete</a></td>
 
-                         <?php if ($this->session->flashdata('error')): ?>
-                    <div class="alert alert-danger">
-                        <?= $this->session->flashdata('error'); ?>
-                    </div>
-                       <?php endif; ?>
-                           
-                        </div>
-                    </div>
+                            <?php endforeach; ?>
+                    </tbody>
+                </table> <br>
+                <a href="<?=base_url().'welcome/content_add_form'?>" class="btn btn-primary btn-block">Add Catagory</a>
+                <?php if ($this->session->flashdata('success')): ?>
+                <div class="alert alert-success">
+                    <?= $this->session->flashdata('success'); ?>
+                </div>
+                <?php endif; ?>
+
+                <?php if ($this->session->flashdata('error')): ?>
+                <div class="alert alert-danger">
+                    <?= $this->session->flashdata('error'); ?>
+                </div>
+                <?php endif; ?>
+
+            </div>
+        </div>
     </div>
 
 </body>

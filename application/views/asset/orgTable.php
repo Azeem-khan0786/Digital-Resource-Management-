@@ -23,45 +23,61 @@ td {
 </style>
 
 <body>
-    <?php $this->load->view('asset/assetNavbar'); ?>
+    <?php $this->load->view('asset/assetNavbar');
+  
+    ?>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2"><?php $this->load->view('asset/DashSidebar'); ?></div>
             <div class="col-md-10">
-            <!-- <h5 class="text-center">Organisation Table</h5><br> -->
-            <ol class=" text-center breadcrumb mb-4 mt-3 "><h5 class=" mr-auto text-center">Organisation Table</h5></ol>
+                <!-- <h5 class="text-center">Organisation Table</h5><br> -->
+                <ol class=" text-center breadcrumb mb-4 mt-3 ">
+                    <h5 class=" mr-auto text-center">Organisation Table</h5>
+                </ol>
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
                         Organisation Table
                     </div>
                     <div class="card-body">
-
-                        <table class='table table-striped ' id='search-data-table'>
-                            <tr style="font-weight:bold;">
-                                <td>OrgID</td>
-                                <td>OrgName</td>
-                                <td>OrgType</td>
-                                <td>OrgLevel</td>
-                                <td>Orglocation</td>
-                                <td>created_at</td>
-                            </tr>
-                            <?php foreach ($org_data as $row): ?>
+                        
+                        <table class='table table-striped' id='search-data-table'>
+                            <thead>
+                                <tr style="font-weight:bold;">
+                                    <td>OrgID</td>
+                                    <td>OrgName</td>
+                                    <td>OrgAdmin</td>
+                                    <td>Admin Email</td>
+                                    <td>OrgLevel</td>
+                                    <td>OrgType</td>
+                                    <td>Created At</td>
+                                    <td>Org Location</td>
+                                    <td>Action</td>
+                                    <!-- <td>Created At</td> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Assuming $org_data is a single organization entry or an array of entries -->
+                                <?php foreach ($companies as $company): ?>
                             <tr>
-                                <td><?php echo $row['org_id']; ?></td>
-                                <td><?php echo $row['org_name']; ?></td>
-                                <td><?php echo $row['org_type']; ?></td>
-                                <td><?php echo $row['org_level']; ?></td>
-                                <td><?php echo $row['org_location']; ?></td>
-                                <td><?php echo $row['created_at']; ?></td>
+                                <td><?= $company['org_id']; ?></td>
+                                <td><?= $company['org_name']; ?></td>
+                                <td><?= $company['AdminName']; ?></td>
+                                <td><?= $company['AdminEmail']; ?></td>
+                                <td><?= $company['org_level']; ?></td>
+                                <td><?= $company['org_type']; ?></td>
+                                <td><?= $company['created_at']; ?></td>
 
-
-                                <!-- Add other columns as needed -->
+                                <td><?= $company['state_name']; ?><?= $company['city_name']; ?></td>
+                                <!-- <td><?= $company['staff_id']; ?></td> -->
+                                 <td><a href="<?= base_url('Management/delOrg/'.$company['org_id']) ?>"
+                                 class="btn btn-dark btn-sm">Delete</a></td>
                             </tr>
                             <?php endforeach; ?>
+                            </tbody>
                         </table>
-                        <a href="<?=base_url().'Management/addOrg'?>" class="btn btn-primary">+ Add Organisation</a>
-
+                        
+                        <a href="<?= base_url().'Management/addOrg' ?>" class="btn btn-primary">+ Add Organisation</a>
                     </div>
                 </div>
             </div>

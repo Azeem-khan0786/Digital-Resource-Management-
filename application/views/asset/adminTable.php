@@ -51,7 +51,7 @@
             <td>Designation_name</td>
             <td>Orgnisation name</td>
             <!-- <td>Designation_id</td> -->
-            <td>Department Name</td>
+            <td>Office Name</td>
             
             <!-- <td>OrgLevel</td> -->
             
@@ -67,7 +67,7 @@
                 <td><?php echo $row['Designation_name']; ?> </td>
                 <td><?php echo $row['org_name']; ?></td>
                 <!-- <td><?php echo $row['Designation_id']; ?> </td> -->
-                <td><?php echo $row['department_name']; ?> </td>
+                <td><?php echo $row['offie_name']; ?> </td>
                 
                 
                 

@@ -56,8 +56,7 @@ td {
                                 <td>Designation_Name</td>
                                 <td>Organisation Name</td>
                                 <td>Organisation Id</td>
-
-
+                                <td>Created_at</td>
                             </tr>
                             <?php foreach ($Designation_data as $row ) : ?>
                             <tr>
@@ -65,6 +64,7 @@ td {
                                 <td><?php echo $row['Designation_name']; ?></td>
                                 <td><?php echo $row['org_name']; ?></td>
                                 <td><?php echo $row['org_id']; ?></td>
+                                <td><?php echo $row['created_at']; ?> </td>
                                 <!-- <?php
                     // Assuming $org_data is structured like: $org_data[$row['org_id']] = ['org_name' => 'Org Name'];
                     if (isset($org_data[$row['org_id']])) {

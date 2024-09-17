@@ -53,6 +53,7 @@ body {
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
                             Registered Staff Table
+                        
                         </div>
                         <div class="card-body">
                             <table class='table table-striped ' id='search-data-table'>
@@ -61,20 +62,16 @@ body {
                                     <td>StaffName</td>
                                     <td>Email Address</td>
                                     <td>Designation_name</td>
-
                                     <td>Orgnisation name</td>
-                                    <!-- <td>Designation_id</td> -->
-                                    <td>Department Name</td>
-
-                                    <!-- <td>OrgLevel</td> -->
+                                    <td>Office Name</td>
                                     <td>Salary</td>
+                                    <td>Created_at</td>
                                     <td>joining-date</td>
                                     <td>Date of Birth</td>
-                                    <td>Address</td>
+                                    <td>City</td>
                                     <td>State</td>
-                                    <td>Pincode</td>
                                     <td>Action</td>
-                                    <td>edit</td>
+                                
                                 </tr>
 
                                 <?php foreach ($staffdata as $row): ?>
@@ -84,18 +81,16 @@ body {
                                     <td><?php echo $row['staff_name']; ?></td>
                                     <td><?php echo $row['staff_email']; ?></td>
                                     <td><?php echo $row['Designation_name']; ?> </td>
-
                                     <td><?php echo $row['org_name']; ?></td>
-                                    <!-- <td><?php echo $row['Designation_id']; ?> </td> -->
-                                    <td><?php echo $row['department_name']; ?> </td>
-
-
+                                    <td><?php echo $row['office_name']; ?> </td>
                                     <td><?php echo $row['salary']; ?></td>
+                                    <td><?php echo $row['created_at']; ?> </td>
                                     <td><?php echo $row['joining_date']; ?></td>
                                     <td><?php echo $row['date_of_birth']; ?></td>
-                                    <td><?php echo $row['address']; ?></td>
-                                    <td><?php echo $row['state']; ?></td>
-                                    <td><?php echo $row['pincode']; ?></td>
+                                    <td><?php echo $row['city_name']; ?></td>
+                                    <td><?php echo $row['state_name']; ?></td>
+                                    <!-- <td><?php echo $row['pincode']; ?></td> -->
+                                    <!-- <td><?php echo $row['level']; ?></td> -->
                                     <td> <a href="<?= base_url('Management/delete_user/'.$row['staff_id']) ?>"
                                             class="btn btn-dark btn-sm">Delete</a></td>
 
@@ -125,24 +120,7 @@ body {
     <!-- jQuery script -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- <script>
-$(document).ready(function() {
-    // Check if user is logged in
-    var staff_id = '<?php echo $this->session->userdata('staff_id'); ?>';
-    var Designation_id = '<?php echo $this->session->userdata('Designation_id'); ?>';
-
-    if (!staff_id) {
-        // User is not logged in, show login modal
-        $('#loginModal').modal('show'); // Replace #loginModal with your modal selector
-    }
-});
-</script> -->
-
-    <!-- Your modal HTML, assuming you have a modal with id="loginModal" -->
-    <!-- <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <!-- Modal content -->
-    </div> -->
-
+    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

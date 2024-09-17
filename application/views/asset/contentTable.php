@@ -39,9 +39,10 @@
                             <th>Content Title</th>
                             <th>Category Id</th>
                             <th>Category Name</th>
-                            <!-- <th>Uploaded File</th> -->
+                            <th>Uploaded File</th>
                             <th>Content Description</th>
                             <th>Download</th>
+                            <td>Created_at</td>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
@@ -52,9 +53,10 @@
                                 <td><?php echo $content->content_id; ?></td>
                                 <td><?php echo $content->content_title; ?></td>
                                 <td><?php echo $content->categoryId; ?></td>
-                                <td><?php echo $content->categoryName; ?></td>
-                                <!-- <td><?php echo $content->filename; ?></td> -->
+                                <td><?php echo $content->categoryName; ?></td> 
+                                <td><?php echo $content->filename; ?></td>
                                 <td><?php echo $content->content_description; ?></td>
+                                <td><?php echo $content->created_at; ?> </td>
                                 <td> <a href="">Download</a></td>
                                 <td> <button class="btn btn-primary btn-sm"><a href=""></a>Edit</button></td>
                                 <td> <a href="<?= base_url('Management/delete_content/'.$content->content_id) ?>"

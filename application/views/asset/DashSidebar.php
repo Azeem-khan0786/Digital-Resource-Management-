@@ -36,7 +36,7 @@
 .list-group-item {
     /* padding: 3px 1px; */
     text-align: center;
-    margin: 2px;
+    margin: 1.5px;
     background-color: LightGray;
 }
 
@@ -46,9 +46,9 @@
 </style>
 <body>
     <div class="sidebar">
-        <ul class="list-group">
-            <div class="card" style="border-radius: 5px;background-color:LightGray; height:140px;width:206px" ;>
-                <div class="card-body text-center p-1 m-1">
+    <li class="list-group-item">
+            <!-- <div class=" " style="border-radius: 5px;background-color:LightGray; height:140px;width:260px" ;>
+                <div class=" text-center p-1 m-1"> -->
                     <div class="mt-1 mb-1">
                         <img src="<?php echo base_url('images/userlogo.png'); ?>" class="rounded-circle img-fluid"
                             style="width: 100px;" />
@@ -56,8 +56,11 @@
                     <?php if (isset($_SESSION['staff_name'])) : ?>
                     <h6 class="name"><b><a href=""> <?= $_SESSION['staff_name'] ?></a></b></h6>
                     <?php endif; ?>
-                </div>
-            </div>
+                <!-- </div>
+            </div> -->
+        </li>
+        <ul class="list-group">
+            
 
             <li class="list-group-item "><a href="<?=base_url().'Management/'?>">Home</a></li>
             <!-- <li class="list-group-item "><a href="about.php">About</a></li>
@@ -67,6 +70,8 @@
             <ul class="list-group">
                 <?php if (isset($_SESSION['staff_name'])) : ?>
                 <!-- <li class="list-group-item "><a href=""> <?= $_SESSION['staff_name'] ?></a></li> -->
+                <li class="list-group-item "><a href="<?= base_url('Management/profile') ?>">Profile</a></li>
+
                 <li class="list-group-item "><a href="<?= base_url('Management/logout') ?>">SignOut</a></li>
 
                 <?php else : ?>
@@ -88,7 +93,7 @@
         </ul>
     </div>
 
-
+    </b>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">

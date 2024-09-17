@@ -45,12 +45,12 @@ body {
                     </div>
                     <div class="col-xl-3 col-md-6 p-1">
                         <div class="card bg-warning text-white mb-4">
-                            <div class="card-body">Department Table :
-                                <b><?php echo $this->db->count_all('DepartmentTable'); ?> records</b>
+                            <div class="card-body">Office Table :
+                                <b><?php echo $this->db->count_all('OfficeTable'); ?> records</b>
                             </div>
                             <div class="card-footer d-flex align-items-center justify-content-between">
                                 <a class="small text-white stretched-link"
-                                    href="<?=base_url().'Management/getDepartment'?>">View Details</a>
+                                    href="<?=base_url().'Management/getOffice'?>">View Details</a>
                                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                             </div>
                         </div>
@@ -93,7 +93,7 @@ body {
                                     <td>Designation_name</td>
                                     <td>Orgnisation name</td>
                                     <!-- <td>Designation_id</td> -->
-                                    <td>Department Name</td>
+                                    <td>Office Name</td>
                                </tr>
                                <?php foreach ($admindata as $row): ?>
                                 <tr>
@@ -104,7 +104,7 @@ body {
                                     <td><?php echo $row['Designation_name']; ?> </td>
                                     <td><?php echo $row['org_name']; ?></td>
                                     <!-- <td><?php echo $row['Designation_id']; ?> </td> -->
-                                    <td><?php echo $row['department_name']; ?> </td>
+                                    <td><?php echo $row['office_name']; ?> </td>
                                 </tr>
                                 <?php endforeach; ?>
                                 </table>

@@ -75,11 +75,30 @@
                                 <?php endforeach;?>
                             </select>
                         </div>
+                        <!-- <div class="form-group m-3 col-md-4">
+                            <label for="">States</label><br>
+                            <select name="states" id="" required class="form-control"
+                                style='background-color: #dbdbdb;'>
+
+
+                                <?php foreach($states as $st):?>
+
+                                <option value="<?php echo $st['state_id']; ?>"> <?php echo $st['state_name'];?>
+                                </option>
+                                <?php endforeach;?>
+                            </select>
+                        </div> -->
                     </div>
                     <div class="form-row">
-                        <div class="form-group m-3 col-md-4">
+                        <!-- <div class="form-group m-3 col-md-4">
                             <label for="inputAddress">Add Date</label>
                             <input type="date" class="form-control" name='created_date' id="" placeholder="yy-mm-dd">
+                        </div> -->
+                        
+                        <div class="form-group m-3 col-md-4">
+                            <label for="file">File name:</label>
+                            <input type="file" name="userfile" size="20" />
+                            <!-- <input type="submit" name="submit" class="bg-dark" value="Upload" /><br> -->
                         </div>
                         <div class="form-group m-3 col-md-4">
                             <label for="inputAddress2">Content Description</label>
@@ -87,30 +106,15 @@
                                 name='content_description' placeholder="Apartment, studio, or floor"
                                 style='background-color: #dbdbdb;'></textarea>
                         </div>
-                        <div class="form-group m-3 col-md-6">
-                            <label for="file">File name:</label>
-                            <input type="file" name="filename" /> 
-                            <!-- <input type="submit" name="submit" class="bg-dark" value="Upload" /><br> -->
-                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-sm m-3">Add here</button>
-                    <button type="cancel" class="btn btn-dark ml-auto btn-sm m-3">cancel</button>
+                    <button type="cancel" class="btn btn-dark ml-auto btn-sm m-3">reset</button>
 
                 </form>
                 <br>
-                <?php if ($this->session->flashdata('success')): ?>
-            <div class="alert alert-success">
-                <?= $this->session->flashdata('success'); ?>
+                
             </div>
-            <?php endif; ?>
 
-            <?php if ($this->session->flashdata('error')): ?>
-            <div class="alert alert-danger">
-                <?= $this->session->flashdata('error'); ?>
-            </div>
-            <?php endif; ?>
-            </div>
-            
         </div>
     </div>
 

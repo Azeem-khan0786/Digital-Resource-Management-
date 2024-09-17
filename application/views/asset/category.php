@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- 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  -->
+
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,7 +43,7 @@ body {
                     </button>
                 </div>
                 <?php endif; ?>
-                <div class="p-3 mt-1" style='background-color:lightblue' >
+                <div class="p-3 mt-1" style='background-color:lightblue'>
                     <h5 class="text-center">Add new category of data</h5>
 
                     <form action="<?php base_url('Mangement/addCategory') ?>" method='post'>

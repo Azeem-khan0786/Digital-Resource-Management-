@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>Department</title>
+    <title>Office</title>
 </head>
 <style>
 body,
@@ -26,41 +26,47 @@ tr {
         <div class="row">
             <div class="col-md-2"><?php $this->load->view('asset/DashSidebar'); ?></div>
             <div class="col-md-10">
-                <!-- <h5 class="text-center"> Orgnisation's Department Table </h5><br> -->
-                <ol class=" text-center breadcrumb mb-4 mt-3 "><h5 class=" mr-auto text-center">Orgnisation's Department Table </h5></ol>
-                
+                <!-- <h5 class="text-center"> Orgnisation's Office Table </h5><br> -->
+                <ol class=" text-center breadcrumb mb-4 mt-3 ">
+                    <h5 class=" mr-auto text-center">Orgnisation's Office Table </h5>
+                </ol>
+
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
-                        Orgnisation's Department Table
+                        Orgnisation's Office Table
                     </div>
                     <div class="card-body">
                         <table class='table table-striped' id='search-data-table'>
                             <thead class="thead-dark">
                                 <tr>
-                                    <td>Department ID</td>
-                                    <td>Department Name</td>
+                                    <td>Office ID</td>
                                     <td>Organisation Id</td>
-                                    <td>Department Level</td>
-                                    <td>Location</td>
+                                    <td>Office Name</td>
+                                    <td> Office Admin</td>
+                                    <!-- <td>Designation_name</td> -->
+                                    <!-- <td>Created By</td> -->
                                     <td>Create At</td>
+                                    <td>Location</td>
+                                    
                                 </tr>
                             </thead>
-                            <?php foreach ($department as $row): ?>
+                            <?php foreach ($office as $row): ?>
                             <tr>
-                                <td><?php echo $row['department_id']; ?></td>
-                                <td><?php echo $row['department_name']; ?></td>
+                                <td><?php echo $row['office_id']; ?></td>
                                 <td><?php echo $row['org_id']; ?></td>
-                                <td><?php echo $row['department_level']; ?></td>
-                                <td><?php echo $row['department_location']; ?></td>
-                                <td><?php echo $row['created_at']; ?></td>
+                                <td><?php echo $row['office_name']; ?></td>
+                                <td><?php echo $row['staff_name']; ?></td>
 
-                                <!-- Add other columns as needed -->
+                                <!-- <td><?php echo $row['created_by']; ?></td> -->
+                                <td><?php echo $row['created_at']; ?></td>
+                                <td><?php echo $row['city_name']; ?><?php echo $row['state_name']; ?></td>
+                                
                             </tr>
                             <?php endforeach; ?>
                         </table>
-                        <a href="<?=base_url().'Management/addDepartment'?>" class="btn btn-primary">+ Add
-                            Department</a>
+                        <a href="<?=base_url().'Management/addOffice'?>" class="btn btn-primary">+ Add
+                            Office</a>
 
                     </div>
                 </div>
