@@ -49,16 +49,17 @@ option {
 
                 <div class="form-group col-md-6">
                     <label for="">select Organisation</label>
-                    <select name="org_id" id="org_id" class="form-control" placeholder="In which organisation you work"
-                        name='org_id' required>
-                        <option value="" style="font-size: 12px;">Select Organisation</option>
-                        <?php foreach($org_data as $org): ?>
-                        <option value="<?php echo $org['org_id']; ?>"
-                            <?php echo ($org['org_id'] == $selected_org_id) ? 'selected' : ''; ?>>
-                            <?php echo $org['org_name']; ?>
-                        </option>
-                        <?php endforeach;?>
-                    </select>
+                    <label for="org_id">select Organisation </label>
+                        <select name="org_id" id="org_id" class="form-control"
+                            placeholder="what is your master organisation" required>
+                            <option value="">Select Organisation Level</option>
+                            <?php foreach($org_data as $org): ?>
+                            <option value="<?php echo $org['org_id']; ?>"
+                                <?php echo ($org['org_id'] == $selected_org_id) ? 'selected' : ''; ?>>
+                                <?php echo $org['org_name']; ?>
+                            </option>
+                            <?php endforeach;?>
+                        </select>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="">select Office </label>

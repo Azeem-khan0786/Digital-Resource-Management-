@@ -163,11 +163,12 @@ public function addOrg()
                         'org_data' => $org_data
                     );
                     $this->Manage_model->updateOrgData($org_id, $admin_id);
-                    $data['companies'] = $this->Manage_model->getOrgData();
+                    // $data['companies'] = $this->Manage_model->getOrgData();
                     // $data['companies'] = $this->Manage_model->updateOrgData($org_id, $admin_id);
                     
                     $this->session->set_flashdata('message', 'Your organization was added successfully.');
-                    $this->load->view('asset/orgTable', $data);
+                    // $this->load->view('asset/orgTable', $data);
+                    redirect(base_url() . 'Management/getOrg');
                     
                 } else {
                     $this->session->set_flashdata('message', 'There was a problem creating the admin.');
@@ -412,10 +413,10 @@ public function addOffice()
                         'office_data' => $office_data
                     );
                     $this->Manage_model->updateOfficeData($office_id, $admin_id);
-                    $data['office'] = $this->Manage_model->getOfficeDataByOrg($org_id);
+                    // $data['office'] = $this->Manage_model->getOfficeDataByOrg($org_id);
                     // print_r($data);
                         $this->session->set_flashdata('message', ' successful office Add .');
-                        $this->load->view('asset/OfficeTable', $data);
+                        redirect(base_url() . 'Management/getOffice');
                     } 
                 else {
                         $this->session->set_flashdata('message', ' fail office add .');

@@ -68,7 +68,7 @@ td {
                                 <td><?= $company['org_type']; ?></td>
                                 <td><?= $company['created_at']; ?></td>
 
-                                <td><?= $company['state_name']; ?><?= $company['city_name']; ?></td>
+                                <td><?= $company['state_name'] ."  ". $company['city_name']; ?></td>
                                 <!-- <td><?= $company['staff_id']; ?></td> -->
                                  <td><a href="<?= base_url('Management/delOrg/'.$company['org_id']) ?>"
                                  class="btn btn-dark btn-sm">Delete</a></td>

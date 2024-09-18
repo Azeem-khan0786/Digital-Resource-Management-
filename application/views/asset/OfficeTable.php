@@ -60,7 +60,7 @@ tr {
 
                                 <!-- <td><?php echo $row['created_by']; ?></td> -->
                                 <td><?php echo $row['created_at']; ?></td>
-                                <td><?php echo $row['city_name']; ?><?php echo $row['state_name']; ?></td>
+                                <td><?php echo $row['city_name'] . ' ' . $row['state_name']; ?></td>
                                 
                             </tr>
                             <?php endforeach; ?>
