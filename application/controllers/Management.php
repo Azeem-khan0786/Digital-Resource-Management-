@@ -57,7 +57,14 @@ public function login()
               
                 // Redirect to management page
                 $this->session->set_flashdata('message', 'Login successful.');
-                redirect(base_url() . 'Management/getStaff');
+                if ($this->session->userdata('desig_level') == 1)
+                     {
+                        redirect(base_url() . 'Management/getOrg');
+                     }
+                else{
+                    redirect(base_url() . 'Management/getStaff');
+                }     
+                
             } else {
                 // Login failed
                 $this->session->set_flashdata('message', 'Invalid email or password.');
@@ -86,9 +93,12 @@ public function addOrg()
         $this->form_validation->set_rules('org_name', 'Organization Name', 'required');
         $this->form_validation->set_rules('org_type', 'Organization Type', 'required');
         $this->form_validation->set_rules('org_level', 'Organization Level', 'required');
-        $this->form_validation->set_rules('created_at', 'Created at', 'required');
+        // $this->form_validation->set_rules('state_name', 'State Name', 'required');
+        // $this->form_validation->set_rules('city_name', 'City Name', 'required');
+        // $this->form_validation->set_rules('created_at', 'Created at', 'required');
         
         if (!$this->form_validation->run()) {
+            $data['validation_errors'] = validation_errors(); // Store validation errors
             // Fetch all states from the statesTable
             $data['states'] = $this->db->get('statesTable')->result_array();
             
@@ -123,12 +133,13 @@ public function addOrg()
                 'org_name' => $this->input->post('org_name'),
                 'org_type' => $this->input->post('org_type'),
                 'org_level' => $this->input->post('org_level'),
-                'created_at' => $this->input->post('created_at'),
-                'city_name' => $city_data->city_name, // Store city_name instead of city_id
+                // 'created_at' => $this->input->post('created_at'),
                 'state_name' => $state_data->state_name, // Store state_name instead of state_id
+                'city_name' => $city_data->city_name, // Store city_name instead of city_id
+                
                 // 'created_by' => 1
             );
-            print_r($org_data);
+             
             
             $org_id = $this->Manage_model->addOrgData($org_data);
             if ($org_id) {
@@ -298,7 +309,7 @@ public function getCities()
 
 //3.3 get staff   records
 public function getStaff()
-{
+ {
     
     $staff_id = $this->session->userdata('staff_id');
     
@@ -330,7 +341,7 @@ public function getStaff()
             redirect(base_url().'Management/showCategory');
         }    
     }
-} 
+ } 
 public function addOffice()
     {    $org_id = $this->session->userdata('org_id');
         $this->form_validation->set_rules('office_name', 'office name', 'required');

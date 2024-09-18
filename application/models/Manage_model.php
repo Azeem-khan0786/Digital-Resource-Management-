@@ -91,13 +91,13 @@ public function addStaffData($data)
         return $this->db->insert('staffTable', $data);
     }
     // method for create admin at the time of orgnisation
-    public function create_admin($admin_data)
+public function create_admin($admin_data)
     {
         $this->db->insert('staffTable',$admin_data);
         return $this->db->insert_id();
     }
     //get create admin
-    public function get_create_admin($admin_data)
+public function get_create_admin($admin_data)
     {
         
         $query=$this->db->get('staffTable',$admin_data);
@@ -106,7 +106,7 @@ public function addStaffData($data)
 
 
     // add designation data
-    public function addDesignationData($data)
+public function addDesignationData($data)
     {
         $query=$this->db->insert('DesignationTable',$data);
         
@@ -114,18 +114,24 @@ public function addStaffData($data)
         }
 
     // delete staff data
-    public function delete_record($staff_id) {
+public function delete_record($staff_id) {
         $this->db->where('staff_id', $staff_id);
         $this->db->delete('staffTable');
     }
     //  add Organisation data
-    public function addOrgData($org_data){
+public function addOrgData($org_data){
+    if (!$this->db->insert('OrganisationTable', $org_data)) {
+        log_message('error', 'Database insert failed: ' . $this->db->last_query());
+    }
+       else{
         $this->db->insert('OrganisationTable',$org_data);
-
         return $this->db->insert_id();
+       } 
+         
+        
     }
         // Method to get organization (company) data
-    //  public function getOrgData($org_id=NULL) {
+    // public function getOrgData($org_id=NULL) {
         
     //     // Specify the table to query from
         
@@ -139,7 +145,7 @@ public function addStaffData($data)
     //     }
     // }
     // Method to get company data with CompanyAdmin's email and name
-    public function getOrgData() {
+public function getOrgData() {
         $this->db->select('OrganisationTable.org_id, OrganisationTable.org_name, staffTable.staff_email AS AdminEmail, staffTable.staff_name AS AdminName ,OrganisationTable.org_type,OrganisationTable.org_level,OrganisationTable.created_at,OrganisationTable.state_name,OrganisationTable.city_name ,OrganisationTable.staff_id');
         $this->db->from('OrganisationTable');
         $this->db->join('staffTable', 'OrganisationTable.staff_id = staffTable.staff_id');
@@ -147,7 +153,7 @@ public function addStaffData($data)
         return $query->result_array();
     }
     // get data by Org_id
-    public function getOrgDataById($org_id)
+public function getOrgDataById($org_id)
     {
         
         $this->db->where('org_id', $org_id);
@@ -156,12 +162,12 @@ public function addStaffData($data)
         
     }
     //add  addOfficeData
-    public function addOfficeData($data)
+public function addOfficeData($data)
     {
         $this->db->insert('OfficeTable',$data);
         return $this->db->insert_id();
     }
-    public function joinData()
+public function joinData()
     {
         
         $this->db->select("*");
