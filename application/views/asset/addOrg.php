@@ -48,7 +48,7 @@ input[type=password] {
         </div>
         <?php endif; ?>
         <div class="bg-info m-1 p-3">
-            <form action="<?php base_url('Management/addOrg') ?>" method='post' class="">
+        <form action="<?php echo base_url('Management/addOrg'); ?>" method='post' class="">
                 <div class="form-group">
                     <label for="catagoryName">Organisation Name</label>
                     <input type="text" class="form-control" name='org_name'
@@ -84,10 +84,8 @@ input[type=password] {
                     <label for="">City & Location</label><br>
                     <select name="cities" id="city_id" required class="form-control" style='background-color: #dbdbdb;'>
                         <option value="">-- select your state's city-- </option>
-
-                        <?php foreach($data['cities'] as $ct):?>
-
-                        <option value="<?php echo $ct['city_id']; ?>"> <?php echo $ct['city_name'];?>
+                        <?php foreach($cities as $ct):?>
+                            <option value="<?php echo $ct['city_id']; ?>"> <?php echo $ct['city_name'];?>
                         </option>
                         <?php endforeach;?>
                     </select>
@@ -106,11 +104,11 @@ input[type=password] {
              
                   <div class="form-group col-md-6">
                     <label for="inputEmail4">Email</label>
-                    <input type="email" class="form-control" id="admin_username" name='admin_email' value="<?php echo set_value('staff_email')?>" placeholder="something@gmail.com">
+                    <input type="email" class="form-control" id="admin_email" name='admin_email' value="<?php echo set_value('staff_email')?>" placeholder="something@gmail.com">
                   </div>
                   <div class="form-group col-md-6">
                     <label for="inputPassword4">Password</label>
-                    <input type="password" class="form-control"id="admin_username" name= 'admin_password' value="<?php echo set_value('staff_password')?>" placeholder="********">
+                    <input type="password" class="form-control"id="admin_password" name= 'admin_password' value="<?php echo set_value('staff_password')?>" placeholder="********">
                   </div>
             </div>
 
