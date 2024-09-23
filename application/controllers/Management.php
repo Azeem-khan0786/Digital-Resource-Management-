@@ -9,7 +9,9 @@ public function __construct()
         $this->load->model('Manage_model'); // Load the model
     }
     // 1. Deshborad home page
-public function home() {}
+public function home() {
+   
+}
     //  private login staff 
 private function logged_in()
     {
@@ -61,8 +63,9 @@ public function login()
                      {
                         redirect(base_url() . 'Management/getOrg');
                      }
-                else{
-                    redirect(base_url() . 'Management/getStaff');
+                elseif ($this->session->userdata('desig_level') == 2) {
+                    
+                redirect(base_url() . 'Management/getOffice');
                 }     
                 
             } else {
@@ -77,14 +80,14 @@ public function login()
 public function logout()
     {
         $this->session->sess_destroy();
-        redirect(base_url() . 'Management/');
+        redirect(base_url() . 'Management/login');
     }
     // index page
 public function index()
     {
         // cheack admin is logged in addStaff
-        $data['admindata'] = $this->Manage_model->getAdminData();
-        $this->load->view('asset/index copy', $data);
+        // $data['admindata'] = $this->Manage_model->getAdminData();
+        $this->load->view('asset/index copy');
         // $this->load->view('asset/sidebar');   
     }
     //1.1 add Organisation data
@@ -491,15 +494,16 @@ public function getDesignation()
     }
     //3.1 add Staff record
    
-public function getAdmin()
-    {     //  $staff_id = $this->session->userdata('staff_id');
+   // method for get admin
+    // public function getAdmin()
+//     {     //  $staff_id = $this->session->userdata('staff_id');
 
-        $data['admindata'] = $this->Manage_model->getAdminData();
-        // echo json_encode($data);
-        // echo json_encode($data);is_admin
+//         $data['admindata'] = $this->Manage_model->getAdminData();
+//         // echo json_encode($data);
+//         // echo json_encode($data);is_admin
 
-        $this->load->view('asset/adminTable', $data);
-    }
+//         $this->load->view('asset/adminTable', $data);
+//     }
     // Delete staff user record
 public function delete_user($staff_id)
     {

@@ -24,6 +24,7 @@ body {
  <div class="row">
     <div class="col-md-2 ">
         <?php $this->load->view('asset/DashSidebar'); ?>
+        
     </div>
     <div class="col-md-10 w-100 ">
         <main>
@@ -81,7 +82,7 @@ body {
                     </div>
                 </div>
                         <!-- Admin Table -->
-                <div class="card mb-4">
+                <!-- <div class="card mb-4">
                     <div class="card-header"><i class="fas fa-table me-1"></i> DataTable Example</div>
                         <div class="card-body " >
                             <table class='table table-striped ' id='search-data-table' style="font-size: 12px;">
@@ -92,7 +93,7 @@ body {
                                     <td>Email Address</td>
                                     <td>Designation_name</td>
                                     <td>Orgnisation name</td>
-                                    <!-- <td>Designation_id</td> -->
+                                    
                                     <td>Office Name</td>
                                </tr>
                                <?php foreach ($admindata as $row): ?>
@@ -103,7 +104,7 @@ body {
                                     <td><?php echo $row['staff_email']; ?></td>
                                     <td><?php echo $row['Designation_name']; ?> </td>
                                     <td><?php echo $row['org_name']; ?></td>
-                                    <!-- <td><?php echo $row['Designation_id']; ?> </td> -->
+                                 
                                     <td><?php echo $row['office_name']; ?> </td>
                                 </tr>
                                 <?php endforeach; ?>
@@ -111,7 +112,7 @@ body {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                
             </main>
         </div>

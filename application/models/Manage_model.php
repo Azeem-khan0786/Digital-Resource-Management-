@@ -50,18 +50,18 @@ public function getStaffDataByOffice($org_id,$office_id)
     }    
     
     //get Office
-public function getAdminData()
-    {
-        $this->db->select("*,adminTable.staff_id");
-        $this->db->from("adminTable");
-        $this->db->join("staffTable","adminTable.staff_id=staffTable.staff_id",'left');
-        $this->db->join("DesignationTable","staffTable.Designation_id=DesignationTable.Designation_id",'left');
-        $this->db->join("OfficeTable","staffTable.office_id=OfficeTable.office_id",'left');
-        $this->db->join("OrganisationTable","staffTable.org_id=OrganisationTable.org_id",'left');
-        $query=$this->db->get();
-        return $query->result_array();
+// public function getAdminData()
+//     {
+//         $this->db->select("*,adminTable.staff_id");
+//         $this->db->from("adminTable");
+//         $this->db->join("staffTable","adminTable.staff_id=staffTable.staff_id",'left');
+//         $this->db->join("DesignationTable","staffTable.Designation_id=DesignationTable.Designation_id",'left');
+//         $this->db->join("OfficeTable","staffTable.office_id=OfficeTable.office_id",'left');
+//         $this->db->join("OrganisationTable","staffTable.org_id=OrganisationTable.org_id",'left');
+//         $query=$this->db->get();
+//         return $query->result_array();
         
-    }
+//     }
 public function getOfficeDataByOrg($org_id)
  {
     // Select relevant columns

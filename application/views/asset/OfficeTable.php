@@ -26,6 +26,8 @@ tr {
         <div class="row">
             <div class="col-md-2"><?php $this->load->view('asset/DashSidebar'); ?></div>
             <div class="col-md-10">
+        <!-- <?php $this->load->view('asset/cardPage'); ?> -->
+
                 <!-- <h5 class="text-center"> Orgnisation's Office Table </h5><br> -->
                 <ol class=" text-center breadcrumb mb-4 mt-3 ">
                     <h5 class=" mr-auto text-center">Orgnisation's Office Table </h5>
@@ -41,7 +43,7 @@ tr {
                             <thead class="thead-dark">
                                 <tr>
                                     <td>Office ID</td>
-                                    <td>Organisation Id</td>
+                                    <!-- <td>Organisation Id</td> -->
                                     <td>Office Name</td>
                                     <td> Office Admin</td>
                                     <!-- <td>Designation_name</td> -->
@@ -54,7 +56,7 @@ tr {
                             <?php foreach ($office as $row): ?>
                             <tr>
                                 <td><?php echo $row['office_id']; ?></td>
-                                <td><?php echo $row['org_id']; ?></td>
+                                <!-- <td><?php echo $row['org_id']; ?></td> -->
                                 <td><?php echo $row['office_name']; ?></td>
                                 <td><?php echo $row['staff_name']; ?></td>
 

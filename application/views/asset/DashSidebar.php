@@ -72,20 +72,20 @@
                 <!-- <li class="list-group-item "><a href=""> <?= $_SESSION['staff_name'] ?></a></li> -->
                 <li class="list-group-item "><a href="<?= base_url('Management/profile') ?>">Profile</a></li>
 
-                <li class="list-group-item "><a href="<?= base_url('Management/logout') ?>">SignOut</a></li>
-
-                <?php else : ?>
-
-                <li class="list-group-item "><a href="<?= base_url('Management/login') ?>">SignIn</a></li>
+               
                 <?php endif; ?>
 
             </ul>
             <!-- Bootstrap Dropdown -->
-            
-            <li class="list-group-item "><a href="<?= base_url('Management/addCategory') ?>">Add Catagory</a></li>
-            <li class="list-group-item "><a href="<?= base_url('Management/showCategory') ?>">View Catagory</a></li>
-            <li class="list-group-item "><a href="<?= base_url('Management/content_add_form') ?>">Add Content</a></li>
-            <li class="list-group-item "><a href="<?= base_url('Management/showcontent') ?>">View Content</a></li>
+            <?php if ($this->session->userdata('desig_level') == 3): ?>
+                <li class="list-group-item "><a href="<?= base_url('Management/addCategory') ?>">Add Catagory</a></li>
+                <li class="list-group-item "><a href="<?= base_url('Management/showCategory') ?>">View Catagory</a></li>
+            <?php endif;?>
+            <?php if ($this->session->userdata('desig_level') == 4): ?>
+                <li class="list-group-item "><a href="<?= base_url('Management/content_add_form') ?>">Add Content</a></li>
+                <li class="list-group-item "><a href="<?= base_url('Management/showcontent') ?>">View Content</a></li>
+            <?php endif;?>
+
             <li class="list-group-item m-1" style="background-color: Tomato;">
                 <a href="https://codeigniter.com/userguide3/installation/downloads.html">Codeigniter3</a><br>
             </li>

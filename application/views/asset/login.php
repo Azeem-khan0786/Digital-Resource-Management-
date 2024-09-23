@@ -7,7 +7,7 @@
     <title>Hello, world!</title>
   </head>
   <body>
-    
+  <?php $this->load->view('asset/assetNavbar'); ?>  
 
        <?php if ($this->session->flashdata('message')): ?>
           <div class="alert alert-warning alert-dismissible fade show" role="alert">

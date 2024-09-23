@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */                    //'http://192.168.1.29/codeigniter3/';
    $config['base_url'] = 'http://localhost/codeigniter3/';
-// $config['base_url'] = 'http://192.168.1.16/codeigniter3/';
+// $config['base_url'] = 'http://192.168.1.21/codeigniter3/';
 
 
 
