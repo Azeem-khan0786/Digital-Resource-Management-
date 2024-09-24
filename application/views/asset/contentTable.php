@@ -16,7 +16,7 @@
         font-size: 12px;
     }
     </style>
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
 <body>
@@ -57,7 +57,9 @@
                                 <td><?php echo $content->filename; ?></td>
                                 <td><?php echo $content->content_description; ?></td>
                                 <td><?php echo $content->created_at; ?> </td>
-                                <td> <a href="">Download</a></td>
+                                <td><a href="<?php echo base_url().'uploads/'.$content->filename; ?>"      class="btn btn-success btn-sm" download>
+                                <i class="fa fa-download"></i> Download
+                            </a></td>
                                 <td> <button class="btn btn-primary btn-sm"><a href=""></a>Edit</button></td>
                                 <td> <a href="<?= base_url('Management/delete_content/'.$content->content_id) ?>"
                                         class="btn btn-dark btn-sm">Delete</a></td>
@@ -67,17 +69,7 @@
                     </table> <br>
                     <a href="<?=base_url().'Management/content_add_form'?>" class="btn btn-primary btn-block">Add
                         Category</a>
-                    <?php if ($this->session->flashdata('success')): ?>
-                    <div class="alert alert-success">
-                        <?= $this->session->flashdata('success'); ?>
-                    </div>
-                    <?php endif; ?>
-
-                    <?php if ($this->session->flashdata('error')): ?>
-                    <div class="alert alert-danger">
-                        <?= $this->session->flashdata('error'); ?>
-                    </div>
-                    <?php endif; ?>
+                    
 
                 </div>
             </div>
@@ -96,4 +88,5 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
 </script>
 
-</html>
+</html> 
+

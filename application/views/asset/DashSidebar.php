@@ -40,12 +40,23 @@
     background-color: LightGray;
 }
 
-.sidebar {
-    margin-left: -13px;
-}
-</style>
+
+
+       
+
+        .sidebar {
+            width: 230px; /* Set a fixed width for the sidebar */
+            height: 100vh; /* Full viewport height */
+            margin-left: -14px;
+            background-color: #f4f4f4; /* Optional background color */
+            border: 1px solid black; /* Black border */
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Optional shadow for effect */
+        }
+
+        
+    </style>
 <body>
-    <div class="sidebar">
+    <div class="sidebar ">
     <li class="list-group-item">
             <!-- <div class=" " style="border-radius: 5px;background-color:LightGray; height:140px;width:260px" ;>
                 <div class=" text-center p-1 m-1"> -->
@@ -53,8 +64,10 @@
                         <img src="<?php echo base_url('images/userlogo.png'); ?>" class="rounded-circle img-fluid"
                             style="width: 100px;" />
                     </div>
+                    
                     <?php if (isset($_SESSION['staff_name'])) : ?>
                     <h6 class="name"><b><a href=""> <?= $_SESSION['staff_name'] ?></a></b></h6>
+                            
                     <?php endif; ?>
                 <!-- </div>
             </div> -->
@@ -62,7 +75,7 @@
         <ul class="list-group">
             
 
-            <li class="list-group-item "><a href="<?=base_url().'Management/'?>">Home</a></li>
+            <li class="list-group-item "><a href="<?=base_url().'/'?>">Home</a></li>
             <!-- <li class="list-group-item "><a href="about.php">About</a></li>
             <li class="list-group-item "><a href="contact.php">Contact</a></li> -->
 
@@ -86,7 +99,7 @@
                 <li class="list-group-item "><a href="<?= base_url('Management/showcontent') ?>">View Content</a></li>
             <?php endif;?>
 
-            <li class="list-group-item m-1" style="background-color: Tomato;">
+            <li class="list-group-item" style="background-color: Tomato;">
                 <a href="https://codeigniter.com/userguide3/installation/downloads.html">Codeigniter3</a><br>
             </li>
 

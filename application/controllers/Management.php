@@ -9,9 +9,26 @@ public function __construct()
         $this->load->model('Manage_model'); // Load the model
     }
     // 1. Deshborad home page
-public function home() {
-   
-}
+public function doc()
+{
+    $this->load->view('asset/docum');
+}    
+// index page
+public function index()
+    {
+        // cheack admin is logged in addStaff
+      
+        if ($this->session->userdata('desig_level')) {
+            $this->load->view('asset/companyAdminDashboard');
+        } else {
+            redirect(base_url() . 'Management/login');
+        }
+        
+    }
+public function companyAdminDashboard()
+    {
+        $this->load->view('asset/companyAdminDashboard');
+    }
     //  private login staff 
 private function logged_in()
     {
@@ -53,20 +70,20 @@ public function login()
                     'desig_level'=>$staff->desig_level,
                     'authenticated' => TRUE
                 ); 
-               print_r($staffdata);
+            //    print_r($staffdata);
                 // Set session data
                 $this->session->set_userdata($staffdata);
               
                 // Redirect to management page
                 $this->session->set_flashdata('message', 'Login successful.');
-                if ($this->session->userdata('desig_level') == 1)
-                     {
-                        redirect(base_url() . 'Management/getOrg');
-                     }
-                elseif ($this->session->userdata('desig_level') == 2) {
+                // if ($this->session->userdata('desig_level') )
+                //      {
+                //         redirect(base_url() . 'Management/companyAdminDashboard');
+                //      }
+                // elseif ($this->session->userdata('desig_level') ) {
                     
-                redirect(base_url() . 'Management/getOffice');
-                }     
+                redirect(base_url() . 'Management/companyAdminDashboard');
+                // }     
                 
             } else {
                 // Login failed
@@ -82,14 +99,7 @@ public function logout()
         $this->session->sess_destroy();
         redirect(base_url() . 'Management/login');
     }
-    // index page
-public function index()
-    {
-        // cheack admin is logged in addStaff
-        // $data['admindata'] = $this->Manage_model->getAdminData();
-        $this->load->view('asset/index copy');
-        // $this->load->view('asset/sidebar');   
-    }
+    
     //1.1 add Organisation data
 public function addOrg()
     {
@@ -575,7 +585,7 @@ public function content_add_form()
         // Set validation rules
         $this->form_validation->set_rules('content_title', 'Content Title', 'required');
         $this->form_validation->set_rules('categoryId', 'Category ID');
-        $this->form_validation->set_rules('created_date', 'Created Date', 'required');
+        // $this->form_validation->set_rules('created_date', 'Created Date', 'required');
         $this->form_validation->set_rules('content_description', 'Content Description');
 
         if (!$this->form_validation->run()) {
@@ -591,8 +601,10 @@ public function content_add_form()
         } else {
             // File upload configuration
             $config['upload_path']   = './uploads/';  // Folder where files will be saved
-            $config['allowed_types'] = 'gif|jpg|png|pdf|txt';  // Allowed file types
-            $config['max_size']      = 2800;  // Max file size in kilobytes (2MB)
+            // $config['allowed_types'] = 'gif|jpg|png|pdf|txt';  
+            $config['allowed_types'] = 'gif|jpg|jpeg|png|pdf|txt|mp4|mov|avi|apk';  // Allowed file types
+
+            $config['max_size']      = 30000;  // Max file size in kilobytes (2MB) 30MB
             $config['encrypt_name']  = TRUE;  // Encrypt the file name to prevent overwriting
 
             $this->upload->initialize($config);

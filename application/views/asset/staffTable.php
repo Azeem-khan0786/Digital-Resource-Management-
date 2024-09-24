@@ -62,7 +62,7 @@ body {
                                     <td>StaffName</td>
                                     <td>Email Address</td>
                                     <td>Designation_name</td>
-                                    <td>Orgnisation name</td>
+                                    <!-- <td>Orgnisation name</td> -->
                                     <td>Office Name</td>
                                     <td>Salary</td>
                                     <td>Created_at</td>
@@ -81,7 +81,7 @@ body {
                                     <td><?php echo $row['staff_name']; ?></td>
                                     <td><?php echo $row['staff_email']; ?></td>
                                     <td><?php echo $row['Designation_name']; ?> </td>
-                                    <td><?php echo $row['org_name']; ?></td>
+                                    <!-- <td><?php echo $row['org_name']; ?></td> -->
                                     <td><?php echo $row['office_name']; ?> </td>
                                     <td><?php echo $row['salary']; ?></td>
                                     <td><?php echo $row['created_at']; ?> </td>

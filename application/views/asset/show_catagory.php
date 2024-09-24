@@ -28,49 +28,11 @@ body {
             <div class="col-md-10 w-100 ">
                 <main>
                     <div class="">
-                        <h3 class="mt-4">Dashboard</h3>
+                        <!-- <h3 class="mt-4">Dashboard</h3>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
-                        </ol>
-                        <div class="row m-1">
-                            <div class="col-xl-4 col-md-6 p-3">
-                                <div class="card  text-white mb-4" style='background: #ff6666;'>
-                                    <div class="card-body">Category Table :
-                                        <b><?php echo $this->db->count_all('categoryTable'); ?> records</b>
-                                    </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link"
-                                            href="<?=base_url().'Management/getOrg'?>">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-md-6 p-3">
-                                <div class="card  text-white mb-4" style='background: #66a3ff;'>
-                                    <div class="card-body">Content Table :
-                                        <b><?php echo $this->db->count_all(''); ?> records</b>
-                                    </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link"
-                                            href="<?=base_url().'Management/getOrg'?>">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-md-6 p-3">
-                                <div class="card  text-white mb-4" style='background: #8585ad;'>
-                                    <div class="card-body">Others Table :
-                                        <b><?php echo $this->db->count_all(''); ?> records</b>
-                                    </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link"
-                                            href="<?=base_url().'Management/getDepartment'?>">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </div>
+                        </ol> -->
+                        
                         <!-- Admin Table -->
                         <div class="card mb-4">
                             <div class="card-header "><i class="fas fa-table me-1 m-1"></i>Manage your content`s category</div>

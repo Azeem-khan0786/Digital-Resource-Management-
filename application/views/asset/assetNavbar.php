@@ -30,7 +30,7 @@ body {
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class=" navbar-nav mr-auto">
             <li class="nav-item">
-                <h4 class="text-center text-white " style='font-family: "Sofia", sans-serif;'>Digital Resource management system
+                <h4 class="text-center text-white " style='font-family: "Sofia", sans-serif; '>digital resource management system
                 </h4>
             </li>
         </ul>
@@ -41,7 +41,7 @@ body {
             </li> -->
             
             <?php if ($this->session->userdata('desig_level') == 2): ?>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link text-white" href="<?= base_url() . 'Management/getOffice' ?>">Office</a>
                     </li>
                     <li class="nav-item">
@@ -49,12 +49,12 @@ body {
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="<?= base_url() . 'Management/getStaff' ?>">Staff</a>
-                    </li>
+                    </li> -->
             <?php endif;?>
             <?php if ($this->session->userdata('desig_level') == 3): ?>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                         <a class="nav-link text-white" href="<?= base_url() . 'Management/getStaff' ?>">Staff</a>
-                    </li>
+                    </li> -->
             <?php endif;?>
         </ul>
 
