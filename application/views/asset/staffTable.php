@@ -91,7 +91,7 @@ body {
                                     <td><?php echo $row['state_name']; ?></td>
                                     <!-- <td><?php echo $row['pincode']; ?></td> -->
                                     <!-- <td><?php echo $row['level']; ?></td> -->
-                                    <td> <a href="<?= base_url('Management/delete_user/'.$row['staff_id']) ?>"
+                                    <td> <a href="<?= base_url('Management/delStaff/'.$row['staff_id']) ?>"
                                             class="btn btn-dark btn-sm">Delete</a></td>
 
 
