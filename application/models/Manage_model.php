@@ -29,7 +29,8 @@ public function getStaffDataByorg($org_id)
         // $this->db->where('staffTable.office_id', $office_id);
 
         $this->db->where('staffTable.org_id', $org_id);
-        $this->db->where('is_active', 1);
+        // $this->db->where('OrganisationTable.is_active', 1);
+        $this->db->where('staffTable.is_active', 1);
         
         $query = $this->db->get();
         return $query->result_array();
@@ -45,23 +46,19 @@ public function getStaffDataByOffice($org_id,$office_id)
         // $this->db->where('staffTable.staff_id', $staff_id);
         $this->db->where('staffTable.office_id', $office_id);
         $this->db->where('staffTable.org_id', $org_id);
+        $this->db->where('staffTable.is_active', 1);
         $query = $this->db->get();
         return $query->result_array();
     }    
     
     //get Office
-// public function getAdminData()
-//     {
-//         $this->db->select("*,adminTable.staff_id");
-//         $this->db->from("adminTable");
-//         $this->db->join("staffTable","adminTable.staff_id=staffTable.staff_id",'left');
-//         $this->db->join("DesignationTable","staffTable.Designation_id=DesignationTable.Designation_id",'left');
-//         $this->db->join("OfficeTable","staffTable.office_id=OfficeTable.office_id",'left');
-//         $this->db->join("OrganisationTable","staffTable.org_id=OrganisationTable.org_id",'left');
-//         $query=$this->db->get();
-//         return $query->result_array();
+public function delete_content($id)
+    {  
+        $this->db->where('content_id',$id); 
+        $this->db->delete('ContentTable');
         
-//     }
+        
+    }
 public function getOfficeDataByOrg($org_id)
  {
     // Select relevant columns
@@ -76,6 +73,7 @@ public function getOfficeDataByOrg($org_id)
     
     // Filter by the given org_id
     $this->db->where("OfficeTable.org_id", $org_id);
+    $this->db->where('OfficeTable.is_active', 1);
     
     // Execute the query and get the result
     $query = $this->db->get();
@@ -149,6 +147,7 @@ public function getOrgData() {
         $this->db->select('OrganisationTable.org_id, OrganisationTable.org_name, staffTable.staff_email AS AdminEmail, staffTable.staff_name AS AdminName ,OrganisationTable.org_type,OrganisationTable.org_level,OrganisationTable.created_at,OrganisationTable.state_name,OrganisationTable.city_name ,OrganisationTable.staff_id');
         $this->db->from('OrganisationTable');
         $this->db->join('staffTable', 'OrganisationTable.staff_id = staffTable.staff_id');
+        $this->db->where('OrganisationTable.is_active', 1);
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -242,15 +241,45 @@ public function updateOfficeData($office_id, $admin_id) {
     $this->db->update('OfficeTable', ['staff_id' => $admin_id]);
 
  }
- public function updateOrgData($org_id, $admin_id)
+public function updateOrgData($org_id, $admin_id)
  {
     $this->db->where('org_id', $org_id);
     $this->db->update('OrganisationTable', ['staff_id' => $admin_id]);
  }
- public function delorg($org_id)
+public function delorg($org_id)
  {
+    
     $this->db->where('org_id', $org_id);
-    $this->db->delete('OrganisationTable');
+    return $this->db->update('OrganisationTable', ['is_active' => 0]);
+ }
+ //Office delete
+public function delOffice($office_id)
+ {
+    
+    $this->db->where('office_id', $office_id);
+    return $this->db->update('OfficeTable', ['is_active' => 0]);
+ }
+ //staff Deldete
+public function delStaff($staff_id)
+    {
+    $this->db->where('staff_id', $staff_id);
+    return $this->db->update('staffTable', ['is_active' => 0]);
  }
 
-}
+ public function getDesignationName($Designation_id) {
+    // Use Query Builder to fetch the designation name
+    $this->db->select('Designation_name');
+    $this->db->from('DesignationTable');
+    $this->db->where('Designation_id', $Designation_id);
+    $query = $this->db->get();
+
+    // Check if any result is returned
+    if ($query->num_rows() > 0) {
+        // Return the designation name
+        return $query->row()->Designation_name; // Assuming only one row is returned
+    }
+
+    return null; // Return null if no result found
+ }
+
+ }

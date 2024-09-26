@@ -39,6 +39,7 @@ tr {
                         Orgnisation's Office Table
                     </div>
                     <div class="card-body">
+                        
                         <table class='table table-striped' id='search-data-table'>
                             <thead class="thead-dark">
                                 <tr>
@@ -50,6 +51,7 @@ tr {
                                     <!-- <td>Created By</td> -->
                                     <td>Create At</td>
                                     <td>Location</td>
+                                    <td>Action</td>
                                     
                                 </tr>
                             </thead>
@@ -63,6 +65,8 @@ tr {
                                 <!-- <td><?php echo $row['created_by']; ?></td> -->
                                 <td><?php echo $row['created_at']; ?></td>
                                 <td><?php echo $row['city_name'] . ' ' . $row['state_name']; ?></td>
+                                <td><a href="<?= base_url('Management/delOffice/'.$row['office_id']) ?>"
+                                 class="btn btn-dark btn-sm">Delete</a></td>
                                 
                             </tr>
                             <?php endforeach; ?>

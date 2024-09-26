@@ -27,9 +27,9 @@
                         <div class="row m-auto d-flex justify-content-between">
                         <?php if ($this->session->userdata('desig_level') == 1): ?>
                             <div class="col-xl-4 col-md-6 p-3">
-                                <div class="card bg-primary text-white mb-4">
+                                <div class="card text-white mb-4" style="background-color: #6699ff;">
                                     <div class="card-body">Organisation Table :
-                                        <b><?php echo $this->db->count_all('OrganisationTable'); ?> records</b>
+                                        <!-- <b><?php echo $this->db->count_all('OrganisationTable'); ?> records</b> -->
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link"
@@ -42,9 +42,9 @@
                         <?php endif;?>
                         <?php if ($this->session->userdata('desig_level') == 2): ?>
                             <div class="col-xl-4 col-md-6 p-3">
-                                <div class="card bg-warning text-white mb-4">
+                                <div class="card  text-white mb-4" style="background-color:#99bbff;">
                                     <div class="card-body">Office Table :
-                                        <b><?php echo $this->db->count_all('OfficeTable'); ?> records</b>
+                                        <!-- <b><?php echo $this->db->count_all('OfficeTable'); ?> records</b> -->
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="nav-link text-white"
@@ -54,25 +54,27 @@
                                 </div>
                             </div>
                             <div class="col-xl-4 col-md-6 p-3">
-                                <div class="card bg-success text-white mb-4">
+                                <div class="card text-white mb-4" style="background-color:#1a8cff;">
                                     <div class="card-body">Designation Table :
-                                        <b><?php echo $this->db->count_all('DesignationTable'); ?> records</b>
+                                        <!-- <b><?php echo $this->db->count_all('DesignationTable'); ?> records</b> -->
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="nav-link text-white"
-                                            href="<?= base_url() . 'Management/getDesignation' ?>">Designation</a>
+                                            href="<?= base_url() . 'Management/getDesignation' ?>">View
+                                            Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-md-6 p-3">
-                                <div class="card bg-danger text-white mb-4">
+                                <div class="card   text-white mb-4" style="background-color:#ff4d4d;">
                                     <div class="card-body">Staff Table :
-                                        <b><?php echo $this->db->count_all('staffTable'); ?> records</b>
+                                        <!-- <b><?php echo $this->db->count_all('staffTable'); ?> records</b> -->
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="nav-link text-white"
-                                            href="<?= base_url() . 'Management/getStaff' ?>">Staff</a>
+                                            href="<?= base_url() . 'Management/getStaff' ?>">View
+                                            Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -80,9 +82,9 @@
                         <?php endif;?>
                         <?php if ($this->session->userdata('desig_level') == 3): ?>
                             <div class="col-xl-4 col-md-6 p-3">
-                                <div class="card  text-white mb-4" style='background: #ff6666;'>
+                                <div class="card  text-white mb-4" style='background: #4d88ff;'>
                                     <div class="card-body">Category Table :
-                                        <b><?php echo $this->db->count_all('categoryTable'); ?> records</b>
+                                        <!-- <b><?php echo $this->db->count_all('categoryTable'); ?> records</b> -->
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link"
@@ -94,7 +96,7 @@
                             <div class="col-xl-4 col-md-6 p-3">
                                 <div class="card  text-white mb-4" style='background: #66a3ff;'>
                                     <div class="card-body">Staff Table :
-                                        <b><?php echo $this->db->count_all(''); ?> records</b>
+                                        <!-- <b><?php echo $this->db->count_all(''); ?> records</b> -->
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link"
@@ -105,9 +107,9 @@
                             </div>
 
                             <div class="col-xl-4 col-md-6 p-3">
-                                <div class="card  text-white mb-4" style='background: #8585ad;'>
+                                <div class="card  text-white mb-4" style='background: #666699;'>
                                     <div class="card-body">Others Table :
-                                        <b><?php echo $this->db->count_all(''); ?> records</b>
+                                        <!-- <b><?php echo $this->db->count_all(''); ?> records</b> -->
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link"

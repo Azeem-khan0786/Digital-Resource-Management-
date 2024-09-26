@@ -9,25 +9,25 @@ public function __construct()
         $this->load->model('Manage_model'); // Load the model
     }
     // 1. Deshborad home page
-public function doc()
-{
-    $this->load->view('asset/docum');
-}    
+  
 // index page
 public function index()
     {
+        
         // cheack admin is logged in addStaff
-      
+        
         if ($this->session->userdata('desig_level')) {
-            $this->load->view('asset/companyAdminDashboard');
+            echo $this->session->userdata('desig_leve');
+           
+            $this->load->view('asset/mainDashboard');
         } else {
             redirect(base_url() . 'Management/login');
         }
         
     }
-public function companyAdminDashboard()
+public function mainDashboard()
     {
-        $this->load->view('asset/companyAdminDashboard');
+        $this->load->view('asset/mainDashboard');
     }
     //  private login staff 
 private function logged_in()
@@ -56,7 +56,8 @@ public function login()
             $staff_password = $this->input->post('staff_password');     
             // Attempt to log in
             $staff = $this->Manage_model->login($staff_email, $staff_password);
-            
+            $designationName = $this->Manage_model->getDesignationName($staff->Designation_id);
+            // $designationName = getDesignationName($staff->Designation_id);
             if ($staff) {
                 // Successful login
                 $staffdata = array(
@@ -66,11 +67,13 @@ public function login()
                     'staff_password' => $staff->staff_password, // This should be avoided; it's better to not store passwords in the session
                     'org_id'=>$staff->org_id,
                     'Designation_id' => $staff->Designation_id,
+                    'Designation_name' => $designationName, // Add the designation name here
                     'office_id' => $staff->office_id,
                     'desig_level'=>$staff->desig_level,
                     'authenticated' => TRUE
                 ); 
-            //    print_r($staffdata);
+               print_r($staffdata);
+            //    die();
                 // Set session data
                 $this->session->set_userdata($staffdata);
               
@@ -78,11 +81,11 @@ public function login()
                 $this->session->set_flashdata('message', 'Login successful.');
                 // if ($this->session->userdata('desig_level') )
                 //      {
-                //         redirect(base_url() . 'Management/companyAdminDashboard');
+                //         redirect(base_url() . 'Management/mainDashboard');
                 //      }
                 // elseif ($this->session->userdata('desig_level') ) {
                     
-                redirect(base_url() . 'Management/companyAdminDashboard');
+                redirect(base_url() . 'Management/mainDashboard');
                 // }     
                 
             } else {
@@ -515,18 +518,18 @@ public function getDesignation()
 //         $this->load->view('asset/adminTable', $data);
 //     }
     // Delete staff user record
-public function delete_user($staff_id)
-    {
-        // Check if admin is logged in with staff_id=1
-        if ($this->session->userdata('staff_id') == 1) {
-            // Proceed with deleting the user record
-            $data['item'] = $this->Manage_model->delete_record($staff_id);
-            redirect(base_url() . 'Management/getStaff'); // Redirect to a list page or wherever you need
-        } else {
-            // Redirect to the login page or wherever appropriate
-            redirect(base_url() . 'Management/login'); // Assuming 'Auth/login' is your login page route
-        }
-    }
+// public function delete_user($staff_id)
+    // {
+    //     // Check if admin is logged in with staff_id=1
+    //     if ($this->session->userdata('staff_id') == 1) {
+    //         // Proceed with deleting the user record
+    //         $data['item'] = $this->Manage_model->delete_record($staff_id);
+    //         redirect(base_url() . 'Management/getStaff'); // Redirect to a list page or wherever you need
+    //     } else {
+    //         // Redirect to the login page or wherever appropriate
+    //         redirect(base_url() . 'Management/login'); // Assuming 'Auth/login' is your login page route
+    //     }
+    // }
 
     // method for add Catagory
 public function addCategory()
@@ -687,5 +690,28 @@ public function delOrg($org_id)
         }
         redirect(base_url('Management/getOrg'));
     }    
+public function delOffice($office_id)
+    {
+        if ($this->Manage_model->delOffice($office_id)) {
+
+            $this->session->set_flashdata('success', 'Content deleted successfully!');
+        } else {
+
+            $this->session->set_flashdata('error', 'Failed to delete content.');
+        }
+        redirect(base_url('Management/getOffice'));
+    }  
+public function delStaff($staff_id)
+    {
+        if ($this->Manage_model->delStaff($staff_id)) {
+
+            $this->session->set_flashdata('success', 'Content deleted successfully!');
+        } else {
+
+            $this->session->set_flashdata('error', 'Failed to delete content.');
+        }
+        redirect(base_url('Management/getStaff'));
+    }  
+    
 }
 //ffffffffffffffffffffffffffffffffffffffffffffffffffffff*10

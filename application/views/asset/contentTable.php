@@ -43,7 +43,7 @@
                             <th>Content Description</th>
                             <th>Download</th>
                             <td>Created_at</td>
-                            <th>Edit</th>
+                            <!-- <th>Edit</th> -->
                             <th>Delete</th>
                         </tr>
                         </thead>
@@ -60,7 +60,7 @@
                                 <td><a href="<?php echo base_url().'uploads/'.$content->filename; ?>"      class="btn btn-success btn-sm" download>
                                 <i class="fa fa-download"></i> Download
                             </a></td>
-                                <td> <button class="btn btn-primary btn-sm"><a href=""></a>Edit</button></td>
+                                <!-- <td> <button class="btn btn-primary btn-sm"><a href=""></a>Edit</button></td> -->
                                 <td> <a href="<?= base_url('Management/delete_content/'.$content->content_id) ?>"
                                         class="btn btn-dark btn-sm">Delete</a></td>
 
