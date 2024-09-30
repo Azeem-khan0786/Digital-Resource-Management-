@@ -30,14 +30,15 @@ td {
         <div class="row">
             <div class="col-md-2"><?php $this->load->view('asset/DashSidebar'); ?></div>
             <div class="col-md-10">
+            <?php $this->load->view('asset/cardPage'); ?>
                 <!-- <h5 class="text-center">Organisation Table</h5><br> -->
-                <ol class=" text-center breadcrumb mb-4 mt-3 ">
-                    <h5 class=" mr-auto text-center">Organisation Table</h5>
-                </ol>
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table me-1"></i>
-                        Organisation Table
+                <!-- <ol class=" text-center breadcrumb mb-4 mt-3 ">
+                    <h5 class=" mr-auto text-center"><b>Organisation Table</b></h5>
+                </ol> -->
+                <div class="card mb-2">
+                    <div class="card-header  d-flex justify-content-between">
+                        <div><i class="fas fa-table me-1 m-1"></i>Organisation Data</div>
+                        <div><a href="<?= base_url().'Management/addOrg' ?>" class="btn btn-primary">+ Add Organisation</a></div>
                     </div>
                     <div class="card-body">
                         
@@ -77,7 +78,7 @@ td {
                             </tbody>
                         </table>
                         
-                        <a href="<?= base_url().'Management/addOrg' ?>" class="btn btn-primary">+ Add Organisation</a>
+                        
                     </div>
                 </div>
             </div>

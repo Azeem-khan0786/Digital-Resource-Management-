@@ -44,9 +44,10 @@ td {
             <div class="col-md-10">
             <ol class=" text-center breadcrumb mb-4 mt-3 "><h5 class=" mr-auto text-center">Designation Table</h5></ol>
                 <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table me-1"></i>
-                        Designation Table
+                    <div class="card-header d-flex justify-content-between">
+                        <div><i class="fas fa-table me-1 m-1"></i>Designation Data</div>
+                        <div><a href="<?=base_url().'Management/addDesignation'?>" class="btn btn-primary">+ Add
+                        Designation</a></div>
                     </div>
                     <div class="card-body">
 
@@ -54,16 +55,16 @@ td {
                             <tr>
                                 <td>Designation_ID</td>
                                 <td>Designation_Name</td>
-                                <td>Organisation Name</td>
-                                <td>Organisation Id</td>
+                                <!-- <td>Organisation Name</td>
+                                <td>Organisation Id</td> -->
                                 <td>Created_at</td>
                             </tr>
                             <?php foreach ($Designation_data as $row ) : ?>
                             <tr>
                                 <td><?php echo $row['Designation_id']; ?></td>
                                 <td><?php echo $row['Designation_name']; ?></td>
-                                <td><?php echo $row['org_name']; ?></td>
-                                <td><?php echo $row['org_id']; ?></td>
+                                <!-- <td><?php echo $row['org_name']; ?></td>
+                                <td><?php echo $row['org_id']; ?></td> -->
                                 <td><?php echo $row['created_at']; ?> </td>
                                 <!-- <?php
                     // Assuming $org_data is structured like: $org_data[$row['org_id']] = ['org_name' => 'Org Name'];
@@ -79,8 +80,7 @@ td {
                             </tr>
                             <?php endforeach; ?>
                         </table>
-                        <a href="<?=base_url().'Management/addDesignation'?>" class="btn btn-primary">+ Add
-                            Designation</a>
+                        
                     </div>
                 </div>
             </div>

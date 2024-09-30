@@ -28,14 +28,18 @@ body {
             <div class="col-md-10 w-100 ">
                 <main>
                     <div class="">
+                    <?php $this->load->view('asset/cardPage'); ?>
                         <!-- <h3 class="mt-4">Dashboard</h3>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol> -->
                         
                         <!-- Admin Table -->
-                        <div class="card mb-4">
-                            <div class="card-header "><i class="fas fa-table me-1 m-1"></i>Manage your content`s category</div>
+                        <div class="card mb-2">
+                            <div class="card-header d-flex justify-content-between">
+                                <div><i class="fas fa-table me-1 m-1"></i>Manage your content`s category</div>
+                                <div><a href="<?=base_url().'Management/addCategory'?>" class="btn btn-primary btn-block">Add Category</a></div>
+                            </div>
                             
                             <div class="card-body ">
                                 <table class='table table-striped ' id='search-data-table' style="font-size: 12px;">
@@ -60,7 +64,7 @@ body {
                                 </table>
                             </div>
                         </div>
-                        <a href="<?=base_url().'Management/addCategory'?>" class="btn btn-primary btn-block">Add Category</a>
+                        
                     </div>
             </div>
 

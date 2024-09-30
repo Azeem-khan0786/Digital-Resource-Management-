@@ -29,7 +29,10 @@
             </div>
             <div class="col-md-10">
 
-                <div class="card-header "><i class="fas fa-table me-1 m-1"></i>Manage your content</div>
+                <div class="card-header d-flex justify-content-between">
+                    <div><i class="fas fa-table me-1 m-1"></i>Manage your content</div></div>
+                    <div><a href="<?=base_url().'Management/content_add_form'?>" class="btn btn-primary btn-block">Add
+                    Category</a></div>
 
                 <div class="card-body ">
                     <table class='table table-striped ' id='search-data-table' style="font-size: 12px;">
@@ -67,8 +70,7 @@
                                 <?php endforeach; ?>
                         </tbody>
                     </table> <br>
-                    <a href="<?=base_url().'Management/content_add_form'?>" class="btn btn-primary btn-block">Add
-                        Category</a>
+                    
                     
 
                 </div>

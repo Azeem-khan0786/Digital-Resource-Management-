@@ -50,9 +50,9 @@ body {
                     <!-- <h5 class="text-center">Registered Staff Table</h5><br> -->
                     <ol class=" text-center breadcrumb mb-4 mt-3 "><h5 class=" mr-auto text-center">Registered Staff Table</h5></ol>
                     <div class="card ">
-                        <div class="card-header">
-                            <i class="fas fa-table me-1"></i>
-                            Registered Staff Table
+                        <div class="card-header d-flex justify-content-between">
+                            <div><i class="fas fa-table me-1 m-1"></i>Registered Staff Data</div>
+                            <div><a href="<?=base_url().'Management/addStaff'?>" class="btn btn-primary">+ Add Staff</a></div>
                         
                         </div>
                         <div class="card-body">
@@ -104,7 +104,7 @@ body {
                         </div>
                     </div>
 
-                    <a href="<?=base_url().'Management/addStaff'?>" class="btn btn-primary">+ Add Staff</a>
+                    
 
 
                 </div>

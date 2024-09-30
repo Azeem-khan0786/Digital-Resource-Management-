@@ -79,7 +79,7 @@ public function login()
               
                 // Redirect to management page
                 $this->session->set_flashdata('message', 'Login successful.');
-                // if ($this->session->userdata('desig_level') )
+                 if ($this->session->userdata('desig_level') )
                 //      {
                 //         redirect(base_url() . 'Management/mainDashboard');
                 //      }
@@ -690,10 +690,12 @@ public function delOrg($org_id)
         }
         redirect(base_url('Management/getOrg'));
     }    
+
+
 public function delOffice($office_id)
     {
         if ($this->Manage_model->delOffice($office_id)) {
-
+                                                  
             $this->session->set_flashdata('success', 'Content deleted successfully!');
         } else {
 

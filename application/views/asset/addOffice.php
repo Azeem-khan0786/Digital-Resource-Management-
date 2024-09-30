@@ -27,8 +27,14 @@ input[type=password] {
 <body>
     <?php $this->load->view('asset/assetNavbar'); ?>
 
-    <div class="container">
-        <h5 class="text-center">Add Organisation's Office </h5><br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <?php $this->load->view('asset/DashSidebar'); ?>
+            </div>
+            <div class="col-md-10 ">
+                <div class=" bg-info m-1">
+        <h5 class="text-center"><b>Add Organisation's Office </b></h5>
         <?php if ($this->session->flashdata('message')): ?>
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
             <p><?php echo $this->session->flashdata('message'); ?></p>
@@ -48,7 +54,7 @@ input[type=password] {
             <?php echo $db_error; ?>
         </div>
         <?php endif; ?>
-        <div class="bg-info m-1 p-3">
+        <div class=" m-1 p-3">
             <form action="<?= base_url('Management/addOffice') ?>" method="post" class="">
                 <div class="form-group">
                     <label for="catagoryName">Office Name</label>
@@ -128,7 +134,8 @@ input[type=password] {
 
                 <button type="submit" class="btn btn-primary btn-block m-1">Add Office</button>
             </form>
-
+            </div>
+            </div>
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

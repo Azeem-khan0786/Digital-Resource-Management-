@@ -26,20 +26,21 @@ tr {
         <div class="row">
             <div class="col-md-2"><?php $this->load->view('asset/DashSidebar'); ?></div>
             <div class="col-md-10">
-        <!-- <?php $this->load->view('asset/cardPage'); ?> -->
-
+        
+            <?php $this->load->view('asset/cardPage'); ?>
                 <!-- <h5 class="text-center"> Orgnisation's Office Table </h5><br> -->
-                <ol class=" text-center breadcrumb mb-4 mt-3 ">
+                <!-- <ol class=" text-center breadcrumb mb-2 mt-1 ">
                     <h5 class=" mr-auto text-center">Orgnisation's Office Table </h5>
-                </ol>
+                </ol> -->
 
                 <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table me-1"></i>
-                        Orgnisation's Office Table
+                    <div class="card-header d-flex justify-content-between">
+                        <div><i class="fas fa-table me-1 m-1"></i>Orgnisation's Office Data</div>
+                        <div><a href="<?=base_url().'Management/addOffice'?>" class="btn btn-primary">+ Add
+                        Office</a></div>
                     </div>
                     <div class="card-body">
-                        
+                         
                         <table class='table table-striped' id='search-data-table'>
                             <thead class="thead-dark">
                                 <tr>
@@ -71,8 +72,7 @@ tr {
                             </tr>
                             <?php endforeach; ?>
                         </table>
-                        <a href="<?=base_url().'Management/addOffice'?>" class="btn btn-primary">+ Add
-                            Office</a>
+                        
 
                     </div>
                 </div>

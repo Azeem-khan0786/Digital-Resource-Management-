@@ -125,7 +125,7 @@
                     <div class="form-group m-3 col-md-4">
                         <label for="inputAddress2">Content Description</label>
                         <textarea rows="1" cols="" class="form-control" id="inputAddress2" name='content_description'
-                              placeholder="Apartment, studio, or floor" style='background-color: #dbdbdb;'></textarea>
+                              placeholder="Write the description here !!!!!" style='background-color: #dbdbdb;'></textarea>
                     </div> 
 
                     <!-- PDF Type Dropdown (Hidden by default) -->
