@@ -207,7 +207,8 @@ public function getOrg() {
     $this->load->view('asset/orgTable', $data);
 }
 public function addStaff()
-    {
+    {   
+        $org_id = $this->session->userdata('org_id');
         $this->form_validation->set_rules('staff_name', 'staff Name', 'required');
         $this->form_validation->set_rules('staff_email', 'staff Email', 'required');
         $this->form_validation->set_rules('staff_password', 'staff Password', 'required');
@@ -217,8 +218,9 @@ public function addStaff()
     
         // $city_id = $this->input->post('city_id');
         if (! $this->form_validation->run()) {
-            $org_id = $this->session->userdata('org_id');
+            
             $data['org_data'] = $this->Manage_model->getOrgDataById($org_id);
+            $data['selected_org_id'] = $this->session->userdata('org_id'); // Pass the selected org_id
             $data['Designation_data'] = $this->Manage_model->getDesignationdata($org_id);
             $data['office'] = $this->Manage_model->getOfficeDataByOrg($org_id);
             // Fetch all states from the statesTable

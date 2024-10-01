@@ -29,7 +29,7 @@
                             <div class="col-xl-4 col-md-6 p-3">
                                 <div class="card text-white mb-4" style="background-color: #6699ff;">
                                     <div class="card-body">Total Organisation :
-                                        <!-- <b><?php echo $this->db->count_all('OrganisationTable'); ?> records</b> -->
+                                        <b><?php echo $this->db->where('org_id', $this->session->userdata('org_id'))->count_all('OrganisationTable'); ?> records</b>
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link"
@@ -44,7 +44,7 @@
                             <div class="col-xl-4 col-md-6 p-3">
                                 <div class="card  text-white mb-4" style="background-color:#99bbff;">
                                     <div class="card-body">Total Office:
-                                        <!-- <b><?php echo $this->db->count_all('OfficeTable'); ?> records</b> -->
+                                    <b><?php echo $this->db->where('org_id', $this->session->userdata('org_id'))->count_all_results('OfficeTable'); ?> records</b>
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="nav-link text-white"
@@ -56,7 +56,7 @@
                             <div class="col-xl-4 col-md-6 p-3">
                                 <div class="card text-white mb-4" style="background-color:#1a8cff;">
                                     <div class="card-body">Total Designation :
-                                        <!-- <b><?php echo $this->db->count_all('DesignationTable'); ?> records</b> -->
+                                        <b><?php echo $this->db->where('org_id', $this->session->userdata('org_id'))->count_all_results('DesignationTable'); ?> records</b>
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="nav-link text-white"
@@ -69,7 +69,7 @@
                             <div class="col-xl-4 col-md-6 p-3">
                                 <div class="card   text-white mb-4" style="background-color:#ff4d4d;">
                                     <div class="card-body">Total Staff :
-                                        <!-- <b><?php echo $this->db->count_all('staffTable'); ?> records</b> -->
+                                        <b><?php echo $this->db->where('org_id', $this->session->userdata('org_id'))->count_all_results('staffTable'); ?> records</b>
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="nav-link text-white"
@@ -84,7 +84,7 @@
                             <div class="col-xl-4 col-md-6 p-3">
                                 <div class="card  text-white mb-4" style='background: #4d88ff;'>
                                     <div class="card-body"> Total Category  :
-                                        <!-- <b><?php echo $this->db->count_all('categoryTable'); ?> records</b> -->
+                                        <b><?php echo $this->db->count_all('categoryTable'); ?> records</b>
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link"
@@ -96,7 +96,8 @@
                             <div class="col-xl-4 col-md-6 p-3">
                                 <div class="card  text-white mb-4" style='background: #66a3ff;'>
                                     <div class="card-body">Total Staff :
-                                        <!-- <b><?php echo $this->db->count_all(''); ?> records</b> -->
+                                    <b><?php echo $this->db->where('office_id', $this->session->userdata('office_id'))->count_all_results('staffTable'); ?> records</b>
+
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link"

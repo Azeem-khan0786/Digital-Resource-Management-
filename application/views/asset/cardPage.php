@@ -10,7 +10,8 @@
                             <div class="col-xl-4 col-md-6 p-3">
                                 <div class="card text-white mb-4" style="background-color: #6699ff;">
                                     <div class="card-body">Organisation Table :
-                                        <!-- <b><?php echo $this->db->count_all('OrganisationTable'); ?> records</b> -->
+                                    <b><?php echo $this->db->where('org_id', $this->session->userdata('org_id'))->count_all('OrganisationTable'); ?> records</b>
+
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link"
@@ -24,8 +25,8 @@
                         <?php if ($this->session->userdata('desig_level') == 2): ?>
                             <div class="col-xl-4 col-md-6 p-3">
                                 <div class="card  text-white mb-4" style="background-color:#99bbff;">
-                                    <div class="card-body">Office Table :
-                                        <!-- <b><?php echo $this->db->count_all('OfficeTable'); ?> records</b> -->
+                                    <div class="card-body">Office Data :
+                                        <b><?php echo $this->db->where('org_id', $this->session->userdata('org_id'))->count_all_results('OfficeTable'); ?> records</b>
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="nav-link text-white"
@@ -37,7 +38,8 @@
                             <div class="col-xl-4 col-md-6 p-3">
                                 <div class="card text-white mb-4" style="background-color:#1a8cff;">
                                     <div class="card-body">Designation Table :
-                                        <!-- <b><?php echo $this->db->count_all('DesignationTable'); ?> records</b> -->
+                                    <b><?php echo $this->db->where('org_id', $this->session->userdata('org_id'))->count_all_results('DesignationTable'); ?> records</b>
+
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="nav-link text-white"
@@ -50,7 +52,7 @@
                             <div class="col-xl-4 col-md-6 p-3">
                                 <div class="card   text-white mb-4" style="background-color:#ff4d4d;">
                                     <div class="card-body">Staff Table :
-                                        <!-- <b><?php echo $this->db->count_all('staffTable'); ?> records</b> -->
+                                    <b><?php echo $this->db->where('org_id', $this->session->userdata('org_id'))->count_all_results('staffTable'); ?> records</b>
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="nav-link text-white"
@@ -65,7 +67,8 @@
                             <div class="col-xl-4 col-md-6 p-3">
                                 <div class="card  text-white mb-4" style='background: #4d88ff;'>
                                     <div class="card-body">Category Table :
-                                        <!-- <b><?php echo $this->db->count_all('categoryTable'); ?> records</b> -->
+                                          <b><?php echo $this->db->count_all('categoryTable'); ?> records</b>
+
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link"
@@ -77,7 +80,8 @@
                             <div class="col-xl-4 col-md-6 p-3">
                                 <div class="card  text-white mb-4" style='background: #66a3ff;'>
                                     <div class="card-body">Staff Table :
-                                        <!-- <b><?php echo $this->db->count_all(''); ?> records</b> -->
+                                    <b><?php echo $this->db->where('office_id', $this->session->userdata('office_id'))->count_all_results('staffTable'); ?> records</b>
+
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link"
@@ -90,7 +94,8 @@
                             <div class="col-xl-4 col-md-6 p-3">
                                 <div class="card  text-white mb-4" style='background: #666699;'>
                                     <div class="card-body">Others Table :
-                                        <!-- <b><?php echo $this->db->count_all(''); ?> records</b> -->
+                                  
+
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link"

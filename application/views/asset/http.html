@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Content Upload Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="file"],
+        select,
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .error-message {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="form-container">
+            <h4 class="text-center"><b>Upload Digital Resource</b></h4>
+
+            <form method="post" action='<?php echo base_url('Management/content_add_form');?>' enctype="multipart/form-data">
+
+                <!-- Title and Description -->
+                <div class="form-group">
+                    <label for="title">Content Title</label>
+                    <input type="text" class="form-control" name="content_title" placeholder="Enter Title">
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Content Description</label>
+                    <textarea rows="3" class="form-control" name="content_description" placeholder="Add a description"></textarea>
+                </div>
+
+                <!-- Category Selection -->
+                <div class="form-group">
+                    <label for="category_type">Select Category</label>
+                    <select name="categoryId" id="category_type" onchange="showOptions()" class="form-control" required>
+                        <option value="" disabled selected>Select Category</option>
+                        <option value="1">PDF</option>
+                        <option value="2">Image</option>
+                        <option value="3">Video</option>
+                        <option value="4">APK</option>
+                        <option value="5">JAR</option>
+                        <option value="6">Audio</option>
+                    </select>
+                </div>
+
+                <!-- File Upload Input -->
+                <div class="form-group">
+                    <label for="file">Upload File</label>
+                    <input type="file" name="userfile" id="file" class="form-control" />
+                    <div id="fileError" class="error-message hidden">Invalid file type selected!</div>
+                </div>
+
+                <!-- Image-specific Fields -->
+                <div id="image_options" class="hidden">
+                    <div class="form-group">
+                        <label for="image_type">Type of Image</label>
+                        <select name="image_type" class="form-control">
+                            <option value="">Select Image Type</option>
+                            <option value="poster">Poster</option>
+                            <option value="profile">Profile</option>
+                            <option value="banner">Banner</option>
+                            <option value="thumbnail">Thumbnail</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tags">Tags (comma-separated)</label>
+                        <input type="text" name="tags" class="form-control" placeholder="Add tags (e.g., nature, landscape)">
+                    </div>
+                </div>
+
+                <!-- Video-specific Fields -->
+                <div id="video_options" class="hidden">
+                    <div class="form-group">
+                        <label for="video_type">Type of Video</label>
+                        <select name="video_type" class="form-control">
+                            <option value="">Select Video Type</option>
+                            <option value="tutorial">Tutorial</option>
+                            <option value="promotional">Promotional</option>
+                            <option value="educational">Educational</option>
+                            <option value="entertainment">Entertainment</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="duration">Video Duration (in minutes)</label>
+                        <input type="text" name="duration" class="form-control" placeholder="Enter duration">
+                    </div>
+                </div>
+
+                <!-- PDF-specific Fields -->
+                <div id="pdf_options" class="hidden">
+                    <div class="form-group">
+                        <label for="pdf_type">Type of PDF</label>
+                        <select name="pdf_type" class="form-control">
+                            <option value="">Select PDF Type</option>
+                            <option value="tutorial">Tutorial</option>
+                            <option value="document">Document</option>
+                            <option value="ebook">E-book</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pages">Number of Pages</label>
+                        <input type="text" name="pages" class="form-control" placeholder="Enter number of pages">
+                    </div>
+                </div>
+
+                <!-- APK-specific Fields -->
+                <div id="apk_options" class="hidden">
+                    <div class="form-group">
+                        <label for="apk_type">Type of APK</label>
+                        <select name="apk_type" class="form-control">
+                            <option value="">Select APK Type</option>
+                            <option value="game">Game</option>
+                            <option value="utility">Utility</option>
+                            <option value="productivity">Productivity</option>
+                            <option value="social">Social</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="apk_version">APK Version</label>
+                        <input type="text" name="apk_version" class="form-control" placeholder="Enter APK version">
+                    </div>
+                </div>
+
+                <!-- JAR-specific Fields -->
+                <div id="jar_options" class="hidden">
+                    <div class="form-group">
+                        <label for="jar_type">Type of JAR</label>
+                        <select name="jar_type" class="form-control">
+                            <option value="">Select JAR Type</option>
+                            <option value="utility">Utility</option>
+                            <option value="game">Game</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jar_version">JAR Version</label>
+                        <input type="text" name="jar_version" class="form-control" placeholder="Enter JAR version">
+                    </div>
+                </div>
+
+                <!-- Audio-specific Fields -->
+                <div id="audio_options" class="hidden">
+                    <div class="form-group">
+                        <label for="audio_type">Type of Audio</label>
+                        <select name="audio_type" class="form-control">
+                            <option value="">Select Audio Type</option>
+                            <option value="podcast">Podcast</option>
+                            <option value="music">Music</option>
+                            <option value="audiobook">Audiobook</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="audio_length">Audio Length (in minutes)</label>
+                        <input type="text" name="audio_length" class="form-control" placeholder="Enter length">
+                    </div>
+                </div>
+
+                <!-- Submit and Reset Buttons -->
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function showOptions() {
+            var documentType = document.getElementById('category_type').value;
+
+            // Hide all options by default
+            document.getElementById('image_options').classList.add('hidden');
+            document.getElementById('video_options').classList.add('hidden');
+            document.getElementById('pdf_options').classList.add('hidden');
+            document.getElementById('apk_options').classList.add('hidden');
+            document.getElementById('jar_options').classList.add('hidden');
+            document.getElementById('audio_options').classList.add('hidden');
+
+            // Show relevant options based on selection
+            if (documentType == '1') {
+                document.getElementById('pdf_options').classList.remove('hidden');
+                document.getElementById('file').accept = ".pdf";
+            } else if (documentType == '2') {
+                document.getElementById('image_options').classList.remove('hidden');
+                document.getElementById('file').accept = "image/*";
+            } else if (documentType == '3') {
+                document.getElementById('video_options').classList.remove('hidden');
+                document.getElementById('file').accept = "video/*";
+            } else if (documentType == '4') {
+                document.getElementById('apk_options').classList.remove('hidden');
+                document.getElementById('file').accept = ".apk";
+            } else if (documentType == '5') {
+                document.getElementById('jar_options').classList.remove('hidden');
+                document.getElementById('file').accept = ".jar";
+            } else if (documentType == '6') {
+                document.getElementById('audio_options').classList.remove('hidden');
+                document.getElementById('file').accept = "audio/*";
+            }
+        }
+
+        // File type validation (this can be further enhanced based on your needs)
+        function validateFileType() {
+            var fileInput = document.getElementById('file');
+            var filePath = fileInput.value;
+            var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.pdf|\.mp4|\.apk|\.jar|\.mp3|\.wav)$/i;
+            if (!allowedExtensions.exec(filePath)) {
+                document.getElementById('fileError').classList.remove('hidden');
+                fileInput.value = '';
+                return false;
+            } else {
+                document.getElementById('fileError').classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+
+</html>

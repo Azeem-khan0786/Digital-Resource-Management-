@@ -151,6 +151,7 @@ public function getOrgData() {
         $query = $this->db->get();
         return $query->result_array();
     }
+    
     // get data by Org_id
 public function getOrgDataById($org_id)
     {
