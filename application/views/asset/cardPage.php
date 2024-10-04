@@ -1,3 +1,7 @@
+<?php  $office_id = $this->session->userdata('office_id');?>
+<?php  $org_id = $this->session->userdata('org_id');?>
+<?php  $org_id = $this->session->userdata('org_id');?>
+
 <div class="col-md-12 w-100 ">
                 <main>
                     <div class="">
@@ -9,7 +13,7 @@
                         <?php if ($this->session->userdata('desig_level') == 1): ?>
                             <div class="col-xl-4 col-md-6 p-3">
                                 <div class="card text-white mb-4" style="background-color: #6699ff;">
-                                    <div class="card-body">Organisation Table :
+                                    <div class="card-body">Organisation Data :
                                     <b><?php echo $this->db->where('org_id', $this->session->userdata('org_id'))->count_all('OrganisationTable'); ?> records</b>
 
                                     </div>
@@ -25,8 +29,10 @@
                         <?php if ($this->session->userdata('desig_level') == 2): ?>
                             <div class="col-xl-4 col-md-6 p-3">
                                 <div class="card  text-white mb-4" style="background-color:#99bbff;">
-                                    <div class="card-body">Office Data :
-                                        <b><?php echo $this->db->where('org_id', $this->session->userdata('org_id'))->count_all_results('OfficeTable'); ?> records</b>
+                                <?php $office_count = $this->Manage_model->countOfficesByOrg($org_id);?>
+                                    <div class="card-body">Total Office:
+                                        <b><?php echo $office_count;  ?>
+                                            records</b>
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="nav-link text-white"
@@ -37,8 +43,9 @@
                             </div>
                             <div class="col-xl-4 col-md-6 p-3">
                                 <div class="card text-white mb-4" style="background-color:#1a8cff;">
-                                    <div class="card-body">Designation Table :
-                                    <b><?php echo $this->db->where('org_id', $this->session->userdata('org_id'))->count_all_results('DesignationTable'); ?> records</b>
+                                <?php $desig_count = $this->Manage_model->countDesignationsByOrg($org_id);?>
+                                    <div class="card-body">Designation Data :
+                                    <b><?php echo $desig_count; ?> records</b>
 
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
@@ -51,8 +58,10 @@
                             </div>
                             <div class="col-xl-4 col-md-6 p-3">
                                 <div class="card   text-white mb-4" style="background-color:#ff4d4d;">
-                                    <div class="card-body">Staff Table :
-                                    <b><?php echo $this->db->where('org_id', $this->session->userdata('org_id'))->count_all_results('staffTable'); ?> records</b>
+                                <?php $staff_count_org = $this->Manage_model->countStaffByOrg($org_id);?>
+                                    <div class="card-body">Staff Data :
+                                    <b><?php echo $staff_count_org; ?>records</b>
+        
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="nav-link text-white"
@@ -66,7 +75,7 @@
                         <?php if ($this->session->userdata('desig_level') == 3): ?>
                             <div class="col-xl-4 col-md-6 p-3">
                                 <div class="card  text-white mb-4" style='background: #4d88ff;'>
-                                    <div class="card-body">Category Table :
+                                    <div class="card-body">Category Data :
                                           <b><?php echo $this->db->count_all('categoryTable'); ?> records</b>
 
                                     </div>
@@ -79,9 +88,10 @@
                             </div>
                             <div class="col-xl-4 col-md-6 p-3">
                                 <div class="card  text-white mb-4" style='background: #66a3ff;'>
-                                    <div class="card-body">Staff Table :
-                                    <b><?php echo $this->db->where('office_id', $this->session->userdata('office_id'))->count_all_results('staffTable'); ?> records</b>
-
+                                <?php $staff_count_off = $this->Manage_model->countStaffByOffice($office_id);?>
+                                    <div class="card-body">Staff Data :
+                                    <b><?php echo $staff_count_off; ?>records</b>
+        
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link"
@@ -93,7 +103,7 @@
 
                             <div class="col-xl-4 col-md-6 p-3">
                                 <div class="card  text-white mb-4" style='background: #666699;'>
-                                    <div class="card-body">Others Table :
+                                    <div class="card-body">Others Data :
                                   
 
                                     </div>
