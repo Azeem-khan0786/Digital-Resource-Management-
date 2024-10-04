@@ -35,6 +35,7 @@ public function getStaffDataByorg($org_id)
         $query = $this->db->get();
         return $query->result_array();
     }
+
 public function getStaffDataByOffice($org_id,$office_id)
     {   $this->db->select("staffTable.*,OfficeTable.office_name,OrganisationTable.org_name,DesignationTable.Designation_name");
         $this->db->from("staffTable");
@@ -282,5 +283,29 @@ public function delStaff($staff_id)
 
     return null; // Return null if no result found
  }
+ public function countStaffByOrg($org_id) {
+    $this->db->where('org_id', $org_id);
+    $this->db->where('is_active', 1); // Count only active staff
+    return $this->db->count_all_results('staffTable');
+} 
+public function countStaffByOffice($office_id) {
+    $this->db->where('office_id', $office_id);
+    $this->db->where('is_active', 1); // Count only active staff
+    return $this->db->count_all_results('staffTable');
+}
+public function countOfficesByOrg($org_id) {
+    // $org_id = $this->session->userdata('org_id'); // Get org_id from session
+    $this->db->where('org_id', $org_id);
+    $this->db->where('is_active', 1);
+    return $this->db->count_all_results('OfficeTable'); // Count records in OfficeTable
+}
+public function countDesignationsByOrg($org_id) {
+  
+    $this->db->where('org_id', $org_id);
+    $this->db->where('is_active', 1);
+    // Count the results
+    return $this->db->count_all_results('DesignationTable'); // Count records in DesignationTable
+}
+
 
  }
