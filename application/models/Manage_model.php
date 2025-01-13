@@ -226,7 +226,7 @@ public function get_profile($user_id)
     $this->db->select('staffTable.*, DesignationTable.Designation_name, OfficeTable.office_name, OrganisationTable.org_name');
     // Specifying the main table
     $this->db->from('staffTable');
-    // Performing LEFT JOINs to include related information
+    // Performing LEFT JOINs to include related information     
     $this->db->join('DesignationTable', 'staffTable.Designation_id = DesignationTable.Designation_id', 'left');
     $this->db->join('OfficeTable', 'staffTable.office_id = OfficeTable.office_id', 'left');
     $this->db->join('OrganisationTable', 'staffTable.org_id = OrganisationTable.org_id', 'left');
@@ -257,7 +257,6 @@ public function delorg($org_id)
  //Office delete
 public function delOffice($office_id)
  {
-    
     $this->db->where('office_id', $office_id);
     return $this->db->update('OfficeTable', ['is_active' => 0]);
  }
@@ -298,6 +297,12 @@ public function countOfficesByOrg($org_id) {
     $this->db->where('org_id', $org_id);
     $this->db->where('is_active', 1);
     return $this->db->count_all_results('OfficeTable'); // Count records in OfficeTable
+}
+public function countOrg() {
+    // $org_id = $this->session->userdata('org_id'); // Get org_id from session
+    
+    $this->db->where('is_active', 1);
+    return $this->db->count_all_results('OrganisationTable'); // Count records in OfficeTable
 }
 public function countDesignationsByOrg($org_id) {
   

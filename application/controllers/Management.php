@@ -69,6 +69,7 @@ public function login()
                     'Designation_id' => $staff->Designation_id,
                     'Designation_name' => $designationName, // Add the designation name here
                     'office_id' => $staff->office_id,
+                    // 'office_name' => $staff->office_name,
                     'desig_level'=>$staff->desig_level,
                     'authenticated' => TRUE
                 ); 
@@ -83,7 +84,7 @@ public function login()
                 //      {
                 //         redirect(base_url() . 'Management/mainDashboard');
                 //      }
-                // elseif ($this->session->userdata('desig_level') ) {
+                // elseif ($this->session->userDeshdata('desig_level') ) {
                     
                 redirect(base_url() . 'Management/mainDashboard');
                 // }     
@@ -278,7 +279,7 @@ public function addStaff()
                 'staff_email' => $this->input->post('staff_email'),
                 'staff_password' => $this->input->post('staff_password'),
                 'joining_date' => $this->input->post('joining_date'),
-                'org_id' => $this->input->post('org_id'),
+                'org_id' => $org_id,
                 'Designation_id' => $this->input->post('Designation_id'),
                 'office_id' =>$office_id,
                 'date_of_birth' => $this->input->post('date_of_birth'),
@@ -386,7 +387,7 @@ public function addOffice()
                 
             }
             $desig_level = $this->session->userdata('desig_level');
-            if ($this->session->userdata('desig_level') == 2) {
+            if ($this->session->userdata('desig_level') == 2) {  
                 $this->load->view('asset/addOffice', $data);
             } else {
                 redirect(base_url() . 'Management/login');
@@ -404,7 +405,7 @@ public function addOffice()
         $office_data = [
                 
                 'office_name' => $this->input->post('office_name'),
-                'org_id' => $this->input->post('org_id'),
+                'org_id' => $org_id,
                 'city_name' => $city_data->city_name, // Store city_name instead of city_id
                 'state_name' => $state_data->state_name, // Store state_name instead of state_id
                 'created_at' => $this->input->post('created_at'),
@@ -418,6 +419,8 @@ public function addOffice()
                     'staff_password' => $this->input->post('admin_password'),
                     'Designation_id' => 3,  // Assuming 2 is the ID for CompanyAdmin
                     'office_id' => $office_id,  // Admin is not tied to a specific office
+                    'desig_level'=>3,
+                    'org_id' => $org_id,
                 );
                 $admin_id = $this->Manage_model->create_admin($admin_data);
                 if ($admin_id) {

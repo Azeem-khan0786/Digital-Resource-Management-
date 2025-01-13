@@ -4,7 +4,7 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
@@ -45,7 +45,7 @@
 
 
 .sidebar {
-    width: 230px;
+    width: 230px;Desh
     /* Set a fixed width for the sidebar */
     height: 100vh;
     /* Full viewport height */
@@ -77,6 +77,7 @@
             <h6 class="name"><b><a href=""> <?= $_SESSION['Designation_name'] ?></a></b></h6>
 
             <?php endif; ?>
+            
             <!-- </div>
             </div> -->
         </li>

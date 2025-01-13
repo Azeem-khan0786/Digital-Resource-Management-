@@ -17,11 +17,7 @@ body {
     font-size: 14px;
 }
 
-input[type=text],
-input[type=date],
-input[type=password] {
-    font-size: 12px;
-}
+ 
 </style>
 
 <body>
@@ -53,9 +49,9 @@ input[type=password] {
             </div>
             <div class="col-md-10  ">
 
-                <div class="p-3 m-1 " style='background-color:#99ccff;'>
+                <div class="p-3 m-1 " style='background-color:;'>
                     <form action="<?php echo base_url('Management/addOrg'); ?>" method='post' class="">
-                        <h5 class="text-center">Add Organisation</h5>
+                        <h5 class="text-center"><b>Add Organisation</b></h5>
                         <div class="form-group">
                             <!-- <label for="catagoryName">Organisation Name</label> -->
                             <input type="text" class="form-control" name='org_name'
@@ -137,7 +133,9 @@ input[type=password] {
 
                         <button type="submit" class="btn btn-primary btn-block m-1">Add Organisation</button>
                     </form>
-                </div>
+                    <a href="<?=base_url().'Management/getOrg'?>" class=" text-center ">  <--Back to page</a>
+                    
+                </div> 
             </div>
         </div>
 

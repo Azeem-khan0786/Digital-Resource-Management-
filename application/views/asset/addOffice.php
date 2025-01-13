@@ -17,11 +17,7 @@ body {
     font-size: 14px;
 }
 
-input[type=text],
-input[type=date],
-input[type=password] {
-    font-size: 12px;
-}
+
 </style>
 
 <body>
@@ -33,7 +29,7 @@ input[type=password] {
                 <?php $this->load->view('asset/DashSidebar'); ?>
             </div>
             <div class="col-md-10 ">
-                <div class=" bg-info m-1">
+                <div class="  m-1">
         <h5 class="text-center"><b>Add Organisation's Office </b></h5>
         <?php if ($this->session->flashdata('message')): ?>
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -135,6 +131,7 @@ input[type=password] {
                 <button type="submit" class="btn btn-primary btn-block m-1">Add Office</button>
             </form>
             </div>
+            <a href="<?=base_url().'Management/getOffice'?>" class=" text-center ">  <--Back to page</a>
             </div>
         </div>
     </div>

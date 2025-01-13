@@ -40,13 +40,14 @@ tr {
                     <div class="container py-3">
                         <div class="row">
                             <div class="col">
-                                <nav aria-label="breadcrumb" class="bg-body-tertiary rounded-3 p-1 mb-2">
+                                <i><h2 class="text-center " style='color:#ff8533;'><b>User profile</b> </h2></i>
+                                <!-- <nav aria-label="breadcrumb" class="bg-body-tertiary rounded-3 p-1 mb-2">
                                     <ol class="breadcrumb mb-0">
                                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                                         <li class="breadcrumb-item"><a href="#">User</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">User Profile</li>
                                     </ol>
-                                </nav>
+                                </nav> -->
                             </div>
                         </div>
 
