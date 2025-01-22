@@ -70,7 +70,8 @@
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
-                            </div>
+                            </div><?php endif;?>
+                            <?php if ($this->session->userdata('desig_level') == 2): ?>
                             <div class="col-xl-4 col-md-6 col-sm-12 p-3">
                                 <div class="card text-white mb-4" style="background-color:#1a8cff;">
                                     <?php $desig_count = $this->Manage_model->countDesignationsByOrg($org_id);?>
@@ -139,6 +140,13 @@
                                 </div>
                             </div>
                             <?php endif;?>
+                            
+                            <?php
+                                if ($this->session->userdata('desig_level') == 4) {
+                                    // Redirect to the specified URL
+                                    redirect('http://localhost/DigitalAssets/Management/showcontent');
+                                }
+                                ?>
                         </div>
                 </main>
             </div>

@@ -17,7 +17,7 @@ public function index()
         // cheack admin is logged in addStaff
         
         if ($this->session->userdata('desig_level')) {
-            echo $this->session->userdata('desig_leve');
+            // echo $this->session->userdata('desig_leve');
            
             $this->load->view('asset/mainDashboard');
         } else {
@@ -73,7 +73,7 @@ public function login()
                     'desig_level'=>$staff->desig_level,
                     'authenticated' => TRUE
                 ); 
-               print_r($staffdata);
+            //    print_r($staffdata);
             //    die();
                 // Set session data
                 $this->session->set_userdata($staffdata);
@@ -165,7 +165,7 @@ public function addOrg()
                     'staff_name' => $this->input->post('admin_username'),
                     'staff_email' => $this->input->post('admin_email'),
                     'staff_password' => $this->input->post('admin_password'),
-                    'Designation_id' => 2,  // Assuming 2 is the ID for CompanyAdmin
+                     'Designation_id' => 2,  // Assuming 2 is the ID for CompanyAdmin
                     'desig_level'=>2,
                     'org_id' => $org_id,
                     'office_id' => NULL  // Admin is not tied to a specific office
@@ -210,12 +210,13 @@ public function getOrg() {
 public function addStaff()
     {   
         $org_id = $this->session->userdata('org_id');
+        $office_id= $this->session->userdata('office_id');
+        
         $this->form_validation->set_rules('staff_name', 'staff Name', 'required');
         $this->form_validation->set_rules('staff_email', 'staff Email', 'required');
         $this->form_validation->set_rules('staff_password', 'staff Password', 'required');
         $this->form_validation->set_rules('joining_date', 'joining Date', 'required');
         
-        $office_id= $this->session->userdata('office_id');
     
         // $city_id = $this->input->post('city_id');
         if (! $this->form_validation->run()) {
@@ -281,6 +282,7 @@ public function addStaff()
                 'joining_date' => $this->input->post('joining_date'),
                 'org_id' => $org_id,
                 'Designation_id' => $this->input->post('Designation_id'),
+                'desig_level'=>4,
                 'office_id' =>$office_id,
                 'date_of_birth' => $this->input->post('date_of_birth'),
                 'salary' => $this->input->post('salary'),
@@ -288,14 +290,14 @@ public function addStaff()
                 'state_name' => $state_data->state_name, // Store state_name instead of state_id
                 'pincode' => $this->input->post('pincode'),
             ];
-            print_r($data);
+            // print_r($data);
             // die();
             // $staff_data=$this->Manage_model->addStaffData($data);
             if ($this->Manage_model->addStaffData($data)) {
 
                 $this->session->set_flashdata('message', 'Registration successful. You can now login.');
 
-                redirect(base_url() . 'Management/addStaff');
+                redirect(base_url() . 'Management/getStaff');
             } else {
                 $this->session->set_flashdata('message', 'Registration failed. Please try again.');
             }
@@ -496,7 +498,7 @@ public function addDesignation()
 
             if ($this->Manage_model->addDesignationData($data)) {
                 $this->session->set_flashdata('message', 'Designation  inserted successfully');
-                redirect(base_url() . "Management/addDesignation");
+                redirect(base_url() . "Management/getDesignation");
             } else {
                 $this->session->set_flashdata('message', ' There is any problem to add Designation ');
                 redirect(base_url() . "Management/addDesignation");
@@ -510,32 +512,7 @@ public function getDesignation()
         // echo json_encode($data);
         $this->load->view('asset/DesignationTable', $data);
     }
-    //3.1 add Staff record
-   
-   // method for get admin
-    // public function getAdmin()
-//     {     //  $staff_id = $this->session->userdata('staff_id');
-
-//         $data['admindata'] = $this->Manage_model->getAdminData();
-//         // echo json_encode($data);
-//         // echo json_encode($data);is_admin
-
-//         $this->load->view('asset/adminTable', $data);
-//     }
-    // Delete staff user record
-// public function delete_user($staff_id)
-    // {
-    //     // Check if admin is logged in with staff_id=1
-    //     if ($this->session->userdata('staff_id') == 1) {
-    //         // Proceed with deleting the user record
-    //         $data['item'] = $this->Manage_model->delete_record($staff_id);
-    //         redirect(base_url() . 'Management/getStaff'); // Redirect to a list page or wherever you need
-    //     } else {
-    //         // Redirect to the login page or wherever appropriate
-    //         redirect(base_url() . 'Management/login'); // Assuming 'Auth/login' is your login page route
-    //     }
-    // }
-
+    
     // method for add Catagory
 public function addCategory()
     {
@@ -629,7 +606,8 @@ public function content_add_form()
                 $this->load->view('asset/addContent', $data);
                 return;
             }
-
+            // Get the staff_id from session
+              $staff_id = $this->session->userdata('staff_id');
             // Prepare data for insertion
             $data = [
                 'content_title'       => $this->input->post('content_title'),
@@ -637,6 +615,7 @@ public function content_add_form()
                 'content_description' => $this->input->post('content_description'),
                 // 'state'               => $this->input->post('state'),
                 'filename'            => $file_name,  // Save the filename to the database
+                'staff_id'            => $staff_id,    // Add the staff_id to the data
             ];
 
             if ($this->Manage_model->add_content($data)) {
@@ -656,13 +635,19 @@ public function content_add_form()
     }
 
     // method for show Resources
-public function showcontent()
-    {
-        $data['contents'] = $this->Manage_model->fetch_all_with_catagory();
+public function showcontentbystaff()      // method to show all content by indivitual  staff
+    {   $staff_id = $this->session->userdata('staff_id');
+        $data['contents'] = $this->Manage_model->fetch_all_with_catagory($staff_id);
 
 
         $this->load->view('asset/contentTable', $data);
     }
+public function showcontent()    // methdd to show content by officeAdmin
+    {  
+        $data['contents'] = $this->Manage_model->show_all_content();
+        $this->load->view('asset/contentTable', $data);
+    }    
+        
     // delete content
 public function delete_content($id)
     {

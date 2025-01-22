@@ -108,9 +108,7 @@
             <li class="list-group-item "><a href="<?= base_url('Management/showcontent') ?>">View Content</a></li>
             <?php endif;?>
 
-            <li class="list-group-item" style="background-color: Tomato;">
-                <a href="https://codeigniter.com/userguide3/installation/downloads.html">Codeigniter3</a><br>
-            </li>
+            
 
         </ul>
     </div>

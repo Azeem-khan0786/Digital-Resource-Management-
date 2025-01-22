@@ -22,9 +22,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | If you need to allow multiple domains, remember that this file is still
 | a PHP script and you can easily do that on your own.
 |
-*/                    //'http://192.168.1.29/codeigniter3/';
+// */                    //'http://192.168.1.29/DigitalAssets/';
 $config['base_url'] = 'http://localhost/DigitalAssets/';
-// $config['base_url'] = 'http://192.168.1.21/codeigniter3/';
+// $config['base_url'] = 'http://192.168.1.14/DigitalAssets/';
 
 
 

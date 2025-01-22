@@ -50,36 +50,43 @@ td {
                         Designation</a></div>
                     </div>
                     <div class="card-body">
+                    
+                   
+                    <table class='table table-striped' id='search-data-table'>
+                        <tr>
+                            <td>Designation_ID</td>
+                            <td>Designation_Name</td>
+                            <!-- <td>Organisation Name</td>
+                            <td>Organisation Id</td> -->
+                            <td>Created_at</td>
+                        </tr>
 
-                        <table class='table table-striped' id='search-data-table'>
+                        <?php if (empty($Designation_data)): ?>
                             <tr>
-                                <td>Designation_ID</td>
-                                <td>Designation_Name</td>
-                                <!-- <td>Organisation Name</td>
-                                <td>Organisation Id</td> -->
-                                <td>Created_at</td>
+                                <!-- <h3 colspan="3" class="text-center">Dont have any DesNo records yet </h3> -->
                             </tr>
-                            <?php foreach ($Designation_data as $row ) : ?>
-                            <tr>
-                                <td><?php echo $row['Designation_id']; ?></td>
-                                <td><?php echo $row['Designation_name']; ?></td>
-                                <!-- <td><?php echo $row['org_name']; ?></td>
-                                <td><?php echo $row['org_id']; ?></td> -->
-                                <td><?php echo $row['created_at']; ?> </td>
-                                <!-- <?php
-                    // Assuming $org_data is structured like: $org_data[$row['org_id']] = ['org_name' => 'Org Name'];
-                    if (isset($org_data[$row['org_id']])) {
-                        echo '<td>' . $org_data[$row['org_id']]['org_name'] . '</td>';
-                    } else {
-                        echo '<td>No Org Name</td>'; // Handle case where org_name is not found
-                    }
-                 ?> 
-                 -->
-
-                                <!-- Add other columns as needed -->
-                            </tr>
+                        <?php else: ?>
+                            <?php foreach ($Designation_data as $row): ?>
+                                <tr>
+                                    <td><?php echo $row['Designation_id']; ?></td>
+                                    <td><?php echo $row['Designation_name']; ?></td>
+                                    <!-- <td><?php echo $row['org_name']; ?></td>
+                                    <td><?php echo $row['org_id']; ?></td> -->
+                                    <td><?php echo $row['created_at']; ?></td>
+                                    <!-- <?php
+                                    // Assuming $org_data is structured like: $org_data[$row['org_id']] = ['org_name' => 'Org Name'];
+                                    if (isset($org_data[$row['org_id']])) {
+                                        echo '<td>' . $org_data[$row['org_id']]['org_name'] . '</td>';
+                                    } else {
+                                        echo '<td>No Org Name</td>'; // Handle case where org_name is not found
+                                    }
+                                    ?> -->
+                                </tr>
                             <?php endforeach; ?>
-                        </table>
+                        <?php endif; ?>
+                    </table>
+
+                     
                         
                     </div>
                 </div>

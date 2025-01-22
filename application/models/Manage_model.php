@@ -118,32 +118,7 @@ public function delete_record($staff_id) {
         $this->db->delete('staffTable');
     }
     //  add Organisation data
-public function addOrgData($org_data){
-    if (!$this->db->insert('OrganisationTable', $org_data)) {
-        log_message('error', 'Database insert failed: ' . $this->db->last_query());
-    }
-       else{
-        $this->db->insert('OrganisationTable',$org_data);
-        return $this->db->insert_id();
-       } 
-         
-        
-    }
-        // Method to get organization (company) data
-    // public function getOrgData($org_id=NULL) {
-        
-    //     // Specify the table to query from
-        
-    //     if ($org_id===NULL){
-    //         $query=$this->db->get();
-    //         return $query->result_array(); // Return all org
-    //     }else {
 
-    //     $query=$this->db->get_where('OrganisationTable',array('org_id'=> $org_id));
-    //     return $query->row_array(); // Return single org
-    //     }
-    // }
-    // Method to get company data with CompanyAdmin's email and name
 public function getOrgData() {
         $this->db->select('OrganisationTable.org_id, OrganisationTable.org_name, staffTable.staff_email AS AdminEmail, staffTable.staff_name AS AdminName ,OrganisationTable.org_type,OrganisationTable.org_level,OrganisationTable.created_at,OrganisationTable.state_name,OrganisationTable.city_name ,OrganisationTable.staff_id');
         $this->db->from('OrganisationTable');
@@ -162,12 +137,15 @@ public function getOrgDataById($org_id)
         return $query->result_array();
         
     }
-    //add  addOfficeData
-public function addOfficeData($data)
+public function getOfficeDataById($org_id)
     {
-        $this->db->insert('OfficeTable',$data);
-        return $this->db->insert_id();
-    }
+        
+        $this->db->where('org_id', $org_id);
+        $query = $this->db->get('OfficeTable');
+        return $query->result_array();
+        
+    }    
+
 public function joinData()
     {
         
@@ -185,7 +163,7 @@ public function login($staff_email, $staff_password)
     $this->db->where('staff_password', $staff_password);
     $this->db->where('is_active', 1);
     $query = $this->db->get('staffTable');
-    echo (json_encode($query->row()));
+    // echo (json_encode($query->row()));
     // die();
     if($query->num_rows() == 1) {
         return $query->row();
@@ -210,7 +188,18 @@ public function delete_category($id)
 public function add_content($data) {
         return $this->db->insert('ContentTable', $data);
     }
-public function fetch_all_with_catagory()
+public function show_catentbystaff($staff_id)
+    {
+      $this->db->select('ContentTable.content_id, ContentTable.content_title,categoryTable.categoryId, categoryTable.categoryName, ContentTable.filename, ContentTable.content_description,ContentTable.created_at ');
+      $this->db->from('ContentTable');
+      $this->db->join('categoryTable', 'ContentTable.categoryId = categoryTable.categoryId');
+      $this->db->join('staffTable', 'ContentTable.staff_id = staffTable.staff_id');
+      $this->db->where('ContentTable.staff_id',$staff_id);
+
+      $query = $this->db->get();
+      return $query->result(); 
+    }
+public function show_all_content()
     {
       $this->db->select('ContentTable.content_id, ContentTable.content_title,categoryTable.categoryId, categoryTable.categoryName, ContentTable.filename, ContentTable.content_description,ContentTable.created_at ');
       $this->db->from('ContentTable');
@@ -218,7 +207,6 @@ public function fetch_all_with_catagory()
       $query = $this->db->get();
       return $query->result(); 
     }
-
 // get staff data as profile data ifuser is logged in
 public function get_profile($user_id)
  {
@@ -237,12 +225,27 @@ public function get_profile($user_id)
     // Return the result as an array
     return $query->result_array();
  }    
+
+//add  addOfficeData
+public function addOfficeData($data)
+    {
+        $this->db->insert('OfficeTable',$data);
+        return $this->db->insert_id();
+    } 
+
 public function updateOfficeData($office_id, $admin_id) {
     // Update office data with admin_id
     $this->db->where('office_id', $office_id);
     $this->db->update('OfficeTable', ['staff_id' => $admin_id]);
 
  }
+ 
+ public function addOrgData($org_data){
+    
+    $this->db->insert('OrganisationTable',$org_data);
+    return $this->db->insert_id();
+
+} 
 public function updateOrgData($org_id, $admin_id)
  {
     $this->db->where('org_id', $org_id);
@@ -304,7 +307,10 @@ public function countOrg() {
     $this->db->where('is_active', 1);
     return $this->db->count_all_results('OrganisationTable'); // Count records in OfficeTable
 }
-public function countDesignationsByOrg($org_id) {
+public function countDesignationsByOrg($org_id) {    {
+    $this->db->insert('OfficeTable',$data);
+    return $this->db->insert_id();
+} 
   
     $this->db->where('org_id', $org_id);
     $this->db->where('is_active', 1);
