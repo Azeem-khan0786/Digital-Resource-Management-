@@ -12,11 +12,80 @@
 
     <title>Content List</title>
     <style>
-    body {
-        font-size: 12px;
-    }
+        body {
+            font-size: 14px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .content-article {
+            border: 1px solid #ddd;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        .content-article:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        .content-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #343a40;
+            margin-bottom: 10px;
+        }
+        .content-meta {
+            font-size: 14px;
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+        .content-meta span {
+            margin-right: 15px;
+        }
+        .content-description {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        .content-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .content-actions a {
+            font-size: 14px;
+        }
+        .content-actions .btn {
+            font-size: 14px;
+        }
+        .btn-dark {
+            background-color: #343a40;
+            border: none;
+        }
+        .alert-warning {
+            font-size: 16px;
+            font-weight: 600;
+            color: #856404;
+            background-color: #fff3cd;
+            border-color: #ffeeba;
+            padding: 15px;
+        }
+        .description-preview {
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* Limit to 3 lines */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .read-more {
+            color: #007bff;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: underline;
+        }
     </style>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
 <body>
@@ -30,49 +99,36 @@
             <div class="col-md-10">
 
                 <div class="card-header d-flex justify-content-between">
-                    <div><i class="fas fa-table me-1 m-1"></i>Manage your content</div></div>
-                    <div><a href="<?=base_url().'Management/content_add_form'?>" class="btn btn-primary btn-block">Add
-                    Category</a></div>
+                    <div><i class="fas fa-table me-1 m-1"></i>Manage your content</div>
+                </div>
+                <div style="margin-left: 930px; margin-top: 10px;" ><a href="<?=base_url().'Management/content_add_form'?>" class="btn btn-primary btn-sm mb-3"> <b>+Add Digital Assets</b></a></div>
 
-                <div class="card-body ">
-                    <table class='table table-striped ' id='search-data-table' style="font-size: 12px;">
-                        <tr style="font-weight: bold;">
-
-                            <th>Content ID</th>
-                            <th>Content Title</th>
-                            <th>Category Id</th>
-                            <th>Category Name</th>
-                            <th>Uploaded File</th>
-                            <th>Content Description</th>
-                            <th>Download</th>
-                            <td>Created_at</td>
-                            <!-- <th>Edit</th> -->
-                            <th>Delete</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach($contents as $content): ?>
-                            <tr>
-                                <td><?php echo $content->content_id; ?></td>
-                                <td><?php echo $content->content_title; ?></td>
-                                <td><?php echo $content->categoryId; ?></td>
-                                <td><?php echo $content->categoryName; ?></td> 
-                                <td><?php echo $content->filename; ?></td>
-                                <td><?php echo $content->content_description; ?></td>
-                                <td><?php echo $content->created_at; ?> </td>
-                                <td><a href="<?php echo base_url().'uploads/'.$content->filename; ?>"      class="btn btn-success btn-sm" download>
-                                <i class="fa fa-download"></i> Download
-                            </a></td>
-                                <!-- <td> <button class="btn btn-primary btn-sm"><a href=""></a>Edit</button></td> -->
-                                <td> <a href="<?= base_url('Management/delete_content/'.$content->content_id) ?>"
-                                        class="btn btn-dark btn-sm">Delete</a></td>
-
-                                <?php endforeach; ?>
-                        </tbody>
-                    </table> <br>
+                <div class="card-body">
                     
-                    
-
+                        <?php foreach ($contents as $content): ?>
+                            <div class="content-article">
+                                <div class="content-title"><?php echo $content->content_title; ?></div>
+                                <div class="content-meta">
+                                    <span><strong>Content ID:</strong> <?php echo $content->content_id; ?></span>
+                                    <span><strong>Category:</strong> <?php echo $content->categoryName; ?></span>
+                                    <span><strong>Created At:</strong> <?php echo date("F j, Y, g:i a", strtotime($content->created_at)); ?></span>
+                                </div>
+                                <div class="content-description">
+                                    <strong>Description:</strong>
+                                    <p class="description-preview" id="desc-<?php echo $content->content_id; ?>"><?php echo $content->content_description; ?></p>
+                                    <span class="read-more" id="read-more-<?php echo $content->content_id; ?>" onclick="toggleDescription(<?php echo $content->content_id; ?>)">Read More</span>
+                                </div>
+                                <div class="content-actions">
+                                    <a href="<?php echo base_url().'uploads/'.$content->filename; ?>" class="btn btn-success btn-sm" download>
+                                        <i class="fa fa-download"></i> Download
+                                    </a>
+                                    <a href="<?= base_url('Management/delete_content/'.$content->content_id) ?>" class="btn btn-dark btn-sm" onclick="return confirm('Are you sure you want to delete this content?');">
+                                        <i class="fa fa-trash"></i> Delete
+                                    </a>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                     
                 </div>
             </div>
         </div>
@@ -80,6 +136,22 @@
 </div>
 
 </body>
+
+<script>
+    function toggleDescription(contentId) {
+        var description = document.getElementById('desc-' + contentId);
+        var readMoreButton = document.getElementById('read-more-' + contentId);
+
+        if (description.style.display === "-webkit-box") {
+            description.style.display = "block";
+            readMoreButton.innerText = "Read Less";
+        } else {
+            description.style.display = "-webkit-box";
+            readMoreButton.innerText = "Read More";
+        }
+    }
+</script>
+
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
 </script>
@@ -90,5 +162,4 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
 </script>
 
-</html> 
-
+</html>

@@ -131,10 +131,13 @@
 
                             <div class="col-xl-4 col-md-6 col-sm-12 p-3">
                                 <div class="card text-white mb-4" style='background: #666699;'>
-                                    <div class="card-body">Total Others :
+                               
+
+                                    <div class="card-body">Total Content :
+                                        <b><?php echo $this->db->count_all('ContentTable'); ?> records</b>
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View as Table</a>
+                                        <a class="small text-white stretched-link" href="<?=base_url().'Management/showcontent'?>">View as Table</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -144,7 +147,7 @@
                             <?php
                                 if ($this->session->userdata('desig_level') == 4) {
                                     // Redirect to the specified URL
-                                    redirect('http://localhost/DigitalAssets/Management/showcontent');
+                                    redirect('http://localhost/DigitalAssets/Management/showcontentbystaff');
                                 }
                                 ?>
                         </div>

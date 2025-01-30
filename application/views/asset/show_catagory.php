@@ -50,17 +50,23 @@ body {
                                         <th>Created_At</th>
                                         <th>operation</th>
                                     </tr>
-                                    <?php foreach($category as $cata):?>
-                                    <tr>
-                                        <td><?php  echo $cata['categoryId'];?></td>
-                                        <td><?php   echo $cata['categoryName'];?></td>
-                                        <td><?php   echo $cata['created_at'];?></td>
+                                    <?php if (empty($category)): ?>
+                                <tr>
+                                    <td colspan="8" class="text-center"><b>Don`t have any category Created </b></td>
+                                </tr>
+                                <?php else: ?>
+                                        <?php foreach($category as $cata):?>
+                                        <tr>
+                                            <td><?php  echo $cata['categoryId'];?></td>
+                                            <td><?php   echo $cata['categoryName'];?></td>
+                                            <td><?php   echo $cata['created_at'];?></td>
 
-                                        <td> <a href="<?= base_url('Management/delete_category/'. $cata['categoryId']) ?>"
-                                                class="btn btn-dark btn-sm">Delete</a></td>
-                                    </tr>
+                                            <td> <a href="<?= base_url('Management/delete_category/'. $cata['categoryId']) ?>"
+                                                    class="btn btn-dark btn-sm">Delete</a></td>
+                                        </tr>
 
-                                    <?php endforeach; ?>
+                                        <?php endforeach; ?>
+                                <?php endif; ?>
                                 </table>
                             </div>
                         </div>

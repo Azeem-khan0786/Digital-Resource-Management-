@@ -637,7 +637,7 @@ public function content_add_form()
     // method for show Resources
 public function showcontentbystaff()      // method to show all content by indivitual  staff
     {   $staff_id = $this->session->userdata('staff_id');
-        $data['contents'] = $this->Manage_model->fetch_all_with_catagory($staff_id);
+        $data['contents'] = $this->Manage_model->show_catentbystaff($staff_id);
 
 
         $this->load->view('asset/contentTable', $data);

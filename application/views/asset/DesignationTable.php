@@ -50,7 +50,11 @@ td {
                         Designation</a></div>
                     </div>
                     <div class="card-body">
-                    
+                    <?php if (empty($Designation_data)): ?>
+                            <tr>
+                                <h3 colspan="3" class="text-center">Dont have any designation creaeted </h3>
+                            </tr>
+                        <?php else: ?>
                    
                     <table class='table table-striped' id='search-data-table'>
                         <tr>
@@ -61,11 +65,7 @@ td {
                             <td>Created_at</td>
                         </tr>
 
-                        <?php if (empty($Designation_data)): ?>
-                            <tr>
-                                <!-- <h3 colspan="3" class="text-center">Dont have any DesNo records yet </h3> -->
-                            </tr>
-                        <?php else: ?>
+                        
                             <?php foreach ($Designation_data as $row): ?>
                                 <tr>
                                     <td><?php echo $row['Designation_id']; ?></td>

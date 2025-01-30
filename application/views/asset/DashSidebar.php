@@ -102,10 +102,12 @@
             <?php if ($this->session->userdata('desig_level') == 3): ?>
             <li class="list-group-item "><a href="<?= base_url('Management/addCategory') ?>">Add Catagory</a></li>
             <li class="list-group-item "><a href="<?= base_url('Management/showCategory') ?>">View Catagory</a></li>
+            <li class="list-group-item "><a href="<?= base_url('Management/content_add_form') ?>">Add Content</a></li>
+            <li class="list-group-item "><a href="<?= base_url('Management/showcontent') ?>">View Content</a></li>
             <?php endif;?>
             <?php if ($this->session->userdata('desig_level') == 4): ?>
             <li class="list-group-item "><a href="<?= base_url('Management/content_add_form') ?>">Add Content</a></li>
-            <li class="list-group-item "><a href="<?= base_url('Management/showcontent') ?>">View Content</a></li>
+            <li class="list-group-item "><a href="<?= base_url('Management/showcontentbystaff') ?>">View Content</a></li>
             <?php endif;?>
 
             

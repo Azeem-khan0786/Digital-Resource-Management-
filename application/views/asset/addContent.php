@@ -8,14 +8,14 @@
 
     <title>Content List</title>
     <style>
-    /* input.form-control {
+    input.form-control {
         background-color: #dbdbdb;
     }
 
 
     body {
         font-size: 12px;
-    } */
+    }
     body {
         font-family: Arial, sans-serif;
         margin: 50px;
@@ -28,7 +28,7 @@
         padding: 20px;
         border: 1px solid #ccc;
         border-radius: 10px;
-        background-color: #f9f9f9;
+        background-color: #f9f9f9; 
     }
 
     label {
@@ -96,38 +96,25 @@
                 </div>
                 <?php endif; ?>
                 <form method="post" action='<?php echo base_url('Management/content_add_form');?>'
-                    enctype="multipart/form-data" style=" background-color: lightblue; margin:0px">
-                    <div class="form-row">
+                    enctype="multipart/form-data" style="   margin:0px;">
+                    <div class="form-row" style = width:1580px;>
                         <div class="form-group m-3 col-md-4">
                             <label for="title">Content Title</label>
                             <input type="text" class="form-control" name='content_title' id="" placeholder="Add Title">
                         </div>
                         <div class="form-group m-3 col-md-4">
-                            <label for="file">File name:</label>
-                            <input type="file" name="userfile"  class="form-control" size="20" />
+                                <label for="category_type">CategoryName</label><br>
+                                <select name="categoryId" id="category_type" onchange="showOptions()" required
+                                    class="form-control" style='background-color: #dbdbdb;'>
+
+                                    <?php foreach($category as $cata):?>
+                                    <option value="<?php echo $cata['categoryId']; ?>">
+                                        <?php echo $cata['categoryName'];?>
+                                    </option>
+                                    <?php endforeach;?>
+                                </select>
                         </div>
                     </div>
-
-            <div class="form-row">
-                    <div class="form-group m-3 col-md-4">
-                        <label for="category_type">CategoryName</label><br>
-                        <select name="categoryId" id="category_type" onchange="showOptions()" required
-                            class="form-control" style='background-color: #dbdbdb;'>
-
-                            <?php foreach($category as $cata):?>
-                            <option value="<?php echo $cata['categoryId']; ?>">
-                                <?php echo $cata['categoryName'];?>
-                            </option>
-                            <?php endforeach;?>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group m-3 col-md-4">
-                        <label for="inputAddress2">Content Description</label>
-                        <textarea rows="1" cols="" class="form-control" id="inputAddress2" name='content_description'
-                              placeholder="Write the description here !!!!!" style='background-color: #dbdbdb;'></textarea>
-                    </div> 
-
                     <!-- PDF Type Dropdown (Hidden by default) -->
                     <div id="pdf_options" class="hidden form-group m-1 col-md-4">
                         <label for="pdf_type">Type of pdf files:</label>
@@ -175,11 +162,136 @@
                             <option value="gif">GIF</option>
                         </select>
                     </div>
-                
-            </div>
-            <button type="submit" class="btn btn-primary btn-sm m-3">Add here</button>
-            <button type="cancel" class="btn btn-dark ml-auto btn-sm m-3">reset</button>
+            <!-- Book Type Dropdown and Additional Fields (Hidden by default) -->
+                <div id="book_options" class="hidden form-group   m-1">
+                    <h3 class ='text-center'>Book Details</h3>
+                    <div class="row p-1">
+                            <div class="col-md-6">
+                                    <label for="book_title">Book Title:</label>
+                                    <input type="text" name="book_title" id="book_title" class="form-control" placeholder="Enter Book Title">
+                            </div>
+                            <div class="col-md-6">
+                                    <label for="book_author">Author:</label>
+                                    <input type="text" name="book_author" id="book_author" class="form-control" placeholder="Enter Author Name">
+                            </div>
+                    </div>
+                    <div class="row p-1">
+                            <div class="col-md-6">
+                                     <label for="book_publisher">Publisher:</label>
+                                    <input type="text" name="book_publisher" id="book_publisher" class="form-control" placeholder="Enter Publisher">
+                            </div>
+                            <div class="col-md-6">
+                                    <label for="book_isbn">ISBN:</label>
+                                    <input type="text" name="book_isbn" id="book_isbn" class="form-control" placeholder="Enter ISBN">
+                            </div>
+                    </div>
+                    <div class="row p-1">
+                            <div class="col-md-6">
+                                <label for="book_pages">Number of Pages:</label>
+                                <input type="number" name="book_pages" id="book_pages" class="form-control" placeholder="Enter Page Count">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="book_genre">Genre:</label>
+                                <input type="text" name="book_genre" id="book_genre" class="form-control" placeholder="Enter Genre">
+                            </div>
+                    </div>
+                </div>    
+            
+         <!--   Additional Fields Phone &  laptop box -->
+         <div id="electronics_options" class="hidden form-group   m-1">
+                <div class="row">
+                        <!-- Left Side -->
+                        <div class="col-md-6">
+                            <div class="form-group m-3">
+                                <label for="model_no">Model No</label>
+                                <input type="text" class="form-control" id="model_no" name="model_no" placeholder="Enter Model No">
+                            </div>
+                            <div class="form-group m-3">
+                                <label for="model_name">Model Name</label>
+                                <input type="text" class="form-control" id="model_name" name="model_name" placeholder="Enter Model Name">
+                            </div>
+                            <div class="form-group m-3">
+                                <label for="unit_price">Unit Price</label>
+                                <input type="number" class="form-control" id="unit_price" name="unit_price" placeholder="Enter Unit Price">
+                            </div>
+                            <div class="form-group m-3">
+                                <label for="category">Category</label>
+                                <select class="form-control" id="category" name="category">
+                                    <option value="">Select Category</option>
+                                    <?php foreach($categories as $category): ?>
+                                        <option value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="form-group m-3">
+                                <label for="supplier">Supplier</label>
+                                <input type="text" class="form-control" id="supplier" name="supplier" placeholder="Enter Supplier Name">
+                            </div>
+                            <div class="form-group m-3">
+                                <label for="department">Department</label>
+                                <input type="text" class="form-control" id="department" name="department" placeholder="Enter Department">
+                            </div>
+                        </div>
 
+                        <!-- Right Side -->
+                        <div class="col-md-6">
+                            <div class="form-group m-3">
+                                <label for="manufacturing_date">Manufacturing Date</label>
+                                <input type="date" class="form-control" id="manufacturing_date" name="manufacturing_date">
+                            </div>
+                            <div class="form-group m-3">
+                                <label for="warranty">Warranty (Months)</label>
+                                <input type="number" class="form-control" id="warranty" name="warranty" placeholder="Enter Warranty in Months">
+                            </div>
+                            <div class="form-group m-3">
+                                <label for="location">Location</label>
+                                <input type="text" class="form-control" id="location" name="location" placeholder="Enter Location">
+                            </div>
+                            <div class="form-group m-3">
+                                <label for="created_date">Created Date</label>
+                                <input type="text" class="form-control" id="created_date" name="created_date" value="<?php echo date('Y-m-d'); ?>" readonly>
+                            </div>
+                            <div class="form-group m-3">
+                                <label for="note">Note</label>
+                                <textarea class="form-control" id="note" name="note" rows="5" placeholder="Enter Notes"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Assign Employee Section -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5 class="text-center mt-4">Assign Employee</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Available Employees</label>
+                                    <select multiple class="form-control" id="available_employees" style="height: 150px;">
+                                        <?php foreach ($employees as $employee): ?>
+                                            <option value="<?php echo $employee['id']; ?>"><?php echo $employee['name']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Assigned Employees</label>
+                                    <select multiple class="form-control" id="assigned_employees" name="assigned_employees[]" style="height: 150px;">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                    <label for="inputAddress2">Content Description</label>
+                        <textarea rows="7" cols="45" class="form-control" id="inputAddress2" name='content_description'
+                              placeholder="Write the description here !!!!!" style='background-color: #dbdbdb;'></textarea>
+                    
+                    <div class="form-group m-1 ">
+                            <label for="file">Upload file here!!</label>
+                            <input type="file" name="userfile"  class="form-control" size="20" />
+                    </div>                    
+                   
+            <button type="submit" class="btn btn-primary btn-sm m-3">Publish</button>
+            <button type="cancel" class="btn btn-dark ml-auto btn-sm m-3">reset</button>
+            </div> 
             </form>
             <br>
         </div>
@@ -195,12 +307,17 @@ function showOptions() {
     var videoOptions = document.getElementById('video_options');
     var apkOptions = document.getElementById('apk_options');
     var imageOptions = document.getElementById('image_options');
+    var bookOptions = document.getElementById('book_options'); // Book options
+    var electronicsOptions = document.getElementById('electronics_options'); // andriod options
+
 
     // Hide all options by default
     PdfOptions.classList.add('hidden');
     videoOptions.classList.add('hidden');
     apkOptions.classList.add('hidden');
     imageOptions.classList.add('hidden');
+    bookOptions.classList.add('hidden');
+    electronicsOptions.classList.add('hidden');
 
     // Show relevant options based on selection
     if (documentType == '1') {
@@ -215,7 +332,14 @@ function showOptions() {
     } else if (documentType == '4') {
         apkOptions.classList.remove('hidden');
         document.getElementById('file').accept = ".apk";
-    } else {
+    } else if (documentType == '5') { // Assuming '5' is the ID for the book category
+        bookOptions.classList.remove('hidden');
+        document.getElementById('file').accept = ""; // Adjust if books need file uploads  
+    } else if (documentType == '6') { // Assuming '6' is the ID for the andriod category
+        electronicsOptions.classList.remove('hidden');
+        document.getElementById('file').accept = ""; // Adjust if books need file uploads    
+    }      
+    else {
         document.getElementById('file').accept = ""; // Default case, if needed
     }
 }

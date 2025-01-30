@@ -195,6 +195,7 @@ public function show_catentbystaff($staff_id)
       $this->db->join('categoryTable', 'ContentTable.categoryId = categoryTable.categoryId');
       $this->db->join('staffTable', 'ContentTable.staff_id = staffTable.staff_id');
       $this->db->where('ContentTable.staff_id',$staff_id);
+      $this->db->order_by('ContentTable.created_at', 'DESC');
 
       $query = $this->db->get();
       return $query->result(); 
@@ -204,9 +205,15 @@ public function show_all_content()
       $this->db->select('ContentTable.content_id, ContentTable.content_title,categoryTable.categoryId, categoryTable.categoryName, ContentTable.filename, ContentTable.content_description,ContentTable.created_at ');
       $this->db->from('ContentTable');
       $this->db->join('categoryTable', 'ContentTable.categoryId = categoryTable.categoryId');
+      $this->db->order_by('ContentTable.created_at', 'DESC');
       $query = $this->db->get();
       return $query->result(); 
     }
+public function countContentByOffice($staff_id) {
+        $this->db->where('office_id', $staff_id);
+        $this->db->where('is_active', 1); // Count only active staff
+        return $this->db->count_all_results('ContentTable');
+    }    
 // get staff data as profile data ifuser is logged in
 public function get_profile($user_id)
  {
@@ -307,16 +314,22 @@ public function countOrg() {
     $this->db->where('is_active', 1);
     return $this->db->count_all_results('OrganisationTable'); // Count records in OfficeTable
 }
-public function countDesignationsByOrg($org_id) {    {
-    $this->db->insert('OfficeTable',$data);
-    return $this->db->insert_id();
-} 
+// public function countDesignationsByOrg($org_id) {    {
+//     $this->db->insert('OfficeTable',$data);
+//     return $this->db->insert_id();
+// } 
+  
+//     $this->db->where('org_id', $org_id);
+//     $this->db->where('is_active', 1);
+//     // Count the results
+//     return $this->db->count_all_results('DesignationTable'); // Count records in DesignationTable
+// }
+public function countDesignationsByOrg($org_id) {
   
     $this->db->where('org_id', $org_id);
     $this->db->where('is_active', 1);
     // Count the results
     return $this->db->count_all_results('DesignationTable'); // Count records in DesignationTable
 }
-
 
  }

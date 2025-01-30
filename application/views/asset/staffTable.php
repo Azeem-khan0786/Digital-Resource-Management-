@@ -74,7 +74,11 @@ body {
                                     <td>Action</td>
                                 
                                 </tr>
-
+                                <?php if (empty($staffdata)): ?>
+                                <tr>
+                                    <td colspan="8" class="text-center"><b>No  have any staff Created  </b></td>
+                                </tr>
+                            <?php else: ?>
                                 <?php foreach ($staffdata as $row): ?>
 
                                 <tr>
@@ -101,6 +105,7 @@ body {
                                 </tr>
 
                                 <?php endforeach; ?>
+                                <?php endif; ?>
                             </table>
                         </div>
                     </div>
