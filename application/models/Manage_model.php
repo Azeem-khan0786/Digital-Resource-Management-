@@ -190,7 +190,7 @@ public function add_content($data) {
     }
 public function show_catentbystaff($staff_id)
     {
-      $this->db->select('ContentTable.content_id, ContentTable.content_title,categoryTable.categoryId, categoryTable.categoryName, ContentTable.filename, ContentTable.content_description,ContentTable.created_at ');
+      $this->db->select('categoryTable.categoryId, categoryTable.categoryName, ContentTable.*');
       $this->db->from('ContentTable');
       $this->db->join('categoryTable', 'ContentTable.categoryId = categoryTable.categoryId');
       $this->db->join('staffTable', 'ContentTable.staff_id = staffTable.staff_id');

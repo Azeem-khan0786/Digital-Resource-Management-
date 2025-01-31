@@ -101,23 +101,44 @@
                 <div class="card-header d-flex justify-content-between">
                     <div><i class="fas fa-table me-1 m-1"></i>Manage your content</div>
                 </div>
-                <div style="margin-left: 930px; margin-top: 10px;" ><a href="<?=base_url().'Management/content_add_form'?>" class="btn btn-primary btn-sm mb-3"> <b>+Add Digital Assets</b></a></div>
+                <div style="margin-left: 930px; margin-top: 10px;" ><a href="<?=base_url().'Management/content_add_form'?>" class="btn btn-primary btn-sm mb-1"> <b>+Add Digital Assets</b></a></div>
 
                 <div class="card-body">
                     
                         <?php foreach ($contents as $content): ?>
                             <div class="content-article">
-                                <div class="content-title"><?php echo $content->content_title; ?></div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="content-title"><?php echo $content->content_title; ?></div>
+                                    <div class="p-1 m-1">
+                                        <div class='row'><strong>ISBN:</strong> <?php echo !empty($content->ISBN) ? $content->ISBN : 'N/A'; ?></div>
+                                        <div class='row'><strong>Genre:</strong> <?php echo !empty($content->genre) ? $content->genre : 'N/A'; ?></div>
+                                    </div>
+                                </div>
+                                
                                 <div class="content-meta">
                                     <span><strong>Content ID:</strong> <?php echo $content->content_id; ?></span>
                                     <span><strong>Category:</strong> <?php echo $content->categoryName; ?></span>
                                     <span><strong>Created At:</strong> <?php echo date("F j, Y, g:i a", strtotime($content->created_at)); ?></span>
+                                    
                                 </div>
+                                <span><strong>Uploaded file:</strong> 
+                                    <?php if (!empty($content->filename)) : ?>
+                                        <a href="<?php echo base_url('uploads/' . $content->filename); ?>" target="_blank">
+                                            <?php echo $content->filename; ?>
+                                        </a>
+                                    <?php else : ?>
+                                        Not uploaded yet
+                                    <?php endif; ?>
+                                </span>
                                 <div class="content-description">
                                     <strong>Description:</strong>
                                     <p class="description-preview" id="desc-<?php echo $content->content_id; ?>"><?php echo $content->content_description; ?></p>
                                     <span class="read-more" id="read-more-<?php echo $content->content_id; ?>" onclick="toggleDescription(<?php echo $content->content_id; ?>)">Read More</span>
                                 </div>
+                                
+                                <?php if (!empty($content->num_of_pages)) : ?>
+                                    <span><strong>Pages :</strong> <?php echo $content->num_of_pages; ?></span>
+                                <?php endif; ?>
                                 <div class="content-actions">
                                     <a href="<?php echo base_url().'uploads/'.$content->filename; ?>" class="btn btn-success btn-sm" download>
                                         <i class="fa fa-download"></i> Download

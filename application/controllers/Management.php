@@ -572,6 +572,9 @@ public function content_add_form()
         $this->form_validation->set_rules('categoryId', 'Category ID');
         // $this->form_validation->set_rules('created_date', 'Created Date', 'required');
         $this->form_validation->set_rules('content_description', 'Content Description');
+        $this->form_validation->set_rules('ISBN', 'ISBN Number');
+        $this->form_validation->set_rules('num_of_pages', 'Number of Pages');
+        $this->form_validation->set_rules('genre', 'Content Genretion');
 
         if (!$this->form_validation->run()) {
             // Validation failed
@@ -613,7 +616,9 @@ public function content_add_form()
                 'content_title'       => $this->input->post('content_title'),
                 'categoryId'          => $this->input->post('categoryId'),
                 'content_description' => $this->input->post('content_description'),
-                // 'state'               => $this->input->post('state'),
+                'ISBN'               => $this->input->post('ISBN'),
+                'num_of_pages'       => $this->input->post('num_of_pages'),
+                'genre'              => $this->input->post('genre'),
                 'filename'            => $file_name,  // Save the filename to the database
                 'staff_id'            => $staff_id,    // Add the staff_id to the data
             ];
