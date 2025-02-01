@@ -108,7 +108,13 @@
                         <?php foreach ($contents as $content): ?>
                             <div class="content-article">
                                 <div class="d-flex justify-content-between">
-                                    <div class="content-title"><?php echo $content->content_title; ?></div>
+                                    
+                                    <div class="content-title"> 
+                                        <div><?php if (!empty($content->filename)) : ?> 
+                                          <img src="<?php echo base_url('uploads/' . $content->filename); ?>" alt="" style="width: 125px; height: 125px;">
+                                        <?php endif; ?></div> 
+                                    <h4><?php echo $content->content_title; ?> </h4>
+                                    </div>
                                     <div class="p-1 m-1">
                                         <div class='row'><strong>ISBN:</strong> <?php echo !empty($content->ISBN) ? $content->ISBN : 'N/A'; ?></div>
                                         <div class='row'><strong>Genre:</strong> <?php echo !empty($content->genre) ? $content->genre : 'N/A'; ?></div>
@@ -124,7 +130,7 @@
                                 <span><strong>Uploaded file:</strong> 
                                     <?php if (!empty($content->filename)) : ?>
                                         <a href="<?php echo base_url('uploads/' . $content->filename); ?>" target="_blank">
-                                            <?php echo $content->filename; ?>
+                                          <?php echo $content->filename; ?>
                                         </a>
                                     <?php else : ?>
                                         Not uploaded yet

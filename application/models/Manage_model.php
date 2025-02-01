@@ -202,7 +202,7 @@ public function show_catentbystaff($staff_id)
     }
 public function show_all_content()
     {
-      $this->db->select('ContentTable.content_id, ContentTable.content_title,categoryTable.categoryId, categoryTable.categoryName, ContentTable.filename, ContentTable.content_description,ContentTable.created_at ');
+      $this->db->select('categoryTable.categoryId, categoryTable.categoryName, ContentTable.*');
       $this->db->from('ContentTable');
       $this->db->join('categoryTable', 'ContentTable.categoryId = categoryTable.categoryId');
       $this->db->order_by('ContentTable.created_at', 'DESC');

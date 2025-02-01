@@ -167,32 +167,25 @@
                     <h3 class ='text-center'>Book Details</h3>
                     <div class="row p-1">
                             <div class="col-md-6">
-                                    <label for="book_title">Book Title:</label>
-                                    <input type="text" name="book_title" id="book_title" class="form-control" placeholder="Enter Book Title">
+                                    <label for="book_type">Book Type:</label>
+                                    <input type="text" name="book_type" id="book_type" class="form-control" placeholder="Enter Book Type">
                             </div>
-                            <div class="col-md-6">
-                                    <label for="book_author">Author:</label>
-                                    <input type="text" name="book_author" id="book_author" class="form-control" placeholder="Enter Author Name">
-                            </div>
-                    </div>
-                    <div class="row p-1">
-                            <div class="col-md-6">
-                                     <label for="book_publisher">Publisher:</label>
-                                    <input type="text" name="book_publisher" id="book_publisher" class="form-control" placeholder="Enter Publisher">
-                            </div>
+                            
                             <div class="col-md-6">
                                     <label for="book_isbn">ISBN:</label>
-                                    <input type="text" name="book_isbn" id="book_isbn" class="form-control" placeholder="Enter ISBN">
+                                    <input type="text" name="ISBN" id="book_isbn" class="form-control" placeholder="Enter ISBN">
                             </div>
                     </div>
+                    
+                    
                     <div class="row p-1">
                             <div class="col-md-6">
                                 <label for="book_pages">Number of Pages:</label>
-                                <input type="number" name="book_pages" id="book_pages" class="form-control" placeholder="Enter Page Count">
+                                <input type="number" name="num_of_pages" id="book_pages" class="form-control" placeholder="Enter Page Count">
                             </div>
                             <div class="col-md-6">
                                 <label for="book_genre">Genre:</label>
-                                <input type="text" name="book_genre" id="book_genre" class="form-control" placeholder="Enter Genre">
+                                <input type="text" name="genre" id="book_genre" class="form-control" placeholder="Enter Genre">
                             </div>
                     </div>
                 </div>    
