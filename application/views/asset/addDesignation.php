@@ -35,6 +35,10 @@ input[type=password] {
             <div class="col-md-10 ">
                 <div class="m-1">
                     <h5 class="text-center">Add New Designation</h5>
+                    
+                    <hr>
+                    
+
                     <?php if ($this->session->flashdata('message')): ?>
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         <p><?php echo $this->session->flashdata('message'); ?></p>
@@ -55,7 +59,7 @@ input[type=password] {
                     </div>
                     <?php endif; ?>
                     <form action="<?php echo base_url('Management/addDesignation'); ?>" method="post">
-                        <button type="submit" class="btn btn-primary btn-block">Add Designation</button>
+                        
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="catagoryName">Designation Name</label>
@@ -81,34 +85,28 @@ input[type=password] {
                             </div>
                         </div>
 
-                        <div class="form-group ">
+                        <!-- <div class="form-group">
                             <label for="">Select OrgLevel</label>
-                            <select name="org_id" id="" class="form-control" placeholder="Select Organisation Level"
-                                required>
+                            <select name="org_id" id="" class="form-control" required>
                                 <option value="">Select Organisation Level</option>
                                 <?php foreach($org_data as $org): ?>
                                 <option value="<?php echo $org['org_id']; ?>"
                                     <?php echo ($org['org_id'] == $selected_org_id) ? 'selected' : ''; ?>>
                                     <?php echo $org['org_name']; ?>
                                 </option>
-                                <?php endforeach;?>
+                                <?php endforeach; ?>
+                            </select>
+                        </div> -->
 
-                        </div>
 
 
-                        <!-- <button style=" z-index: 50;" type="submit" class="btn btn-primary btn-block">Add Designation</button> -->
+                         <button style=" z-index: 50;" type="submit" class="btn btn-primary btn-block">Add Designation</button>  
                     </form>
 
                     <!-- <button type="submit" class="btn btn-primary btn-block">Add Designation</button> -->
 
                 </div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis fuga fugit dolorem aspernatur ipsa!
-                    Fuga
-                    laborum corrupti numquam voluptas exercitationem eum neque repudiandae aut quos accusantium dolores,
-                    saepe,
-                    ducimus delectus molestias dolor quidem quisquam repellendus vero doloremque esse dolore! Quisquam,
-                    veniam
-                    quo. Nobis voluptates aspernatur voluptatibus facilis!</p>
+                
                 <!-- Optional JavaScript -->
                 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
                 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
