@@ -1,7 +1,7 @@
 <?php
  class Manage_model extends CI_Model {
 
-    //get DesignationData
+  //get DesignationData by organisation
 public function getDesignationdata($org_id)
  {   
     // Select all columns from the DesignationTable
@@ -12,6 +12,22 @@ public function getDesignationdata($org_id)
     $this->db->join("OrganisationTable", "OrganisationTable.org_id = DesignationTable.org_id", 'left'); 
     // Add a condition to filter by the provided org_id
     $this->db->where("DesignationTable.org_id", $org_id);
+    // Execute the query
+    $query = $this->db->get();
+    // Return the result as an array
+    return $query->result_array();
+}
+//get DesignationData by office
+public function getDesignationByOffice($office_id)
+ {   
+    // Select all columns from the DesignationTable
+    $this->db->select("*");
+    // Specify the table to query from
+    $this->db->from("DesignationTable");
+    // Join with OrganisationTable on office_id, using left join
+    $this->db->join("OfficeTable", "OfficeTable.office_id = DesignationTable.office_id", 'left'); 
+    // Add a condition to filter by the provided office_id
+    $this->db->where("DesignationTable.office_id", $office_id);
     // Execute the query
     $query = $this->db->get();
     // Return the result as an array
@@ -128,23 +144,30 @@ public function getOrgData() {
         return $query->result_array();
     }
     
-    // get data by Org_id
+// get Organisation data by Org_id
 public function getOrgDataById($org_id)
-    {
-        
-        $this->db->where('org_id', $org_id);
+    {    $this->db->where('org_id', $org_id);
         $query = $this->db->get('OrganisationTable');
         return $query->result_array();
-        
-    }
+     }
+// get Organisation data by staff_id    
+public function getOrgDataBystaffId($staff_id)
+    {   $this->db->where('staff_id', $staff_id);
+        $query = $this->db->get('OrganisationTable');
+        return $query->result_array();
+     }
+// get Office data by Org_id    
 public function getOfficeDataById($org_id)
-    {
-        
-        $this->db->where('org_id', $org_id);
+    {   $this->db->where('org_id', $org_id);
         $query = $this->db->get('OfficeTable');
         return $query->result_array();
-        
-    }    
+    } 
+// get Office data by staff_id
+public function getOfficeDataBystaffId($staff_id)
+    {   $this->db->where('staff_id', $staff_id);
+        $query = $this->db->get('OfficeTable');
+        return $query->result_array();
+     }        
 
 public function joinData()
     {
@@ -327,6 +350,13 @@ public function countOrg() {
 public function countDesignationsByOrg($org_id) {
   
     $this->db->where('org_id', $org_id);
+    $this->db->where('is_active', 1);
+    // Count the results
+    return $this->db->count_all_results('DesignationTable'); // Count records in DesignationTable
+}
+public function countDesignationsByOffice($office_id) {
+  
+    $this->db->where('office_id', $office_id);
     $this->db->where('is_active', 1);
     // Count the results
     return $this->db->count_all_results('DesignationTable'); // Count records in DesignationTable

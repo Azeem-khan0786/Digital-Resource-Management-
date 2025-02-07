@@ -34,6 +34,7 @@
             </div>
             <div class="col-md-9 col-lg-10 col-sm-12">
                 <main>
+
                     <div class="">
                         <h3 class="mt-4">Dashboard</h3>
                         <ol class="breadcrumb mb-4">
@@ -103,7 +104,7 @@
                             </div>
                             <?php endif;?>
                             <?php if ($this->session->userdata('desig_level') == 3): ?>
-                            <div class="col-xl-4 col-md-6 col-sm-12 p-3">
+                            <div class="col-xl-4 col-md-4  p-3">
                                 <div class="card text-white mb-4" style='background: #4d88ff;'>
                                     <div class="card-body"> Total Category :
                                         <b><?php echo $this->db->count_all('categoryTable'); ?> records</b>
@@ -115,7 +116,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-4 col-md-6 col-sm-12 p-3">
+                            <div class="col-xl-4 col-md-4  p-3">
                                 <div class="card text-white mb-4" style='background: #66a3ff;'>
                                     <?php $staff_count_off = $this->Manage_model->countStaffByOffice($office_id);?>
                                     <div class="card-body">Total Staff :
@@ -129,10 +130,8 @@
                                 </div>
                             </div>
 
-                            <div class="col-xl-4 col-md-6 col-sm-12 p-3">
+                            <div class="col-xl-4 col-md-4  p-3">
                                 <div class="card text-white mb-4" style='background: #666699;'>
-                               
-
                                     <div class="card-body">Total Content :
                                         <b><?php echo $this->db->count_all('ContentTable'); ?> records</b>
                                     </div>
@@ -142,12 +141,27 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-xl-4 col-md-4  p-3">
+                                <div class="card text-white mb-4" style="background-color:#1a8cff;">
+                                    <?php $desig_count = $this->Manage_model->countDesignationsByOffice($office_id);?>
+                                    <div class="card-body">Total Designation :
+                                        <b><?php echo $desig_count; ?>
+                                            records</b>
+                                    </div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="nav-link text-white"
+                                            href="<?= base_url() . 'Management/getDesignationByOffice' ?>">View
+                                            as Table</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
                             <?php endif;?>
                             
                             <?php
                                 if ($this->session->userdata('desig_level') == 4) {
                                     // Redirect to the specified URL
-                                    redirect('http://localhost/DigitalAssets/Management/showcontentbystaff');
+                                    redirect('Management/showcontentbystaff');
                                 }
                                 ?>
                         </div>

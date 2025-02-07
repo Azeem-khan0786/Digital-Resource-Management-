@@ -16,14 +16,12 @@
 body {
     font-size: 14px;
 }
-
 input[type=text],
 input[type=date],
 input[type=password] {
     font-size: 12px;
 }
 </style>
-
 <body>
     <?php $this->load->view('asset/assetNavbar'); ?>
 
@@ -34,11 +32,12 @@ input[type=password] {
             </div>
             <div class="col-md-10 ">
                 <div class="m-1">
-                    <h5 class="text-center">Add New Designation</h5>
-                    
+                    <h4 class="text-center">Add New Designation</h4>
+                    <h5 class='' style ='margin-left:920px;'> <?php foreach ($companies as $row): ?>
+                            <b><?php echo $row['org_name']; ?></b>
+                        <?php endforeach; ?>
+                    </h5>
                     <hr>
-                    
-
                     <?php if ($this->session->flashdata('message')): ?>
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         <p><?php echo $this->session->flashdata('message'); ?></p>
@@ -59,7 +58,6 @@ input[type=password] {
                     </div>
                     <?php endif; ?>
                     <form action="<?php echo base_url('Management/addDesignation'); ?>" method="post">
-                        
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="catagoryName">Designation Name</label>
@@ -73,18 +71,22 @@ input[type=password] {
                                     value="<?php echo set_value('desig_level')?>" placeholder='Add Assigned level....'
                                     required>
                             </div> -->
+                            <?php 
+                            $desig_level = $this->session->userdata('desig_level'); // Get logged-in user's designation level
+                            $allowed_levels = range($desig_level + 1, 4); // Generate allowed levels (e.g., if 2 → [3,4])
+                            ?>
                             <div class="form-group col-md-6">
                                 <label for="catagoryName">Designation Assigned Level</label>
                                 <select class="form-control" name="desig_level" required>
                                     <option value="">Select Assigned Level...</option>
-                                    <option value="1" <?php echo set_select('desig_level', '1'); ?>>1</option>
-                                    <option value="2" <?php echo set_select('desig_level', '2'); ?>>2</option>
-                                    <option value="3" <?php echo set_select('desig_level', '3'); ?>>3</option>
-                                    <option value="4" <?php echo set_select('desig_level', '4'); ?>>4</option>
+                                    <?php foreach ($allowed_levels as $level): ?>
+                                        <option value="<?php echo $level; ?>" <?php echo set_select('desig_level', $level); ?>>
+                                            <?php echo $level; ?>
+                                        </option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
                         </div>
-
                         <!-- <div class="form-group">
                             <label for="">Select OrgLevel</label>
                             <select name="org_id" id="" class="form-control" required>
@@ -97,14 +99,8 @@ input[type=password] {
                                 <?php endforeach; ?>
                             </select>
                         </div> -->
-
-
-
-                         <button style=" z-index: 50;" type="submit" class="btn btn-primary btn-block">Add Designation</button>  
+                        <button style=" z-index: 50;" type="submit" class="btn btn-primary btn-block">Add Designation</button>  
                     </form>
-
-                    <!-- <button type="submit" class="btn btn-primary btn-block">Add Designation</button> -->
-
                 </div>
                 
                 <!-- Optional JavaScript -->

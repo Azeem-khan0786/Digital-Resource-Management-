@@ -58,7 +58,7 @@ body {
                         required>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <!-- <div class="form-group col-md-6">
                         <label for="org_id">select Organisation </label>
                         <select name="org_id" id="org_id" class="form-control"
                             placeholder="what is your master organisation" required>
@@ -70,11 +70,11 @@ body {
                             </option>
                             <?php endforeach;?>
                         </select>
-                    </div>
-                    <div class="form-group col-md-6">
+                    </div> -->
+                    <!-- <div class="form-group col-md-6">
                         <label for="catagoryName">created_Date </label>
                         <input type="date" class="form-control" name='created_at' placeholder='....' required>
-                    </div>
+                    </div> -->
 
                 </div>
                 <div class="form-row">
