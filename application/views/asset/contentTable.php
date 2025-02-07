@@ -97,10 +97,16 @@
                 <?php $this->load->view('asset/DashSidebar'); ?>
             </div>
             <div class="col-md-10">
-
+                
                 <div class="card-header d-flex justify-content-between">
                     <div><i class="fas fa-table me-1 m-1"></i>Manage your content</div>
                     <!-- <?php $this->load->view('asset/base'); ?> -->
+                    <div class="card  mb-1" style="background-color:#99bbff;">
+                        <?php $content_count = $this->Manage_model->countcontenbyoffices();?>
+                        <div class="card-body">Total content:
+                            <b><?php echo $content_count;  ?> records</b>
+                        </div> 
+                    </div>
                 </div>
                 
                 <div style="margin-left: 930px; margin-top: 10px;" ><a href="<?=base_url().'Management/content_add_form'?>" class="btn btn-primary btn-sm mb-1"> <b>+Add Digital Assets</b></a></div>

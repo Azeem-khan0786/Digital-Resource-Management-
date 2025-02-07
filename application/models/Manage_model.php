@@ -361,5 +361,11 @@ public function countDesignationsByOffice($office_id) {
     // Count the results
     return $this->db->count_all_results('DesignationTable'); // Count records in DesignationTable
 }
-
+//Count total content by office admin
+public function countcontenbyoffices() {
+    // $org_id = $this->session->userdata('org_id'); // Get org_id from session
+    // $this->db->where('office_id', $office_id);
+    // $this->db->where('is_active', 1);
+    return $this->db->count_all_results('ContentTable'); // Count records in OfficeTable
+}
  }
