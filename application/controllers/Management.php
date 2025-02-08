@@ -56,7 +56,9 @@ public function login()
             $staff_password = $this->input->post('staff_password');     
             // Attempt to log in
             $staff = $this->Manage_model->login($staff_email, $staff_password);
-            $designationName = $this->Manage_model->getDesignationName($staff->Designation_id);
+            // getOrganisationName($org_id)
+             $org_name = $this->Manage_model->getOrganisationName($staff->org_id);
+             $designationName = $this->Manage_model->getDesignationName($staff->Designation_id);
             // $designationName = getDesignationName($staff->Designation_id);
             if ($staff) {
                 // Successful login
@@ -67,13 +69,14 @@ public function login()
                     'staff_password' => $staff->staff_password, // This should be avoided; it's better to not store passwords in the session
                     'org_id'=>$staff->org_id,
                     'Designation_id' => $staff->Designation_id,
-                    'Designation_name' => $designationName, // Add the designation name here
                     'office_id' => $staff->office_id,
                     // 'office_name' => $staff->office_name,
+                    'org_name'=>$org_name,
+                    'Designation_name' => $designationName, // Add the designation name here
                     'desig_level'=>$staff->desig_level,
                     'authenticated' => TRUE
                 ); 
-            //    print_r($staffdata);
+            //    print_r('Print session data at login time '$staffdata);
             //    die();
                 // Set session data
                 $this->session->set_userdata($staffdata);
@@ -510,7 +513,7 @@ public function get_create_admin($admin_data)
 //     }
 
 public function addDesignation()
-{   
+ {   
     $org_id = $this->session->userdata('org_id');
     $desig_level = $this->session->userdata('desig_level'); // Get session desig_level
     $staff_id = $this->session->userdata('staff_id');
@@ -553,8 +556,7 @@ public function addDesignation()
             redirect(base_url() . "Management/addDesignation");
         }
     }
-}
-
+ }
 
     //2.2 get DesignationTable
 public function getDesignation()

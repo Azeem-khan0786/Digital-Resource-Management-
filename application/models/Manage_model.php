@@ -299,8 +299,9 @@ public function delStaff($staff_id)
     $this->db->where('staff_id', $staff_id);
     return $this->db->update('staffTable', ['is_active' => 0]);
  }
-
- public function getDesignationName($Designation_id) {
+// get getDesignationName using session 
+public function getDesignationName($Designation_id) 
+{
     // Use Query Builder to fetch the designation name
     $this->db->select('Designation_name');
     $this->db->from('DesignationTable');
@@ -311,6 +312,23 @@ public function delStaff($staff_id)
     if ($query->num_rows() > 0) {
         // Return the designation name
         return $query->row()->Designation_name; // Assuming only one row is returned
+    }
+
+    return null; // Return null if no result found
+}
+// get getOrganisationName using session 
+public function getOrganisationName($org_id) 
+{
+    // Use Query Builder to fetch the org name
+    $this->db->select('org_name');
+    $this->db->from('OrganisationTable');
+    $this->db->where('org_id', $org_id);
+    $query = $this->db->get();
+
+    // Check if any result is returned
+    if ($query->num_rows() > 0) {
+        // Return the org name
+        return $query->row()->org_name; // Assuming only one row is returned
     }
 
     return null; // Return null if no result found

@@ -48,6 +48,15 @@ td {
                             <?php echo $row['org_name']; ?>
                         <?php endforeach; ?>
                     </h4>
+                    <!-- use org org_name -->
+                    <?php if ($this->session->userdata('org_name')): ?>
+                          <p>org_name: <?php echo $this->session->userdata('org_name'); ?></p>
+                    <?php endif; ?>
+                    <!--  use span organisation/office/designation/assets -->
+                    <?php if ($this->session->userdata('Designation_name')): ?>
+                          <p>Designation: <?php echo $this->session->userdata('Designation_name'); ?></p>
+                    <?php endif; ?>
+                    
            </ol>
 
                 <div class="card mb-4">
@@ -99,7 +108,14 @@ td {
                 </div>
             </div>
         </div>
-
+    <!-- use org org_name -->
+    <?php if ($this->session->userdata('org_name')): ?>
+                          <p>org_name: <?php echo $this->session->userdata('org_name'); ?></p>
+                    <?php endif; ?>
+                    <!--  use span organisation/office/designation/assets -->
+                    <?php if ($this->session->userdata('Designation_name')): ?>
+                          <p>Designation: <?php echo $this->session->userdata('Designation_name'); ?></p>
+                    <?php endif; ?>
     </div>
 
 
