@@ -47,9 +47,12 @@ body {
             <div class="row">
                 <div class="col-md-2"><?php $this->load->view('asset/DashSidebar'); ?></div>
                 <div class="col-md-10">
+                <?php $this->load->view('asset/base'); ?>
                     <!-- <h5 class="text-center">Registered Staff Table</h5><br> -->
                     <ol class=" text-center breadcrumb mb-4 mt-3 "><h5 class=" mr-auto text-center">Registered Staff Table</h5></ol>
+                    
                     <div class="card ">
+                    
                         <div class="card-header d-flex justify-content-between">
                             <div><i class="fas fa-table me-1 m-1"></i>Registered Staff Data</div>
                             <?php if (!$this->session->userdata('desig_level') != 4): ?>

@@ -30,6 +30,7 @@ td {
         <div class="row">
             <div class="col-md-2"><?php $this->load->view('asset/DashSidebar'); ?></div>
             <div class="col-md-10">
+            <?php $this->load->view('asset/base'); ?>
             <?php $this->load->view('asset/cardPage'); ?>
                 <!-- <h5 class="text-center">Organisation Table</h5><br> -->
                 <!-- <ol class=" text-center breadcrumb mb-4 mt-3 ">

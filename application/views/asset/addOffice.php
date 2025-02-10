@@ -29,6 +29,7 @@ body {
                 <?php $this->load->view('asset/DashSidebar'); ?>
             </div>
             <div class="col-md-10 ">
+                <?php $this->load->view('asset/base'); ?>
                 <div class="  m-1">
         <h5 class="text-center"><b>Add Organisation's Office </b></h5>
         <?php if ($this->session->flashdata('message')): ?>

@@ -29,6 +29,7 @@ body {
             </div>
             <div class="col-md-10 ">
                 <div class="m-1">
+                <?php $this->load->view('asset/base'); ?>
                     <h5 class="text-center"><b>Register your staff here </b></h5>
                     <?php if ($this->session->flashdata('message')): ?>
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">

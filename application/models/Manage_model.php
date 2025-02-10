@@ -333,6 +333,23 @@ public function getOrganisationName($org_id)
 
     return null; // Return null if no result found
  }
+ public function getOfficeName($office_id) 
+ {
+     // Use Query Builder to fetch the office name
+     $this->db->select('office_name');
+     $this->db->from('OfficeTable');
+     $this->db->where('office_id', $office_id);
+     $query = $this->db->get();
+ 
+     // Check if any result is returned
+     if ($query->num_rows() > 0) {
+         // Return the office name
+         return $query->row()->office_name; // Assuming only one row is returned
+     }
+ 
+     return null; // Return null if no result found
+  }
+
  public function countStaffByOrg($org_id) {
     $this->db->where('org_id', $org_id);
     $this->db->where('is_active', 1); // Count only active staff

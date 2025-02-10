@@ -26,6 +26,7 @@ tr {
         <div class="row">
             <div class="col-md-2"><?php $this->load->view('asset/DashSidebar'); ?></div>
             <div class="col-md-10">
+            <?php $this->load->view('asset/base'); ?>
         
             <?php $this->load->view('asset/cardPage'); ?>
                 <!-- <h5 class="text-center"> Orgnisation's Office Table </h5><br> -->

@@ -24,6 +24,7 @@ body {
                 <?php $this->load->view('asset/DashSidebar'); ?>
             </div>
             <div class="col-md-10">
+            <?php $this->load->view('asset/base'); ?>
                 <?php if (isset($validation_errors)): ?>
                 <div style="color: red;">
                     <?php echo $validation_errors; ?>

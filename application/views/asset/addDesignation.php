@@ -31,12 +31,9 @@ input[type=password] {
                 <?php $this->load->view('asset/DashSidebar'); ?>
             </div>
             <div class="col-md-10 ">
+            <?php $this->load->view('asset/base'); ?>
                 <div class="m-1">
                     <h4 class="text-center">Add New Designation</h4>
-                    <h5 class='' style ='margin-left:920px;'> <?php foreach ($companies as $row): ?>
-                            <b><?php echo $row['org_name']; ?></b>
-                        <?php endforeach; ?>
-                    </h5>
                     <hr>
                     <?php if ($this->session->flashdata('message')): ?>
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">

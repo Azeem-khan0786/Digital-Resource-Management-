@@ -33,10 +33,12 @@
                 <?php $this->load->view('asset/DashSidebar'); ?>
             </div>
             <div class="col-md-9 col-lg-10 col-sm-12">
+            <?php $this->load->view('asset/base'); ?>
                 <main>
 
                     <div class="">
                         <h3 class="mt-4">Dashboard</h3>
+                        
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>

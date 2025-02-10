@@ -42,22 +42,9 @@ td {
         <div class="row">
             <div class="col-md-2"><?php $this->load->view('asset/DashSidebar'); ?></div>
             <div class="col-md-10">
-            <ol class=" text-center breadcrumb mb-4 mt-3 "><h5 class=" mr-auto text-center">Designation Table</h5>
-                    <h4> 
-                        <?php foreach ($companies as $row): ?>
-                            <?php echo $row['org_name']; ?>
-                        <?php endforeach; ?>
-                    </h4>
-                    <!-- use org org_name -->
-                    <?php if ($this->session->userdata('org_name')): ?>
-                          <p>org_name: <?php echo $this->session->userdata('org_name'); ?></p>
-                    <?php endif; ?>
-                    <!--  use span organisation/office/designation/assets -->
-                    <?php if ($this->session->userdata('Designation_name')): ?>
-                          <p>Designation: <?php echo $this->session->userdata('Designation_name'); ?></p>
-                    <?php endif; ?>
-                    
-           </ol>
+            <?php $this->load->view('asset/base'); ?>
+            <ol class=" text-center breadcrumb mb-4 mt-3 "><h5 class=" mr-auto text-center">Designation Table</h5>  </ol>
+           
 
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between">
@@ -102,20 +89,22 @@ td {
                         <?php endif; ?>
                     </table>
 
-                     
-                        
-                    </div>
+                     </div>
                 </div>
             </div>
         </div>
+    <!-- use office name -->
+    <?php if ($this->session->userdata('office_name')): ?>
+            <p>office_name: <?php echo $this->session->userdata('office_name'); ?></p>
+    <?php endif; ?>
     <!-- use org org_name -->
     <?php if ($this->session->userdata('org_name')): ?>
-                          <p>org_name: <?php echo $this->session->userdata('org_name'); ?></p>
-                    <?php endif; ?>
-                    <!--  use span organisation/office/designation/assets -->
-                    <?php if ($this->session->userdata('Designation_name')): ?>
-                          <p>Designation: <?php echo $this->session->userdata('Designation_name'); ?></p>
-                    <?php endif; ?>
+             <p>org_name: <?php echo $this->session->userdata('org_name'); ?></p>
+    <?php endif; ?>
+    <!--  use span organisation/office/designation/assets -->
+    <?php if ($this->session->userdata('Designation_name')): ?>
+            <p>Designation: <?php echo $this->session->userdata('Designation_name'); ?></p>
+    <?php endif; ?>
     </div>
 
 

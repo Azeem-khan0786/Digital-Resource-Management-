@@ -75,6 +75,7 @@
                 <?php $this->load->view('asset/DashSidebar'); ?>
             </div>
             <div class="col-md-10">
+            <?php $this->load->view('asset/base'); ?>
                 <h4 class="text-center "><b>Add Digital Resources</b></h4>
                 <?php if ($this->session->flashdata('success')): ?>
                     <div class="alert alert-success">

@@ -1,10 +1,23 @@
-<div style="display: flex; justify-content: flex-end; gap: 5px; font-size: 18px; font-weight: bold;">
-    
-    <span>Heading 2</span> /
-    <span>Heading 3</span> /
-    <span>Heading 4</span>
-    <h5 class='' style ='margin-left:920px;'> <?php foreach ($companies as $row): ?>
-                            <b><?php echo $row['org_name']; ?></b>
-                        <?php endforeach; ?>
-                    </h5>
+<div style="display: flex; justify-content: flex-end; gap: 10px; font-size: 18px; font-weight: bold; align-items: center;">
+    <span>
+        <?php if ($this->session->userdata('org_name')): ?>
+            <p style="margin: 0;"><?php echo $this->session->userdata('org_name'); ?></p>
+        <?php endif; ?>
+    </span> 
+    <?php if ($this->session->userdata('org_name') && $this->session->userdata('office_name')): ?>
+        <span>/</span>
+    <?php endif; ?>
+    <span>
+        <?php if ($this->session->userdata('office_name')): ?>
+            <p style="margin: 0;"><?php echo $this->session->userdata('office_name'); ?></p>
+        <?php endif; ?>
+    </span>
+    <?php if (($this->session->userdata('org_name') || $this->session->userdata('office_name')) && $this->session->userdata('Designation_name')): ?>
+        <span>/</span>
+    <?php endif; ?>
+    <span>
+        <?php if ($this->session->userdata('Designation_name')): ?>
+            <p style="margin: 0;"><?php echo $this->session->userdata('Designation_name'); ?></p>
+        <?php endif; ?>
+    </span>
 </div>

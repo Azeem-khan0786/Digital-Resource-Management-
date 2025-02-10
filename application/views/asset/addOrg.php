@@ -48,7 +48,7 @@ body {
                 <?php $this->load->view('asset/DashSidebar'); ?>
             </div>
             <div class="col-md-10  ">
-
+            <?php $this->load->view('asset/base'); ?>
                 <div class="p-3 m-1 " style='background-color:;'>
                     <form action="<?php echo base_url('Management/addOrg'); ?>" method='post' class="">
                         <h5 class="text-center"><b>Add Organisation</b></h5>

@@ -58,6 +58,7 @@ public function login()
             $staff = $this->Manage_model->login($staff_email, $staff_password);
             // getOrganisationName($org_id)
              $org_name = $this->Manage_model->getOrganisationName($staff->org_id);
+             $office_name = $this->Manage_model->getOfficeName($staff->office_id);
              $designationName = $this->Manage_model->getDesignationName($staff->Designation_id);
             // $designationName = getDesignationName($staff->Designation_id);
             if ($staff) {
@@ -70,7 +71,7 @@ public function login()
                     'org_id'=>$staff->org_id,
                     'Designation_id' => $staff->Designation_id,
                     'office_id' => $staff->office_id,
-                    // 'office_name' => $staff->office_name,
+                    'office_name' => $office_name,
                     'org_name'=>$org_name,
                     'Designation_name' => $designationName, // Add the designation name here
                     'desig_level'=>$staff->desig_level,

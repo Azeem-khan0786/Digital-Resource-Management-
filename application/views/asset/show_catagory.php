@@ -26,6 +26,7 @@ body {
                 <?php $this->load->view('asset/DashSidebar'); ?>
             </div>
             <div class="col-md-10 w-100 ">
+            <?php $this->load->view('asset/base'); ?>
                 <main>
                     <div class="">
                     <?php $this->load->view('asset/cardPage'); ?>
