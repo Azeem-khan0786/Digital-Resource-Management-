@@ -742,6 +742,12 @@ public function profile()
         $data['profile'] = $this->Manage_model->get_profile($user_id);
         $this->load->view('asset/profile', $data);
     }
+public function user_info($user_id)
+    {
+        // $user_id = $this->session->userdata('staff_id');
+        $data['profile'] = $this->Manage_model->get_profile($user_id);
+        $this->load->view('asset/profile', $data);
+    }    
     // Select nested options    
 public function delOrg($org_id)
     {

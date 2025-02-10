@@ -84,9 +84,9 @@ body {
                             <?php else: ?>
                                 <?php foreach ($staffdata as $row): ?>
 
-                                <tr>
+                                <tr> 
                                     <td><?php echo $row['staff_id']; ?></td>
-                                    <td><?php echo $row['staff_name']; ?></td>
+                                    <td><a href="<?= base_url('Management/user_info/'.$row['staff_id']) ?>"><?php echo $row['staff_name']; ?></a></td>
                                     <td><?php echo $row['staff_email']; ?></td>
                                     <td><?php echo $row['Designation_name']; ?> </td>
                                     <!-- <td><?php echo $row['org_name']; ?></td> -->

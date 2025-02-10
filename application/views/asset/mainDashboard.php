@@ -31,6 +31,7 @@
         <div class="row">
             <div class="col-md-3 col-lg-2 d-none d-md-block">
                 <?php $this->load->view('asset/DashSidebar'); ?>
+
             </div>
             <div class="col-md-9 col-lg-10 col-sm-12">
             <?php $this->load->view('asset/base'); ?>
@@ -105,7 +106,7 @@
                                 </div>
                             </div>
                             <?php endif;?>
-                            <?php if ($this->session->userdata('desig_level') == 3): ?>
+                            <?php if (($this->session->userdata('desig_level') == 3) ): ?>
                             <div class="col-xl-4 col-md-4  p-3">
                                 <div class="card text-white mb-4" style='background: #4d88ff;'>
                                     <div class="card-body"> Total Category :

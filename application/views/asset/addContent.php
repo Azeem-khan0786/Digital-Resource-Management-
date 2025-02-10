@@ -280,7 +280,7 @@
                     
                     <div class="form-group m-1 ">
                             <label for="file">Upload file here!!</label>
-                            <input type="file" name="userfile"  class="form-control" size="20" />
+                            <input type="file" name="userfile"  class="form-control" size="20" required />
                     </div>                    
                    
             <button type="submit" class="btn btn-primary btn-sm m-3">Publish</button>
@@ -343,25 +343,26 @@ function validateFileType() {
     var fileInput = document.getElementById('file');
     var file = fileInput.files[0];
     var fileError = document.getElementById('fileError');
-
+    var selectedImageType = document.getElementById('image_type').value; // Get selected image type
+    
     if (!file) return; // No file selected yet
 
     var fileType = file.name.split('.').pop().toLowerCase(); // Get file extension
     var validTypes = [];
 
     // Determine valid types based on document type
-    if (documentType =='1') {
+    if (documentType == '1') {
         validTypes = ['pdf'];
-    }else if (documentType =='3') {
+    } else if (documentType == '3') {
         validTypes = ['mp4', 'mov', 'avi'];
-    } else if (documentType =='4') {
+    } else if (documentType == '4') {
         validTypes = ['apk'];
-    } else if (documentType =='2') {
-        var selectedImageType = document.getElementById('image_type').value;
+    } else if (documentType == '2') {
+        // Check if an image type is selected
         if (selectedImageType) {
             validTypes = [selectedImageType];
         } else {
-            validTypes = ['png', 'jpg', 'jpeg', 'gif']; // Default image types
+            validTypes = ['png', 'jpg', 'jpeg', 'gif']; // Default to these image types if none selected
         }
     }
 
@@ -376,6 +377,7 @@ function validateFileType() {
 
 // Attach validation when file input changes
 document.getElementById('file').addEventListener('change', validateFileType);
+
 </script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">

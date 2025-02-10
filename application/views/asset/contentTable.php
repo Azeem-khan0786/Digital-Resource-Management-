@@ -130,9 +130,12 @@
                                 </div>
                                 
                                 <div class="content-meta">
-                                    <span><strong>Content ID:</strong> <?php echo $content->content_id; ?></span>
-                                    <span><strong>Category:</strong> <?php echo $content->categoryName; ?></span>
-                                    <span><strong>Created At:</strong> <?php echo date("F j, Y, g:i a", strtotime($content->created_at)); ?></span>
+                                
+                                <span><strong>Publisher: </strong><a href="<?= base_url('Management/user_info/' . $content->staff_id); ?>"><?= htmlspecialchars($content->staff_name); ?></a></span>
+
+                                    <span><strong>Content ID :</strong> <?php echo $content->content_id; ?></span>
+                                    <span><strong>Category :</strong> <?php echo $content->categoryName; ?></span>
+                                    <span><strong>Created At :</strong> <?php echo date("F j, Y, g:i a", strtotime($content->created_at)); ?></span>
                                     
                                 </div>
                                 <span><strong>Uploaded file:</strong> 

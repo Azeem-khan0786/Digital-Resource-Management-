@@ -216,6 +216,8 @@ public function show_catentbystaff($staff_id)
       $this->db->select('categoryTable.categoryId, categoryTable.categoryName, ContentTable.*');
       $this->db->from('ContentTable');
       $this->db->join('categoryTable', 'ContentTable.categoryId = categoryTable.categoryId');
+    //   $this->db->join('staffTable', 'ContentTable.staff_id = staffTable.staff_id');
+
       $this->db->join('staffTable', 'ContentTable.staff_id = staffTable.staff_id');
       $this->db->where('ContentTable.staff_id',$staff_id);
       $this->db->order_by('ContentTable.created_at', 'DESC');
@@ -225,9 +227,10 @@ public function show_catentbystaff($staff_id)
     }
 public function show_all_content()
     {
-      $this->db->select('categoryTable.categoryId, categoryTable.categoryName, ContentTable.*');
+        $this->db->select('categoryTable.categoryId, categoryTable.categoryName, staffTable.staff_name,ContentTable.*');
       $this->db->from('ContentTable');
       $this->db->join('categoryTable', 'ContentTable.categoryId = categoryTable.categoryId');
+      $this->db->join('staffTable', 'ContentTable.staff_id = staffTable.staff_id');
       $this->db->order_by('ContentTable.created_at', 'DESC');
       $query = $this->db->get();
       return $query->result(); 
