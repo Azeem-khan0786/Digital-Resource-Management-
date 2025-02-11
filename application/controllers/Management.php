@@ -25,8 +25,16 @@ public function index()
         }
         
     }
+public function OfficeDashboard($office_id)
+    {
+        $data['office_id'] = $office_id;  // Pass office_id to view
+        $data['staff_count_off'] = $this->Manage_model->countStaffByOffice($office_id);
+        
+        $this->load->view('asset/office_dashboard', $data);
+    }    
 public function mainDashboard()
     {
+        // $this->session->userdata('flag') == 3
         $this->load->view('asset/mainDashboard');
     }
     //  private login staff 
@@ -75,7 +83,8 @@ public function login()
                     'org_name'=>$org_name,
                     'Designation_name' => $designationName, // Add the designation name here
                     'desig_level'=>$staff->desig_level,
-                    'authenticated' => TRUE
+                    'authenticated' => TRUE,
+                    'flag' => false
                 ); 
             //    print_r('Print session data at login time '$staffdata);
             //    die();
@@ -89,7 +98,7 @@ public function login()
                 //         redirect(base_url() . 'Management/mainDashboard');
                 //      }
                 // elseif ($this->session->userDeshdata('desig_level') ) {
-                    
+                // $this->load->view('asset/mainDashboard', $staffdata);
                 redirect(base_url() . 'Management/mainDashboard');
                 // }     
                 
@@ -679,6 +688,9 @@ public function content_add_form()
             }
             // Get the staff_id from session
               $staff_id = $this->session->userdata('staff_id');
+              $office_id = $this->session->userdata('office_id');
+              $org_id = $this->session->userdata('org_id');
+
             // Prepare data for insertion
             $data = [
                 'content_title'       => $this->input->post('content_title'),
@@ -690,6 +702,8 @@ public function content_add_form()
                 'genre'              => $this->input->post('genre'),
                 'filename'            => $file_name,  // Save the filename to the database
                 'staff_id'            => $staff_id,    // Add the staff_id to the data
+                'org_id'            => $org_id, 
+                'office_id'            => $office_id, 
             ];
 
             if ($this->Manage_model->add_content($data)) {
@@ -712,13 +726,11 @@ public function content_add_form()
 public function showcontentbystaff()      // method to show all content by indivitual  staff
     {   $staff_id = $this->session->userdata('staff_id');
         $data['contents'] = $this->Manage_model->show_catentbystaff($staff_id);
-
-
         $this->load->view('asset/contentTable', $data);
     }
-public function showcontent()    // methdd to show content by officeAdmin
-    {  
-        $data['contents'] = $this->Manage_model->show_all_content();
+public function showcontentbyOffice()    // methdd to show content by officeAdmin
+    {  $office_id = $this->session->userdata('office_id');
+        $data['contents'] = $this->Manage_model->show_all_contentbyOffice($office_id);
         $this->load->view('asset/contentTable', $data);
     }    
         

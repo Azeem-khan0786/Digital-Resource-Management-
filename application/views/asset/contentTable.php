@@ -100,13 +100,27 @@
             <?php $this->load->view('asset/base'); ?>
                 <div class="card-header d-flex justify-content-between">
                     <div><i class="fas fa-table me-1 m-1"></i>Manage your content</div>
-                     
-                    <div class="card  mb-1" style="background-color:#99bbff;">
-                        <?php $content_count = $this->Manage_model->countcontenbyoffices();?>
-                        <div class="card-body">Total content:
-                            <b><?php echo $content_count;  ?> records</b>
-                        </div> 
-                    </div>
+                    <?php if ($this->session->userdata('desig_level') == 3): ?>
+                        <div class="card  mb-1" style="background-color:#99bbff;">
+                           <?php $office_id = $this->session->userdata('office_id');?>
+                           <?php $content_count = $this->Manage_model->countContentByOffice($office_id);?>
+                            <div class="card-body">Total content:
+                                <b><?php echo $content_count;  ?> records</b>
+                            </div> 
+                        </div>
+                    <?php endif;?> 
+                    <?php if ($this->session->userdata('desig_level') == 4): ?>
+                        <div class="card  mb-1" style="background-color:#99bbff;">
+                           <?php $staff_id = $this->session->userdata('staff_id');?>
+                           <?php $content_count = $this->Manage_model->countContentByStaff($staff_id);?>
+                            <div class="card-body">Total content:
+                                <b><?php echo $content_count;  ?> records</b>
+                            </div> 
+                        </div>
+                    <?php endif;?>
+
+
+                    
                 </div>
                 
                 <div style="margin-left: 930px; margin-top: 10px;" ><a href="<?=base_url().'Management/content_add_form'?>" class="btn btn-primary btn-sm mb-1"> <b>+Add Digital Assets</b></a></div>
@@ -118,9 +132,16 @@
                                 <div class="d-flex justify-content-between">
                                     
                                     <div class="content-title"> 
-                                        <div><?php if (!empty($content->filename)) : ?> 
-                                          <img src="<?php echo base_url('uploads/' . $content->filename); ?>" alt="" style="width: 125px; height: 125px;">
-                                        <?php endif; ?></div> 
+                                        <!-- <div><?php if (!empty($content->filename)) : ?> 
+                                                <img src="<?php echo base_url('uploads/' . $content->filename); ?>" alt="" style="width: 125px; height: 125px;">
+                                            <?php endif; ?>
+                                        </div>  -->
+                                        <div style="width: 125px; height: 125px;">
+                                            <?php if (!empty($content->filename)) : ?> 
+                                                <img src="<?php echo base_url('uploads/' . $content->filename); ?>" alt=""
+                                                    style="width: 100%; height: 100%; object-fit: contain;">
+                                            <?php endif; ?>
+                                        </div>
                                     <h4><?php echo $content->content_title; ?> </h4>
                                     </div>
                                     <div class="p-1 m-1">
@@ -128,10 +149,10 @@
                                         <div class='row'><strong>Genre:</strong> <?php echo !empty($content->genre) ? $content->genre : 'N/A'; ?></div>
                                     </div>
                                 </div>
-                                
+                                <span><strong>Publisher: </strong><a href="<?= base_url('Management/user_info/' . $content->staff_id); ?>"><?= htmlspecialchars($content->staff_name); ?></a></span>
                                 <div class="content-meta">
                                 
-                                <span><strong>Publisher: </strong><a href="<?= base_url('Management/user_info/' . $content->staff_id); ?>"><?= htmlspecialchars($content->staff_name); ?></a></span>
+                                
 
                                     <span><strong>Content ID :</strong> <?php echo $content->content_id; ?></span>
                                     <span><strong>Category :</strong> <?php echo $content->categoryName; ?></span>

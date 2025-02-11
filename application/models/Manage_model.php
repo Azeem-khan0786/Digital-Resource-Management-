@@ -213,7 +213,7 @@ public function add_content($data) {
     }
 public function show_catentbystaff($staff_id)
     {
-      $this->db->select('categoryTable.categoryId, categoryTable.categoryName, ContentTable.*');
+      $this->db->select('categoryTable.categoryId, categoryTable.categoryName,staffTable.staff_name, ContentTable.*');
       $this->db->from('ContentTable');
       $this->db->join('categoryTable', 'ContentTable.categoryId = categoryTable.categoryId');
     //   $this->db->join('staffTable', 'ContentTable.staff_id = staffTable.staff_id');
@@ -225,21 +225,27 @@ public function show_catentbystaff($staff_id)
       $query = $this->db->get();
       return $query->result(); 
     }
-public function show_all_content()
+public function show_all_contentbyOffice($office_id)
     {
         $this->db->select('categoryTable.categoryId, categoryTable.categoryName, staffTable.staff_name,ContentTable.*');
       $this->db->from('ContentTable');
       $this->db->join('categoryTable', 'ContentTable.categoryId = categoryTable.categoryId');
       $this->db->join('staffTable', 'ContentTable.staff_id = staffTable.staff_id');
+      $this->db->where('ContentTable.office_id', $office_id);
       $this->db->order_by('ContentTable.created_at', 'DESC');
       $query = $this->db->get();
       return $query->result(); 
     }
-public function countContentByOffice($staff_id) {
-        $this->db->where('office_id', $staff_id);
+public function countContentByOffice($office_id) {
+        $this->db->where('office_id', $office_id);
         $this->db->where('is_active', 1); // Count only active staff
         return $this->db->count_all_results('ContentTable');
-    }    
+    } 
+public function countContentByStaff($staff_id) {
+        $this->db->where('staff_id', $staff_id);
+        $this->db->where('is_active', 1); // Count only active staff
+        return $this->db->count_all_results('ContentTable');
+    }        
 // get staff data as profile data ifuser is logged in
 public function get_profile($user_id)
  {

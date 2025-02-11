@@ -61,7 +61,9 @@ tr {
                             
                                 <td><?php echo $row['office_id']; ?></td>
                                 <!-- <td><?php echo $row['org_id']; ?></td> -->
-                                <td> <a href="<?= base_url('Management/mainDashboard' ) ?>"><?php echo $row['office_name']; ?></a> </td>
+                                <td><a href="<?= base_url('Management/OfficeDashboard/'.$row['office_id']) ?>">
+                                        <?php echo $row['office_name']; ?>
+                                    </a></td>
                                 <td><?php echo $row['staff_name']; ?></td>
 
                                 <!-- <td><?php echo $row['created_by']; ?></td> -->

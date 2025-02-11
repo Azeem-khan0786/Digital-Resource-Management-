@@ -12,12 +12,4 @@
             <p style="margin: 0;"><?php echo $this->session->userdata('office_name'); ?></p>
         <?php endif; ?>
     </span>
-    <?php if (($this->session->userdata('org_name') || $this->session->userdata('office_name')) && $this->session->userdata('Designation_name')): ?>
-        <span>/</span>
-    <?php endif; ?>
-    <span>
-        <?php if ($this->session->userdata('Designation_name')): ?>
-            <p style="margin: 0;"><?php echo $this->session->userdata('Designation_name'); ?></p>
-        <?php endif; ?>
-    </span>
 </div>
