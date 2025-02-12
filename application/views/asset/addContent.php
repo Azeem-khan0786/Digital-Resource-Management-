@@ -280,7 +280,7 @@
                     
                     <div class="form-group m-1 ">
                             <label for="file">Upload file here!!</label>
-                            <input type="file" name="userfile"  class="form-control" size="20" required />
+                            <input type="file" name="userfile"  class="form-control" size="20" required onchange="validateFileType()" id="file" />
                     </div>                    
                    
             <button type="submit" class="btn btn-primary btn-sm m-3">Publish</button>

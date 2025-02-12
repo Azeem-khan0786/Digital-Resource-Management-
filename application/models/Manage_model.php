@@ -310,7 +310,7 @@ public function delStaff($staff_id)
  }
 // get getDesignationName using session 
 public function getDesignationName($Designation_id) 
-{
+ {
     // Use Query Builder to fetch the designation name
     $this->db->select('Designation_name');
     $this->db->from('DesignationTable');
@@ -327,7 +327,7 @@ public function getDesignationName($Designation_id)
 }
 // get getOrganisationName using session 
 public function getOrganisationName($org_id) 
-{
+ {
     // Use Query Builder to fetch the org name
     $this->db->select('org_name');
     $this->db->from('OrganisationTable');
@@ -341,7 +341,7 @@ public function getOrganisationName($org_id)
     }
 
     return null; // Return null if no result found
- }
+  }
  public function getOfficeName($office_id) 
  {
      // Use Query Builder to fetch the office name

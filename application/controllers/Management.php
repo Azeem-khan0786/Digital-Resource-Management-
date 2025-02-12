@@ -645,19 +645,31 @@ public function content_add_form()
         // Set validation rules
         $this->form_validation->set_rules('content_title', 'Content Title', 'required');
         $this->form_validation->set_rules('categoryId', 'Category ID');
-        // $this->form_validation->set_rules('created_date', 'Created Date', 'required');
         $this->form_validation->set_rules('content_description', 'Content Description');
         $this->form_validation->set_rules('book_type', 'book_type');
-
         $this->form_validation->set_rules('ISBN', 'ISBN Number');
         $this->form_validation->set_rules('num_of_pages', 'Number of Pages');
         $this->form_validation->set_rules('genre', 'Content Genretion');
-
+        // Get selected file type from form
+        $selected_type = $this->input->post('image_type');  
+        // Allowed extensions mapping
+        $allowed_extensions = [
+            'png'  => 'png',
+            'jpg'  => 'jpg|jpeg',
+            'gif'  => 'gif',
+            'pdf'  => 'pdf',
+            'txt'  => 'txt',
+            'mp4'  => 'mp4',
+            'mov'  => 'mov',
+            'avi'  => 'avi',
+            'apk'  => 'apk'
+        ];
+        // Validate file type
+        // if (!array_key_exists($selected_type, $allowed_extensions)) {
+        //         $this->session->set_flashdata('error', 'Invalid file type selected.');
+        //         redirect(base_url() . 'Management/content_add_form');
+        //     }
         if (!$this->form_validation->run()) {
-            // Validation failed
-            // get states from statesTable for location
-            // $data["states"]=$this->db->get('statesTable')->result_array();
-            // $data['cities']=$this->db->get('citiesTable')->result_array();
             
             // die();
             $data['category'] = $this->Manage_model->getCategory();
@@ -668,7 +680,6 @@ public function content_add_form()
             $config['upload_path']   = './uploads/';  // Folder where files will be saved
             // $config['allowed_types'] = 'gif|jpg|png|pdf|txt';  
             $config['allowed_types'] = 'gif|jpg|jpeg|png|pdf|txt|mp4|mov|avi|apk';  // Allowed file types
-
             $config['max_size']      = 30000;  // Max file size in kilobytes (2MB) 30MB
             $config['encrypt_name']  = TRUE;  // Encrypt the file name to prevent overwriting
 
@@ -723,16 +734,27 @@ public function content_add_form()
     }
 
     // method for show Resources
-public function showcontentbystaff()      // method to show all content by indivitual  staff
-    {   $staff_id = $this->session->userdata('staff_id');
-        $data['contents'] = $this->Manage_model->show_catentbystaff($staff_id);
+public function showcontent()
+    {  // Initialize $data array
+        $data = array();
+        $staff_id = $this->session->userdata('staff_id');
+        $office_id = $this->session->userdata('office_id');
+        $desig_level = $this->session->userdata('desig_level');
+    
+        if ($desig_level == 3) {
+            $data['contents'] = $this->Manage_model->show_all_contentbyOffice($office_id);
+        } 
+        elseif ($desig_level == 4) {
+            $data['contents'] = $this->Manage_model->show_catentbystaff($staff_id);
+        }
+    
         $this->load->view('asset/contentTable', $data);
     }
-public function showcontentbyOffice()    // methdd to show content by officeAdmin
-    {  $office_id = $this->session->userdata('office_id');
-        $data['contents'] = $this->Manage_model->show_all_contentbyOffice($office_id);
-        $this->load->view('asset/contentTable', $data);
-    }    
+// public function showcontentbyOffice()    // methdd to show content by officeAdmin
+//     {  $office_id = $this->session->userdata('office_id');
+//         $data['contents'] = $this->Manage_model->show_all_contentbyOffice($office_id);
+//         $this->load->view('asset/contentTable', $data);
+//     }    
         
     // delete content
 public function delete_content($id)
