@@ -641,6 +641,53 @@ public function getDesignation()
         $this->load->view('asset/DesignationTable', $data);
         
     }
+    // Working Area
+public function addDesignationByOfficeId($office_id)
+    {   
+            $org_id = $this->session->userdata('org_id');
+            $desig_level = $this->session->userdata('desig_level'); // Get session desig_level
+            $staff_id = $this->session->userdata('staff_id');
+        
+            $this->form_validation->set_rules('Designation_name', 'Designation Name', 'required');
+            $this->form_validation->set_rules('desig_level', 'Designation Level', 'required');
+        
+            if (!$this->form_validation->run()) {
+                $data['org_data'] = $this->Manage_model->getOrgData();
+                $data['selected_org_id'] = $org_id; // Pass the selected org_id
+        
+                if ($staff_id) {
+                    $data['companies'] = $this->Manage_model->getOrgDataBystaffId($staff_id);
+                    $this->load->view('asset/addDesignation', $data);
+                } else {
+                    redirect(base_url() . 'Management/login');
+                }
+            } else {
+                // Get the submitted designation level
+                $submitted_desig_level = $this->input->post('desig_level');
+        
+                // Ensure the submitted level is within the valid range
+                if ($submitted_desig_level <= $desig_level || $submitted_desig_level > 4) {
+                    $this->session->set_flashdata('message', 'Invalid designation level selected.');
+                    redirect(base_url() . "Management/addDesignation");
+                    return;
+                }
+        
+                $data = [
+                    'Designation_name' => $this->input->post('Designation_name'),
+                    'desig_level' => $submitted_desig_level,
+                    'org_id' => $org_id
+                ];
+        
+                if ($this->Manage_model->addDesignationData($data)) {
+                    $this->session->set_flashdata('message', 'Designation inserted successfully');
+                    redirect(base_url() . "Management/getDesignation");
+                } else {
+                    $this->session->set_flashdata('message', 'There was a problem adding the designation');
+                    redirect(base_url() . "Management/addDesignation");
+                }
+            }
+        
+    }    
 public function getDesignationByOffice()
     {   $office_id = $this->session->userdata('office_id');
         $staff_id = $this->session->userdata('staff_id');
