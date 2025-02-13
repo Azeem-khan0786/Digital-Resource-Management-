@@ -62,7 +62,7 @@ body {
                                     <?php endif; ?>
                                 </select> -->
                             </div>
-                            <div class="form-group col-md-6">
+                            <!-- <div class="form-group col-md-6">
                                 <label for="">select Office </label>
                                 <select name="office_id" id="office_id" class="form-control"
                                     placeholder="In which organisation you work" name='office_id' required>
@@ -74,7 +74,20 @@ body {
                                     </option>
                                     <?php endforeach;?>
                                 </select>
+                            </div> -->
+                            <div class="form-group col-md-6">
+                                <label for="">Select Office</label>
+                                <select name="office_id" id="office_id" class="form-control" required>
+                                    <option value="" style="font-size: 12px;">Select Office</option>
+                                    <?php foreach($office as $deprt): ?>
+                                        <option value="<?php echo $deprt['office_id']; ?>"
+                                            <?php echo ($deprt['office_id'] == $selected_depart) ? 'selected' : ''; ?>>
+                                            <?php echo $deprt['office_name']; ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
+
                         </div>
                         <div class="form-row">
 

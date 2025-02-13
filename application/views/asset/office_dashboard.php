@@ -58,6 +58,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div><a href="<?=base_url().'Management/addStaffByOfficeId/',$office_id?>" class="btn btn-primary">+ Add Staff</a></div>
                                     </div>
                                     </div>
                                     </main>
