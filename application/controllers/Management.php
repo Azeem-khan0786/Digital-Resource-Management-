@@ -223,8 +223,12 @@ public function getOrg() {
 public function addStaff()
     {   
         $org_id = $this->session->userdata('org_id');
-        $office_id= $this->session->userdata('office_id');
-        
+       // First try to get office_id from the session
+        $office_id = $this->session->userdata('office_id');
+        // If it's not available in the session, fall back to the POST data
+        if (!$office_id) {
+            $office_id = $this->input->post('office_id');
+        }
         $this->form_validation->set_rules('staff_name', 'staff Name', 'required');
         $this->form_validation->set_rules('staff_email', 'staff Email', 'required');
         $this->form_validation->set_rules('staff_password', 'staff Password', 'required');
@@ -234,7 +238,7 @@ public function addStaff()
         if (! $this->form_validation->run()) {
             
             $data['org_data'] = $this->Manage_model->getOrgDataById($org_id);
-            $data['selected_org_id'] = $this->session->userdata('org_id'); // Pass the selected org_id
+            $data['selected_org_id'] = $org_id; // Pass the selected org_id
             $data['Designation_data'] = $this->Manage_model->getDesignationdata($org_id);
             $data['office'] = $this->Manage_model->getOfficeDataByOrg($org_id);
             // Fetch all states from the statesTable
@@ -267,8 +271,8 @@ public function addStaff()
             }
             elseif ($this->session->userdata('desig_level')==3) 
             {   $data['org_data'] = $this->Manage_model->getOrgData($org_id);
-                $data['selected_depart']= $this->session->userdata('office_id');
-                $data['selected_org_id']= $this->session->userdata('org_id');
+                $data['selected_depart']= $office_id;
+                $data['selected_org_id']= $org_id;
                 $this->load->view('asset/addStaff', $data);
             }
              
@@ -302,7 +306,7 @@ public function addStaff()
                 'state_name' => $state_data->state_name, // Store state_name instead of state_id
                 'pincode' => $this->input->post('pincode'),
             ];
-            // print_r($data);
+            print_r($data);
             // die();
             // $staff_data=$this->Manage_model->addStaffData($data);
             if ($this->Manage_model->addStaffData($data)) {
@@ -316,88 +320,65 @@ public function addStaff()
         }
     }
   // Add staff based on officeId  
-public function addStaffByOfficeId($office_id)
-    {   
-        // var_dump($office_id);
-        // die();
-        $org_id = $this->session->userdata('org_id');
-        // $office_id= $this->session->userdata('office_id');
-        $this->form_validation->set_rules('staff_name', 'staff Name', 'required');
-        $this->form_validation->set_rules('staff_email', 'staff Email', 'required');
-        $this->form_validation->set_rules('staff_password', 'staff Password', 'required');
-        $this->form_validation->set_rules('joining_date', 'joining Date', 'required');
-        
-        if (! $this->form_validation->run()) {
-            
-            $data['org_data'] = $this->Manage_model->getOrgDataById($org_id);
-            $data['selected_org_id'] = $org_id; // Pass the selected org_id
-            $data['Designation_data'] = $this->Manage_model->getDesignationdata($org_id);
-            $data['office'] = $this->Manage_model->getOfficeDataByOrg($org_id);
-            $data['states'] = $this->db->get('statesTable')->result_array();
-            
-            // Loop through each state
-            foreach ($data['states'] as $state) {
-               $state_id = $state['state_id']; // Make sure 'state_id' is the correct column name
-               $data['cities'] = $this->db->get_where('citiesTable', array('state_id' => $state_id))->result_array();   
-            }
-            $desig_level= $this->session->userdata('desig_level');
-            $Designation_id = $this->session->userdata('Designation_id');
-            if ($this->session->userdata('desig_level')==2 ) 
-            {
-               // Add this to pass office_id to the view
-                $data['office'] = $this->Manage_model->getOfficeDataByOrg($org_id); // Get the office data
-                $data['org_data'] = $this->Manage_model->getOrgData($org_id);
-                $data['selected_depart'] = $office_id; // Set selected_depart to office_id from session (backend logic)
-                $data['selected_org_id']= $org_id;
-                // var_dump('OfficeId',$office_id);
-                //  die();
-                $this->load->view('asset/addStaff', $data);
-            }
-            elseif ($this->session->userdata('desig_level')==3) 
-            {   $data['org_data'] = $this->Manage_model->getOrgData($org_id);
-                $data['selected_depart']= $office_id;
-                $data['selected_org_id']= $this->session->userdata('org_id');
-                $this->load->view('asset/addStaff', $data);
-            }
-            else {
-                  redirect(base_url() . 'Management/login');
-                 }
-            $this->session->set_flashdata('error', validation_errors());
-            
-        } else {
-            // Fetch the state_name using the state_id
-        $state_id = $this->input->post('states'); // The selected state_id
-        $state_data = $this->db->get_where('statesTable', array('state_id' => $state_id))->row();
-        $city_id = $this->input->post('cities');
-        $city_data = $this->db->get_where('citiesTable', array('city_id' => $city_id))->row();
-        $data['selected_depart']= $office_id;
-        var_dump( 'Befoere Srot',$data);
-        die();
-        $data = [
-                'staff_name' => $this->input->post('staff_name'),
-                'staff_email' => $this->input->post('staff_email'),
-                'staff_password' => $this->input->post('staff_password'),
-                'joining_date' => $this->input->post('joining_date'),
-                'org_id' => $org_id,
-                'Designation_id' => $this->input->post('Designation_id'),
-                'desig_level'=>4,
-                'office_id' =>$office_id,
-                'date_of_birth' => $this->input->post('date_of_birth'),
-                'salary' => $this->input->post('salary'),
-                'city_name' => $city_data->city_name, // Store city_name instead of city_id
-                'state_name' => $state_data->state_name, // Store state_name instead of state_id
-                'pincode' => $this->input->post('pincode'),
-        ];
-        var_dump( 'Srot',$data);
-        die();
-            if ($this->Manage_model->addStaffData($data)) {
-                $this->session->set_flashdata('message', 'Registration successful. You can now login.');
-                redirect(base_url() . 'Management/getStaff');
-            } else {
-                $this->session->set_flashdata('message', 'Registration failed. Please try again.');
-            }
-        }
-    }
+  public function addStaffByOfficeId($office_id)
+  {   
+      $org_id = $this->session->userdata('org_id');
+      
+      $this->form_validation->set_rules('staff_name', 'staff Name', 'required');
+      $this->form_validation->set_rules('staff_email', 'staff Email', 'required');
+      $this->form_validation->set_rules('staff_password', 'staff Password', 'required');
+      $this->form_validation->set_rules('joining_date', 'joining Date', 'required');
+      
+      if (! $this->form_validation->run()) {
+          
+          $data['org_data'] = $this->Manage_model->getOrgDataById($org_id);
+          $data['selected_org_id'] = $org_id; // Pass the selected org_id
+          $data['selected_depart'] = $office_id;
+          $data['Designation_data'] = $this->Manage_model->getDesignationdata($org_id);
+          $data['office'] = $this->Manage_model->getOfficeDataByOrg($org_id);
+          $data['states'] = $this->db->get('statesTable')->result_array();
+          
+          // Loop through each state
+          foreach ($data['states'] as $state) {
+             $state_id = $state['state_id']; // Make sure 'state_id' is the correct column name
+             $data['cities'] = $this->db->get_where('citiesTable', array('state_id' => $state_id))->result_array();   
+          }
+          $this->load->view('asset/addStaff', $data);
+          $this->session->set_flashdata('error', validation_errors());
+          
+      } else {
+
+          $state_id = $this->input->post('states'); // The selected state_id
+          $state_data = $this->db->get_where('statesTable', array('state_id' => $state_id))->row();
+          $city_id = $this->input->post('cities');
+          $city_data = $this->db->get_where('citiesTable', array('city_id' => $city_id))->row();
+          
+          $data = [
+              'staff_name' => $this->input->post('staff_name'),
+              'staff_email' => $this->input->post('staff_email'),
+              'staff_password' => $this->input->post('staff_password'),
+              'joining_date' => $this->input->post('joining_date'),
+              'org_id' => $org_id,
+              'Designation_id' => $this->input->post('Designation_id'),
+              'desig_level' => 4,
+              'office_id' => $office_id,
+              'date_of_birth' => $this->input->post('date_of_birth'),
+              'salary' => $this->input->post('salary'),
+              'city_name' => $city_data->city_name, // Store city_name instead of city_id
+              'state_name' => $state_data->state_name, // Store state_name instead of state_id
+              'pincode' => $this->input->post('pincode'),
+          ];
+          echo json_encode($data);
+          die();
+          if ($this->Manage_model->addStaffData($data)) {
+              $this->session->set_flashdata('message', 'Registration successful. You can now login.');
+              redirect(base_url() . 'Management/getStaff');
+          } else {
+              $this->session->set_flashdata('message', 'Registration failed. Please try again.');
+          }
+      }
+  }
+  
     // get state`city data while add staff
 public function getCities()
     {

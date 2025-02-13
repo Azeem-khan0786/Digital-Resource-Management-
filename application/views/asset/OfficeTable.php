@@ -61,9 +61,15 @@ tr {
                             
                                 <td><?php echo $row['office_id']; ?></td>
                                 <!-- <td><?php echo $row['org_id']; ?></td> -->
-                                <td><a href="<?= base_url('Management/OfficeDashboard/'.$row['office_id']) ?>">
+                                <td>
+                                    <?php if ($this->session->userdata('desig_level') == 2): ?>
+                                        <a href="<?= base_url('Management/OfficeDashboard/'.$row['office_id']) ?>">
+                                            <?php echo $row['office_name']; ?>
+                                        </a>
+                                    <?php else: ?>
                                         <?php echo $row['office_name']; ?>
-                                    </a></td>
+                                    <?php endif; ?>
+                                </td>
                                 <td><?php echo $row['staff_name']; ?></td>
 
                                 <!-- <td><?php echo $row['created_by']; ?></td> -->
