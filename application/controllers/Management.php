@@ -28,6 +28,9 @@ public function index()
 public function OfficeDashboard($office_id)
     {
         $data['office_id'] = $office_id;  // Pass office_id to view
+        // Fetch office details using office_id
+        $data['office_name'] = $this->Manage_model->getOfficeName($office_id);
+          // Pass office_name to the view
         $data['staff_count_off'] = $this->Manage_model->countStaffByOffice($office_id);
         
         $this->load->view('asset/office_dashboard', $data);
@@ -633,22 +636,23 @@ public function get_create_admin($admin_data)
 //     }
 //  }
 public function addDesignation($office_id = null)
-{
+{    
     $org_id = $this->session->userdata('org_id');
     $desig_level = $this->session->userdata('desig_level');
     $staff_id = $this->session->userdata('staff_id');
-    // var_dump('Office Id from url  ',$office_id);
+    var_dump('Received Office ID from URL: ', $office_id);
+    var_dump('Office ID from Session: ', $this->session->userdata('office_id'));
+    // die();
+
     // Prioritize office_id from URL, fallback to session
     if ($office_id === null) {
         $office_id = $this->session->userdata('office_id');
-        // var_dump('Office Id from session  ',$office_id);
-        // die();
     }
 
     // Ensure office_id is available
     if (!$office_id) {
         $this->session->set_flashdata('message', 'Invalid office selected.');
-        redirect(base_url() . "Management/addDesignation");
+        redirect(base_url() . 'Management/login');  // Redirect to a more appropriate page if office_id is missing
         return;
     }
 
@@ -658,6 +662,7 @@ public function addDesignation($office_id = null)
     if (!$this->form_validation->run()) {
         $data['org_data'] = $this->Manage_model->getOrgData();
         $data['selected_org_id'] = $org_id;
+        $data['office_id'] = $office_id; // Pass office_id to the view
 
         if ($staff_id) {
             $data['companies'] = $this->Manage_model->getOrgDataBystaffId($staff_id);
@@ -674,11 +679,17 @@ public function addDesignation($office_id = null)
             return;
         }
 
+        // Get office_id from form submission, but keep URL/session priority
+        $submitted_office_id = $this->input->post('office_id');
+        if (!$submitted_office_id) {
+            $submitted_office_id = $office_id; // Ensure office_id is always set
+        }
+
         $data = [
             'Designation_name' => $this->input->post('Designation_name'),
             'desig_level' => $submitted_desig_level,
             'org_id' => $org_id,
-            'office_id' => $office_id // Use either session or URL value
+            'office_id' => $submitted_office_id // Correctly set office_id
         ];
 
         if ($this->Manage_model->addDesignationData($data)) {
@@ -690,6 +701,7 @@ public function addDesignation($office_id = null)
         }
     }
 }
+
 
 
     //2.2 get DesignationTable

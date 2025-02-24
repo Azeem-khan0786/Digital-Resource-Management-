@@ -54,7 +54,9 @@ input[type=password] {
                         <?php echo $db_error; ?>
                     </div>
                     <?php endif; ?>
-                    <form action="<?php echo base_url('Management/addDesignation'); ?>" method="post">
+                    <!-- <form action="<?php echo base_url('Management/addDesignation'); ?>" method="post"> -->
+                    <form action="<?= base_url('Management/addDesignation/' . ($office_id ?? '')) ?>" method="post">
+                    <input type="hidden" name="office_id" value="<?= $office_id; ?>">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="catagoryName">Designation Name</label>

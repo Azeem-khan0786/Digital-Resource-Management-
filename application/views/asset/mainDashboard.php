@@ -107,7 +107,7 @@
                             </div>
                             <?php endif;?>
                              
-                                        <?php if (($this->session->userdata('desig_level') == 2) || ($this->session->userdata('desig_level') == 3) ): ?>
+                                        <?php if ($this->session->userdata('desig_level') == 3) : ?>
                                         <div class="col-xl-4 col-md-4  p-3">
                                         <div class="card text-white mb-4" style='background: #4d88ff;'>
                                             <div class="card-body"> Total Category :
@@ -136,9 +136,11 @@
 
                                     <div class="col-xl-4 col-md-4  p-3">
                                         <div class="card text-white mb-4" style='background: #666699;'>
-                                            <div class="card-body">Total Content :
-                                                <b><?php echo $this->db->count_all('ContentTable'); ?> records</b>
-                                            </div>
+                                        <?php $office_id = $this->session->userdata('office_id');?>
+                                        <?php $content_count = $this->Manage_model->countContentByOffice($office_id);?>
+                                            <div class="card-body">Total content:
+                                                <b><?php echo $content_count;  ?> records</b>
+                                            </div> 
                                             <div class="card-footer d-flex align-items-center justify-content-between">
                                                 <a class="small text-white stretched-link" href="<?=base_url().'Management/showcontent '?>">View as Table</a>
                                                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
