@@ -409,40 +409,40 @@ public function getCities()
     
 
 //3.3 get staff   records
-public function getStaff()
- {
-    
+public function getStaff($office_id = null)
+{
     $staff_id = $this->session->userdata('staff_id');
-    
     $desig_level = $this->session->userdata('desig_level');
-    
-    // Debugging: Print session data
-   
-    
+
+    // Ensure the user is logged in
     if (!$staff_id) {
-        redirect(base_url() . 'Management/login');  // Redirect if not logged in
-    } else {
-        if($desig_level == 2)   //if CompanyAdmin then sort by Org 
-        {   
-            $org_id = $this->session->userdata('org_id');
-            $data['staffdata'] = $this->Manage_model->getStaffDataByOrg($org_id);
-            
-            $this->load->view('asset/staffTable', $data);
-        }
-        elseif($desig_level == 3)
-        {   //if CompanyAdmin then sort by Org and office
-            $org_id = $this->session->userdata('org_id');
-            $office_id = $this->session->userdata('office_id');
-            $data['staffdata'] = $this->Manage_model->getStaffDataByOffice($org_id,$office_id);
-            
-            $this->load->view('asset/staffTable', $data);
-        }
-        else{
-           
-            redirect(base_url().'Management/showCategory');
-        }    
+        redirect(base_url() . 'Management/login');  
+        return;
     }
- } 
+    // prepare data array to pass view
+    $data['office_id']=$office_id;
+    $org_id = $this->session->userdata('org_id');
+     
+    // If office_id is provided in the URL, filter by office_id
+    if ($office_id !== null) {
+        $data['staffdata'] = $this->Manage_model->getStaffDataByOffice($org_id, $office_id);
+    } else {
+        if ($desig_level == 2) {   
+            // If CompanyAdmin (Level 2), get staff by organization
+            $data['staffdata'] = $this->Manage_model->getStaffDataByOrg($org_id);
+        } elseif ($desig_level == 3) {
+            // If OfficeAdmin (Level 3), get staff by office
+            $office_id = $this->session->userdata('office_id');
+            $data['staffdata'] = $this->Manage_model->getStaffDataByOffice($org_id, $office_id);
+        } else {
+            redirect(base_url() . 'Management/showCategory');
+            return;
+        }
+    }
+
+    $this->load->view('asset/staffTable', $data);
+}
+
 public function addOffice()
     {    $org_id = $this->session->userdata('org_id');
         $this->form_validation->set_rules('office_name', 'office name', 'required');
@@ -588,71 +588,22 @@ public function get_create_admin($admin_data)
 //         }
 //     }
 
-// public function addDesignation()
-//  {   
-//     $org_id = $this->session->userdata('org_id');
-//     $office_id = $this->session->userdata('office_id');
-//     $desig_level = $this->session->userdata('desig_level'); // Get session desig_level
-//     $staff_id = $this->session->userdata('staff_id');
 
-//     $this->form_validation->set_rules('Designation_name', 'Designation Name', 'required');
-//     $this->form_validation->set_rules('desig_level', 'Designation Level', 'required');
-
-//     if (!$this->form_validation->run()) {
-//         $data['org_data'] = $this->Manage_model->getOrgData();
-//         $data['selected_org_id'] = $org_id; // Pass the selected org_id
-
-//         if ($staff_id) {
-//             $data['companies'] = $this->Manage_model->getOrgDataBystaffId($staff_id);
-//             $this->load->view('asset/addDesignation', $data);
-//         } else {
-//             redirect(base_url() . 'Management/login');
-//         }
-//     } else {
-//         // Get the submitted designation level
-//         $submitted_desig_level = $this->input->post('desig_level');
-
-//         // Ensure the submitted level is within the valid range
-//         if ($submitted_desig_level <= $desig_level || $submitted_desig_level > 4) {
-//             $this->session->set_flashdata('message', 'Invalid designation level selected.');
-//             redirect(base_url() . "Management/addDesignation");
-//             return;
-//         }
-
-//         $data = [
-//             'Designation_name' => $this->input->post('Designation_name'),
-//             'desig_level' => $submitted_desig_level,
-//             'org_id' => $org_id,
-//             'office_id' => $office_id
-//         ];
-
-//         if ($this->Manage_model->addDesignationData($data)) {
-//             $this->session->set_flashdata('message', 'Designation inserted successfully');
-//             redirect(base_url() . "Management/getDesignation");
-//         } else {
-//             $this->session->set_flashdata('message', 'There was a problem adding the designation');
-//             redirect(base_url() . "Management/addDesignation");
-//         }
-//     }
-//  }
 public function addDesignation($office_id = null)
 {    
     $org_id = $this->session->userdata('org_id');
     $desig_level = $this->session->userdata('desig_level');
     $staff_id = $this->session->userdata('staff_id');
-    var_dump('Received Office ID from URL: ', $office_id);
-    var_dump('Office ID from Session: ', $this->session->userdata('office_id'));
-    // die();
 
     // Prioritize office_id from URL, fallback to session
     if ($office_id === null) {
         $office_id = $this->session->userdata('office_id');
     }
 
-    // Ensure office_id is available
-    if (!$office_id) {
-        $this->session->set_flashdata('message', 'Invalid office selected.');
-        redirect(base_url() . 'Management/login');  // Redirect to a more appropriate page if office_id is missing
+    // For desig_level > 2, office_id is mandatory
+    if (!$office_id && $desig_level > 2) {
+        $this->session->set_flashdata('message', 'Office selection is required.');
+        redirect(base_url() . 'Management/login');
         return;
     }
 
@@ -673,23 +624,34 @@ public function addDesignation($office_id = null)
     } else {
         $submitted_desig_level = $this->input->post('desig_level');
 
+        // Ensure submitted desig_level is valid
         if ($submitted_desig_level <= $desig_level || $submitted_desig_level > 4) {
             $this->session->set_flashdata('message', 'Invalid designation level selected.');
             redirect(base_url() . "Management/addDesignation");
             return;
         }
 
-        // Get office_id from form submission, but keep URL/session priority
+        // Get office_id from form submission
         $submitted_office_id = $this->input->post('office_id');
-        if (!$submitted_office_id) {
-            $submitted_office_id = $office_id; // Ensure office_id is always set
+
+        // If desig_level = 2, allow office_id to be NULL or from form
+        if ($desig_level == 2) {
+            $final_office_id = $submitted_office_id ?: null;  // Allow NULL
+        } else {
+            // For desig_level > 2, office_id is mandatory
+            $final_office_id = $submitted_office_id ?: $office_id;
+            if (!$final_office_id) {
+                $this->session->set_flashdata('message', 'Office ID is required for this designation level.');
+                redirect(base_url() . "Management/addDesignation");
+                return;
+            }
         }
 
         $data = [
             'Designation_name' => $this->input->post('Designation_name'),
             'desig_level' => $submitted_desig_level,
             'org_id' => $org_id,
-            'office_id' => $submitted_office_id // Correctly set office_id
+            'office_id' => $final_office_id  // Store either office_id or NULL
         ];
 
         if ($this->Manage_model->addDesignationData($data)) {
@@ -701,6 +663,7 @@ public function addDesignation($office_id = null)
         }
     }
 }
+
 
 
 

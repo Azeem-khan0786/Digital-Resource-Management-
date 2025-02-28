@@ -55,9 +55,16 @@ body {
                     
                         <div class="card-header d-flex justify-content-between">
                             <div><i class="fas fa-table me-1 m-1"></i>Registered Staff Data</div>
-                            <?php if (!$this->session->userdata('desig_level') != 4): ?>
-                            <div><a href="<?=base_url().'Management/addStaff'?>" class="btn btn-primary">+ Add Staff</a></div>
-                            <?php endif;?>
+                            <?php if ($this->session->userdata('desig_level') == 2): ?>
+                                <div>
+                                            <a href="<?= base_url().'Management/addStaffByOfficeId/'.($office_id ?? '') ?>" class="btn btn-primary">+ Add Staff</a>
+                                        </div>
+                                    <?php elseif ($this->session->userdata('desig_level') != 4): ?>
+                                        <div>
+                                            <a href="<?= base_url().'Management/addStaff' ?>" class="btn btn-primary">+ Add Staff</a>
+                                        </div>
+                            <?php endif; ?>
+
                         </div>
                         <div class="card-body">
                             <table class='table table-striped ' id='search-data-table'>

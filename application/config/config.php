@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 // */                    //'http://192.168.1.29/DigitalAssets/';
 $config['base_url'] = 'http://localhost/DigitalAssets/';
-// $config['base_url'] = 'http://192.168.1.30/DigitalAssets/';
+// $config['base_url'] = 'http://192.168.1.20/DigitalAssets/';
 // 
 
 
