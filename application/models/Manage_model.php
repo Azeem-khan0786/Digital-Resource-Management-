@@ -16,6 +16,7 @@ public function getDesignationdata($org_id)
     $query = $this->db->get();
     // Return the result as an array
     return $query->result_array();
+    
 }
 //get DesignationData by office
 public function getDesignationByOffice($office_id)
@@ -312,7 +313,7 @@ public function delStaff($staff_id)
 public function getDesignationName($Designation_id) 
  {
     // Use Query Builder to fetch the designation name
-    $this->db->select('Designation_name');
+    $this->db->select('Designation_name','created_at');
     $this->db->from('DesignationTable');
     $this->db->where('Designation_id', $Designation_id);
     $query = $this->db->get();

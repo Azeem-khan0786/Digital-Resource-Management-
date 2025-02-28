@@ -93,6 +93,7 @@
                             </div>
                         </div>
                         <div> -->
+                    <div class="row m-auto d-flex justify-content-between">       
                         <div class="col-xl-4 col-md-4 p-3">
                             <div class="card text-white mb-4" style='background: #66a3ff;'>
                             <?php $staff_count_off = $this->Manage_model->countStaffByOffice($office_id);?>
@@ -112,11 +113,13 @@
                                     Total Designation : <b><?php echo $desig_count; ?> records</b>
                                 </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="nav-link text-white" href="<?= base_url() . 'Management/getDesignationByOffice' ?>">View as Table</a>
+                                <a class="small text-white stretched-link" href="<?= base_url('Management/getDesignationByOffice/' . ($office_id ?? '')) ?>">View as Table</a>
+
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
                             </div>
                         </div>
+                        </div>    
                             <a href="<?=base_url().'Management/addStaffByOfficeId/'.$office_id?>" class="btn btn-primary">+ Add Staff</a>
                             <a href="<?=base_url().'Management/addDesignation/'.$office_id?>" class="btn btn-primary">+ Add Designation</a>
                         </div>

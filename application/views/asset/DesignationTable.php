@@ -73,8 +73,6 @@ td {
                                 <tr>
                                     <td><?php echo $row['Designation_id']; ?></td>
                                     <td><?php echo $row['Designation_name']; ?></td>
-                                    <!-- <td><?php echo $row['org_name']; ?></td>  -->
-                                    <!--<td><?php echo $row['org_id']; ?></td> -->
                                     <td><?php echo $row['created_at']; ?></td>
                                     <!-- <?php
                                     // Assuming $org_data is structured like: $org_data[$row['org_id']] = ['org_name' => 'Org Name'];

@@ -419,19 +419,20 @@ public function getStaff($office_id = null)
         redirect(base_url() . 'Management/login');  
         return;
     }
-    // prepare data array to pass view
-    $data['office_id']=$office_id;
+
     $org_id = $this->session->userdata('org_id');
-     
-    // If office_id is provided in the URL, filter by office_id
+
+    // Pass office_id to the view
+    $data['office_id'] = $office_id;  
+
     if ($office_id !== null) {
+        // Fetch staff by office_id
         $data['staffdata'] = $this->Manage_model->getStaffDataByOffice($org_id, $office_id);
     } else {
+        // Fetch staff based on desig_level
         if ($desig_level == 2) {   
-            // If CompanyAdmin (Level 2), get staff by organization
             $data['staffdata'] = $this->Manage_model->getStaffDataByOrg($org_id);
         } elseif ($desig_level == 3) {
-            // If OfficeAdmin (Level 3), get staff by office
             $office_id = $this->session->userdata('office_id');
             $data['staffdata'] = $this->Manage_model->getStaffDataByOffice($org_id, $office_id);
         } else {
@@ -440,8 +441,10 @@ public function getStaff($office_id = null)
         }
     }
 
+    // Load the view with office_id
     $this->load->view('asset/staffTable', $data);
 }
+
 
 public function addOffice()
     {    $org_id = $this->session->userdata('org_id');
@@ -727,15 +730,26 @@ public function addDesignationByOfficeId($office_id)
         }
         
     }    
-public function getDesignationByOffice()
-    {   $office_id = $this->session->userdata('office_id');
+public function getDesignationByOffice($office_id = null)
+    {
+        // Prioritize office_id from URL, fallback to session
+        if ($office_id === null) {
+            $office_id = $this->session->userdata('office_id');
+        }
+    
         $staff_id = $this->session->userdata('staff_id');
-        $data['Designation_data'] = $this->Manage_model->getDesignationByOffice($office_id);
-        // echo json_encode($data);
+    
+        // Get Designation Data
+        $Designation_data = $this->Manage_model->getDesignationByOffice($office_id);
+        $data['Designation_data'] = $Designation_data;
+    
+        // Count the number of records
+        $result_count = count($Designation_data);
+        // Load organization data and view (Only reachable if debugging is removed)
         $data['companies'] = $this->Manage_model->getOrgDataBystaffId($staff_id);
         $this->load->view('asset/DesignationTable', $data);
-        
     }
+    
     
     // method for add Catagory
 public function addCategory()
