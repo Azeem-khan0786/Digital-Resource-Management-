@@ -30,6 +30,24 @@ body {
             <div class="col-md-10 ">
                 <div class="m-1">
                 <?php $this->load->view('asset/base'); ?>
+                <div style="display: flex; justify-content: flex-end; gap: 10px; font-size: 18px; font-weight: bold; align-items: center;">
+                    <span>
+                        <?php if (!empty($org_name)): ?>
+                            <p style="margin: 0;"><?= $org_name; ?></p>
+                        <?php endif; ?>
+                    </span> 
+
+                    <?php if (!empty($org_name) && !empty($office_name)): ?>
+                        <span>/</span>
+                    <?php endif; ?>
+
+                    <span>
+                        <?php if (!empty($office_name)): ?>
+                            <p style="margin: 0;"><?= $office_name; ?></p>
+                        <?php endif; ?>
+                    </span>
+                </div>
+
                     <h5 class="text-center"><b>Register your staff here </b></h5>
                     <?php if ($this->session->flashdata('message')): ?>
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">

@@ -49,8 +49,11 @@ td {
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between">
                         <div><i class="fas fa-table me-1 m-1"></i>Designation Data</div>
-                        <div><a href="<?=base_url().'Management/addDesignation'?>" class="btn btn-primary">+ Add
-                        Designation</a></div>    
+                        <div><a class="btn btn-primary" href="<?= base_url('Management/addDesignation' . (isset($office_id) ? '/' . $office_id : '')) ?>">
+                            + Add Designation</a>
+                        </div>  
+                        
+  
                     </div>
                     <div class="card-body">
                     <?php if (empty($Designation_data)): ?>
@@ -66,6 +69,7 @@ td {
                             <!-- <td>Organisation Name</td>
                             <td>Organisation Id</td> -->
                             <td>Created_at</td>
+                            <td>Action</td>
                         </tr>
 
                         
@@ -74,6 +78,8 @@ td {
                                     <td><?php echo $row['Designation_id']; ?></td>
                                     <td><?php echo $row['Designation_name']; ?></td>
                                     <td><?php echo $row['created_at']; ?></td>
+                                    <td> <a href="<?= base_url('Management/delDesig/'.$row['Designation_id']) ?>"
+                                            class="btn btn-dark btn-sm">Delete</a></td>
                                     <!-- <?php
                                     // Assuming $org_data is structured like: $org_data[$row['org_id']] = ['org_name' => 'Org Name'];
                                     if (isset($org_data[$row['org_id']])) {

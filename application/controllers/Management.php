@@ -30,6 +30,7 @@ public function OfficeDashboard($office_id)
         $data['office_id'] = $office_id;  // Pass office_id to view
         // Fetch office details using office_id
         $data['office_name'] = $this->Manage_model->getOfficeName($office_id);
+      
           // Pass office_name to the view
         $data['staff_count_off'] = $this->Manage_model->countStaffByOffice($office_id);
         
@@ -340,6 +341,9 @@ public function addStaff()
           $data['Designation_data'] = $this->Manage_model->getDesignationdata($org_id);
           $data['office'] = $this->Manage_model->getOfficeDataByOrg($org_id);
           $data['states'] = $this->db->get('statesTable')->result_array();
+          $data['office_name'] = $this->Manage_model->getOfficeName($office_id);
+          
+
           
           // Loop through each state
           foreach ($data['states'] as $state) {
@@ -387,7 +391,7 @@ public function getCities()
     {
         $state_id = $this->input->post('state_id'); // Retrieve the state_id from the AJAX request
         print_r($state_id);
-        echo 'get city call ajax method';
+        // echo 'get city call ajax method';
         // Check if state_id is provided
         if ($state_id) {
             // Fetch cities associated with the selected state_id
@@ -424,7 +428,9 @@ public function getStaff($office_id = null)
 
     // Pass office_id to the view
     $data['office_id'] = $office_id;  
-
+    // Fetch office details using office_id
+    $data['office_name'] = $this->Manage_model->getOfficeName($office_id);
+   
     if ($office_id !== null) {
         // Fetch staff by office_id
         $data['staffdata'] = $this->Manage_model->getStaffDataByOffice($org_id, $office_id);
@@ -659,16 +665,19 @@ public function addDesignation($office_id = null)
 
         if ($this->Manage_model->addDesignationData($data)) {
             $this->session->set_flashdata('message', 'Designation inserted successfully');
-            redirect(base_url() . "Management/getDesignation");
+
+            // Redirect based on whether office_id is set
+            if ($final_office_id) {
+                redirect(base_url() . "Management/getDesignationByOffice/" . $final_office_id);
+            } else {
+                redirect(base_url() . "Management/getDesignation");
+            }
         } else {
             $this->session->set_flashdata('message', 'There was a problem adding the designation');
             redirect(base_url() . "Management/addDesignation");
         }
     }
 }
-
-
-
 
     //2.2 get DesignationTable
 public function getDesignation()
@@ -736,7 +745,14 @@ public function getDesignationByOffice($office_id = null)
         if ($office_id === null) {
             $office_id = $this->session->userdata('office_id');
         }
-    
+        
+        // exit();
+        $data['office_id'] = $office_id;
+        // echo 'office_id ', $office_id;
+        // Fetch office details using office_id
+        // $data['office_name'] = $this->Manage_model->getOfficeName($office_id);
+        //  echo 'office_name ', $office_name;
+        // exit();
         $staff_id = $this->session->userdata('staff_id');
     
         // Get Designation Data
@@ -914,12 +930,12 @@ public function showcontent()
         $this->load->view('asset/contentTable', $data);
     }
 // public function showcontentbyOffice()    // methdd to show content by officeAdmin
-//     {  $office_id = $this->session->userdata('office_id');
-//         $data['contents'] = $this->Manage_model->show_all_contentbyOffice($office_id);
-//         $this->load->view('asset/contentTable', $data);
-//     }    
+    // {  $office_id = $this->session->userdata('office_id');
+    //     $data['contents'] = $this->Manage_model->show_all_contentbyOffice($office_id);
+    //     $this->load->view('asset/contentTable', $data);
+    // }    
         
-    // delete content
+// delete content
 public function delete_content($id)
     {
 
@@ -979,8 +995,24 @@ public function delStaff($staff_id)
 
             $this->session->set_flashdata('error', 'Failed to delete content.');
         }
-        redirect(base_url('Management/getStaff'));
+        // redirect(base_url('Management/getStaff'));
+        redirect($_SERVER['HTTP_REFERER']);
+    }  
+    
+
+public function delDesig($Designation_id)
+    {
+        if ($this->Manage_model->delDesig($Designation_id)) {
+
+            $this->session->set_flashdata('success', 'Designation deleted successfully!');
+        } else {
+
+            $this->session->set_flashdata('error', 'Failed to delete Designation.');
+        }
+        // Redirect to the same page (previous URL
+        redirect($_SERVER['HTTP_REFERER']);
+        // redirect(base_url('Management/getDesignation'));
+     
     }  
     
 }
-//ffffffffffffffffffffffffffffffffffffffffffffffffffffff*10

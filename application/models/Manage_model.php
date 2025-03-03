@@ -12,6 +12,7 @@ public function getDesignationdata($org_id)
     $this->db->join("OrganisationTable", "OrganisationTable.org_id = DesignationTable.org_id", 'left'); 
     // Add a condition to filter by the provided org_id
     $this->db->where("DesignationTable.org_id", $org_id);
+    $this->db->where("DesignationTable.is_active", 1);  // Ensure only active records are fetched
     // Execute the query
     $query = $this->db->get();
     // Return the result as an array
@@ -29,6 +30,7 @@ public function getDesignationByOffice($office_id)
     $this->db->join("OfficeTable", "OfficeTable.office_id = DesignationTable.office_id", 'left'); 
     // Add a condition to filter by the provided office_id
     $this->db->where("DesignationTable.office_id", $office_id);
+    $this->db->where("DesignationTable.is_active", 1);  // Ensure only active records are fetched
     // Execute the query
     $query = $this->db->get();
     // Return the result as an array
@@ -309,6 +311,12 @@ public function delStaff($staff_id)
     $this->db->where('staff_id', $staff_id);
     return $this->db->update('staffTable', ['is_active' => 0]);
  }
+// Delete Designation
+public function delDesig($Designation_id)
+    {
+    $this->db->where('Designation_id', $Designation_id);
+    return $this->db->update('DesignationTable', ['is_active' => 0]);
+ } 
 // get getDesignationName using session 
 public function getDesignationName($Designation_id) 
  {
@@ -316,6 +324,7 @@ public function getDesignationName($Designation_id)
     $this->db->select('Designation_name','created_at');
     $this->db->from('DesignationTable');
     $this->db->where('Designation_id', $Designation_id);
+    $this->db->where("DesignationTable.is_active", 1);  // Ensure only active records are fetched
     $query = $this->db->get();
 
     // Check if any result is returned
