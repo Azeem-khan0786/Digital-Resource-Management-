@@ -43,6 +43,23 @@ td {
             <div class="col-md-2"><?php $this->load->view('asset/DashSidebar'); ?></div>
             <div class="col-md-10">
             <?php $this->load->view('asset/base'); ?>
+                <div style="display: flex; justify-content: flex-end; gap: 10px; font-size: 18px; font-weight: bold; align-items: center;">
+                    <span>
+                        <?php if (!empty($org_name)): ?>
+                            <p style="margin: 0;"><?= $org_name; ?></p>
+                        <?php endif; ?>
+                    </span> 
+
+                    <?php if (!empty($org_name) && !empty($office_name)): ?>
+                        <span>/</span>
+                    <?php endif; ?>
+
+                    <span>
+                        <?php if (!empty($office_name)): ?>
+                            <p style="margin: 0;"><?= $office_name; ?></p>
+                        <?php endif; ?>
+                    </span>
+                </div>
             <ol class=" text-center breadcrumb mb-4 mt-3 "><h5 class=" mr-auto text-center">Designation Table</h5>  </ol>
            
 

@@ -615,7 +615,7 @@ public function addDesignation($office_id = null)
         redirect(base_url() . 'Management/login');
         return;
     }
-
+    $data['office_name'] = $this->Manage_model->getOfficeName($office_id);
     $this->form_validation->set_rules('Designation_name', 'Designation Name', 'required');
     $this->form_validation->set_rules('desig_level', 'Designation Level', 'required');
 
@@ -686,6 +686,7 @@ public function getDesignation()
         $data['Designation_data'] = $this->Manage_model->getDesignationdata($org_id);
         // echo json_encode($data);
         $data['companies'] = $this->Manage_model->getOrgDataBystaffId($staff_id);
+        $data['office_name'] = $this->Manage_model->getOfficeName($office_id);
         $this->load->view('asset/DesignationTable', $data);
         
     }
@@ -721,13 +722,14 @@ public function addDesignationByOfficeId($office_id)
                 redirect(base_url() . "Management/addDesignation");
                 return;
             }
-
+          
             $data = [
                 'Designation_name' => $this->input->post('Designation_name'),
                 'desig_level' => $submitted_desig_level,
                 'org_id' => $org_id,
                 'office_id' => $office_id
             ];
+            $data['office_name'] = $this->Manage_model->getOfficeName($office_id);
 
             if ($this->Manage_model->addDesignationData($data)) {
                 $this->session->set_flashdata('message', 'Designation inserted successfully');
@@ -745,16 +747,11 @@ public function getDesignationByOffice($office_id = null)
         if ($office_id === null) {
             $office_id = $this->session->userdata('office_id');
         }
-        
-        // exit();
         $data['office_id'] = $office_id;
-        // echo 'office_id ', $office_id;
+        
         // Fetch office details using office_id
-        // $data['office_name'] = $this->Manage_model->getOfficeName($office_id);
-        //  echo 'office_name ', $office_name;
-        // exit();
+        $data['office_name'] = $this->Manage_model->getOfficeName($office_id);
         $staff_id = $this->session->userdata('staff_id');
-    
         // Get Designation Data
         $Designation_data = $this->Manage_model->getDesignationByOffice($office_id);
         $data['Designation_data'] = $Designation_data;
@@ -766,42 +763,76 @@ public function getDesignationByOffice($office_id = null)
         $this->load->view('asset/DesignationTable', $data);
     }
     
-    
-    // method for add Catagory
-public function addCategory()
-    {
-        // Set validation rules
-        $this->form_validation->set_rules('categoryName', 'Catagory Name', 'required');
+// method for add Catagory
+public function addCategory($office_id = null)
+{   
+    echo 'office_id',$office_id;
+    // Retrieve organization ID from session
+    $org_id = $this->session->userdata('org_id');
 
-        if ($this->form_validation->run() == FALSE) {
-            // Load the form again with errors
-            $data['validation_errors'] = validation_errors();
-            $this->load->view('asset/category', $data);
+    // Check if office_id is coming from URL; otherwise, get it from session
+    if ($office_id === null) {
+        $office_id = $this->session->userdata('office_id');
+    }
+
+    // Ensure office_id is available
+    if (!$office_id) {
+        $this->session->set_flashdata('message', 'Invalid office selected.');
+        redirect(base_url() . 'Management/login'); // Redirect if office_id is missing
+        return;
+    }
+
+    // Set validation rules
+    $this->form_validation->set_rules('categoryName', 'Category Name', 'required');
+
+    if ($this->form_validation->run() == FALSE) {
+        // Load the form again with errors
+        $data['validation_errors'] = validation_errors();
+        $this->load->view('asset/category', $data);
+    } else {
+        // Prepare data for insertion, including office_id
+        $data = [
+            'categoryName' => $this->input->post('categoryName'),
+            'office_id' => $office_id,  // Ensure office_id is stored with category
+            'org_id' => $org_id         // Associate category with the organization
+        ];
+
+        // Insert data into database
+        if ($this->Manage_model->insert_category($data)) {
+            // Redirect to show category page
+            $this->session->set_flashdata('message', 'Successfully inserted data');
+            redirect(base_url() . 'Management/addCategory/' . $office_id);
         } else {
-            // Prepare data for insertion
-            $data = ['categoryName' => $this->input->post('categoryName')];
-
-            // Insert data into database
-            if ($this->Manage_model->insert_catagory($data)) {
-                // Redirect to show category page
-                $this->session->set_flashdata('message', 'Successful to insert data');
-                redirect(base_url() . 'Management/addCategory');
-            } else {
-                // Show error message
-                $data['db_error'] = "Error in inserting data";
-                $this->session->set_flashdata('message', 'Failed to insert data');
-                $this->load->view('category', $data);
-            }
+            // Show error message
+            $data['db_error'] = "Error in inserting data";
+            $this->session->set_flashdata('message', 'Failed to insert data');
+            $this->load->view('asset/category', $data);
         }
     }
+}
+
     // method for show catagory
-public function showCategory()
+public function showCategory($office_id = null)
     {
-        // $this->load->view('catagory');
-        $data['category'] = $this->Manage_model->getCategory();
-        // echo(json_encode($data));
+        // Retrieve office_id from session if not provided in URL
+        if ($office_id === null) {
+            $office_id = $this->session->userdata('office_id');
+        }
+    
+        // Ensure office_id is available
+        if (!$office_id) {
+            $this->session->set_flashdata('message', 'Invalid office selected.');
+            redirect(base_url() . 'Management/login'); // Redirect if office_id is missing
+            return;
+        }
+        $data['office_id'] = $office_id;
+        // Fetch categories filtered by office_id
+        $data['category'] = $this->Manage_model->getCategoryByOffice($office_id);
+    
+        // Load the view with filtered categories
         $this->load->view('asset/show_catagory', $data);
     }
+    
     // method for delete catagory
 public function delete_category($id)
     {

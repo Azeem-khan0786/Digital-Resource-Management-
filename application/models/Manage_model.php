@@ -197,12 +197,22 @@ public function login($staff_email, $staff_password)
     return false;
     }
      // add your category
-public function getCategory() {
-        $query = $this->db->get('categoryTable');
-        return $query->result_array();
-     }
+// public function getCategory() {
+//         $query = $this->db->get('categoryTable');
+//         return $query->result_array();
+//      }
+
+public function getCategoryByOffice($office_id = null) 
+{
+    if ($office_id !== null) {
+        $this->db->where('office_id', $office_id);
+    }
+    $query = $this->db->get('categoryTable');
+    return $query->result_array();
+}
+    
       // get data of CategoryTable
-public function insert_catagory($data)
+public function insert_category($data)
     {
         return $this->db->insert('categoryTable', $data);
     }
@@ -414,6 +424,13 @@ public function countDesignationsByOffice($office_id) {
     $this->db->where('is_active', 1);
     // Count the results
     return $this->db->count_all_results('DesignationTable'); // Count records in DesignationTable
+}
+public function countCategoryByOffice($office_id) {
+  
+    $this->db->where('office_id', $office_id);
+    $this->db->where('is_active', 1);
+    // Count the results
+    return $this->db->count_all_results('categoryTable'); // Count records in DesignationTable
 }
 //Count total content by office admin
 public function countcontenbyoffices() {

@@ -39,7 +39,11 @@ body {
                         <div class="card mb-2">
                             <div class="card-header d-flex justify-content-between">
                                 <div><i class="fas fa-table me-1 m-1"></i>Manage your content`s category</div>
-                                <div><a href="<?=base_url().'Management/addCategory'?>" class="btn btn-primary btn-block">Add Category</a></div>
+                                <div>
+                                    <a href="<?= base_url('Management/addCategory/' . ($office_id ?? '')) ?>" 
+                                            class="btn btn-primary btn-block">Add Category
+                                    </a>
+                                </div>
                             </div>
                             
                             <div class="card-body ">
