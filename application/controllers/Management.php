@@ -801,7 +801,7 @@ public function addCategory($office_id = null)
         if ($this->Manage_model->insert_category($data)) {
             // Redirect to show category page
             $this->session->set_flashdata('message', 'Successfully inserted data');
-            redirect(base_url() . 'Management/addCategory/' . $office_id);
+            redirect(base_url() . 'Management/showCategory/' . $office_id);
         } else {
             // Show error message
             $data['db_error'] = "Error in inserting data";
@@ -825,7 +825,7 @@ public function showCategory($office_id = null)
             redirect(base_url() . 'Management/login'); // Redirect if office_id is missing
             return;
         }
-        $data['office_id'] = $office_id;
+        // $data['office_id'] = $office_id;
         // Fetch categories filtered by office_id
         $data['category'] = $this->Manage_model->getCategoryByOffice($office_id);
     
@@ -847,119 +847,239 @@ public function delete_category($id)
     }
 
 
-public function content_add_form()
-    {
-        // Load the file upload library
-        $this->load->library('upload');
+// public function content_add_form()
+    //     {
+    //         // Load the file upload library
+    //         $this->load->library('upload');
 
-        // Set validation rules
-        $this->form_validation->set_rules('content_title', 'Content Title', 'required');
-        $this->form_validation->set_rules('categoryId', 'Category ID');
-        $this->form_validation->set_rules('content_description', 'Content Description');
-        $this->form_validation->set_rules('book_type', 'book_type');
-        $this->form_validation->set_rules('ISBN', 'ISBN Number');
-        $this->form_validation->set_rules('num_of_pages', 'Number of Pages');
-        $this->form_validation->set_rules('genre', 'Content Genretion');
-        // Get selected file type from form
-        $selected_type = $this->input->post('image_type');  
-        // Allowed extensions mapping
-        $allowed_extensions = [
-            'png'  => 'png',
-            'jpg'  => 'jpg|jpeg',
-            'gif'  => 'gif',
-            'pdf'  => 'pdf',
-            'txt'  => 'txt',
-            'mp4'  => 'mp4',
-            'mov'  => 'mov',
-            'avi'  => 'avi',
-            'apk'  => 'apk'
-        ];
-        // Validate file type
-        // if (!array_key_exists($selected_type, $allowed_extensions)) {
-        //         $this->session->set_flashdata('error', 'Invalid file type selected.');
-        //         redirect(base_url() . 'Management/content_add_form');
-        //     }
-        if (!$this->form_validation->run()) {
-            
-            // die();
-            $data['category'] = $this->Manage_model->getCategory();
-            $this->session->set_flashdata('error', validation_errors());
-            $this->load->view('asset/addContent', $data);
+    //         // Set validation rules
+    //         $this->form_validation->set_rules('content_title', 'Content Title', 'required');
+    //         $this->form_validation->set_rules('categoryId', 'Category ID');
+    //         $this->form_validation->set_rules('content_description', 'Content Description');
+    //         $this->form_validation->set_rules('book_type', 'book_type');
+    //         $this->form_validation->set_rules('ISBN', 'ISBN Number');
+    //         $this->form_validation->set_rules('num_of_pages', 'Number of Pages');
+    //         $this->form_validation->set_rules('genre', 'Content Genretion');
+    //         // Get selected file type from form
+    //         $selected_type = $this->input->post('image_type');  
+    //         // Allowed extensions mapping
+    //         $allowed_extensions = [
+    //             'png'  => 'png',
+    //             'jpg'  => 'jpg|jpeg',
+    //             'gif'  => 'gif',
+    //             'pdf'  => 'pdf',
+    //             'txt'  => 'txt',
+    //             'mp4'  => 'mp4',
+    //             'mov'  => 'mov',
+    //             'avi'  => 'avi',
+    //             'apk'  => 'apk'
+    //         ];
+    //         // Validate file type
+    //         // if (!array_key_exists($selected_type, $allowed_extensions)) {
+    //         //         $this->session->set_flashdata('error', 'Invalid file type selected.');
+    //         //         redirect(base_url() . 'Management/content_add_form');
+    //         //     }
+    //         if (!$this->form_validation->run()) {
+                
+    //             // die();
+    //             $data['category'] = $this->Manage_model->getCategory();
+    //             $this->session->set_flashdata('error', validation_errors());
+    //             $this->load->view('asset/addContent', $data);
+    //         } else {
+    //             // File upload configuration
+    //             $config['upload_path']   = './uploads/';  // Folder where files will be saved
+    //             // $config['allowed_types'] = 'gif|jpg|png|pdf|txt';  
+    //             $config['allowed_types'] = 'gif|jpg|jpeg|png|pdf|txt|mp4|mov|avi|apk';  // Allowed file types
+    //             $config['max_size']      = 30000;  // Max file size in kilobytes (2MB) 30MB
+    //             $config['encrypt_name']  = TRUE;  // Encrypt the file name to prevent overwriting
+
+    //             $this->upload->initialize($config);
+
+    //             // Perform file upload
+    //             if ($this->upload->do_upload('userfile')) {
+    //                 // Get the uploaded file data
+    //                 $file_data = $this->upload->data();
+    //                 $file_name = $file_data['file_name'];
+    //             } else {
+    //                 // Handle upload errors
+    //                 $this->session->set_flashdata('error', $this->upload->display_errors());
+    //                 $data['category'] = $this->Manage_model->getCategory();
+    //                 $this->load->view('asset/addContent', $data);
+    //                 return;
+    //             }
+    //             // Get the staff_id from session
+    //               $staff_id = $this->session->userdata('staff_id');
+    //               $office_id = $this->session->userdata('office_id');
+    //               $org_id = $this->session->userdata('org_id');
+
+    //             // Prepare data for insertion
+    //             $data = [
+    //                 'content_title'       => $this->input->post('content_title'),
+    //                 'categoryId'          => $this->input->post('categoryId'),
+    //                 'content_description' => $this->input->post('content_description'),
+    //                 'book_type'           => $this->input->post('book_type'),
+    //                 'ISBN'               => $this->input->post('ISBN'),
+    //                 'num_of_pages'       => $this->input->post('num_of_pages'),
+    //                 'genre'              => $this->input->post('genre'),
+    //                 'filename'            => $file_name,  // Save the filename to the database
+    //                 'staff_id'            => $staff_id,    // Add the staff_id to the data
+    //                 'org_id'            => $org_id, 
+    //                 'office_id'            => $office_id, 
+    //             ];
+
+    //             if ($this->Manage_model->add_content($data)) {
+    //                 // Successfully inserted data
+    //                 $this->session->set_flashdata('message', 'Content added successfully!');
+    //                 $this->session->set_flashdata('success', 'Content added successfully!');
+    //                 // print_r($data);
+    //                 // die();
+    //                 redirect(base_url() . 'Management/showcontent');
+    //             } else {
+    //                 // Error in inserting data
+    //                 $this->session->set_flashdata('error', 'Error in inserting data');
+    //                 $this->session->set_flashdata('message', 'Failed to insert data');
+    //                 redirect(base_url() . 'Management/content_add_form');
+    //             }
+    //         }
+    //     }
+
+
+// working 
+public function content_add_form($office_id = null)
+
+{
+    // Check if office_id is coming from URL or session
+    $office_id = $office_id ?? $this->session->userdata('office_id');
+
+    // Debugging to check values
+    echo "<pre>Office ID from URL: " . var_export($office_id, true) . "</pre>";
+    echo "<pre>Office ID from Session: " . var_export($this->session->userdata('office_id'), true) . "</pre>";
+    die(); // Stop execution to check values
+    // Load the file upload library
+    $this->load->library('upload');
+
+    // Set validation rules
+    $this->form_validation->set_rules('content_title', 'Content Title', 'required');
+    $this->form_validation->set_rules('categoryId', 'Category ID');
+    $this->form_validation->set_rules('content_description', 'Content Description');
+    $this->form_validation->set_rules('book_type', 'Book Type');
+    $this->form_validation->set_rules('ISBN', 'ISBN Number');
+    $this->form_validation->set_rules('num_of_pages', 'Number of Pages');
+    $this->form_validation->set_rules('genre', 'Content Genre');
+
+    // Determine office_id: Use URL parameter if available, otherwise use session
+    if ($office_id === null) {
+        $office_id = $this->session->userdata('office_id');
+    }
+
+    // If office_id is still not set, redirect with an error
+    if (!$office_id) {
+        $this->session->set_flashdata('error', 'Invalid office selected.');
+        redirect(base_url() . 'Management/content_add_form');
+        return;
+    }
+    $data['office_id'] = $office_id;
+    if (!$this->form_validation->run()) {
+        $data['category'] = $this->Manage_model->getCategoryByOffice($office_id);
+        $this->session->set_flashdata('error', validation_errors());
+        $this->load->view('asset/addContent', $data);
+    } else {
+        // File upload configuration
+        $config['upload_path']   = './uploads/';
+        $config['allowed_types'] = 'gif|jpg|jpeg|png|pdf|txt|mp4|mov|avi|apk';
+        $config['max_size']      = 30000;  // 30MB
+        $config['encrypt_name']  = TRUE;
+
+        $this->upload->initialize($config);
+
+        // Perform file upload
+        if ($this->upload->do_upload('userfile')) {
+            $file_data = $this->upload->data();
+            $file_name = $file_data['file_name'];
         } else {
-            // File upload configuration
-            $config['upload_path']   = './uploads/';  // Folder where files will be saved
-            // $config['allowed_types'] = 'gif|jpg|png|pdf|txt';  
-            $config['allowed_types'] = 'gif|jpg|jpeg|png|pdf|txt|mp4|mov|avi|apk';  // Allowed file types
-            $config['max_size']      = 30000;  // Max file size in kilobytes (2MB) 30MB
-            $config['encrypt_name']  = TRUE;  // Encrypt the file name to prevent overwriting
+            $this->session->set_flashdata('error', $this->upload->display_errors());
+            $data['category'] = $this->Manage_model->getCategory();
+            $this->load->view('asset/addContent', $data);
+            return;
+        }
 
-            $this->upload->initialize($config);
+        // Get the staff_id from session
+        $staff_id = $this->session->userdata('staff_id');
+        $org_id = $this->session->userdata('org_id');
+       
+        // Prepare data for insertion
+        $data = [
+            'content_title'       => $this->input->post('content_title'),
+            'categoryId'          => $this->input->post('categoryId'),
+            'content_description' => $this->input->post('content_description'),
+            'book_type'           => $this->input->post('book_type'),
+            'ISBN'                => $this->input->post('ISBN'),
+            'num_of_pages'        => $this->input->post('num_of_pages'),
+            'genre'               => $this->input->post('genre'),
+            'filename'            => $file_name,
+            'staff_id'            => $staff_id,
+            'org_id'              => $org_id,
+            'office_id'           => $office_id,  // Using office_id from URL or session
+        ];
+        $data['office_id'] = $office_id; // Pass office_id to view
 
-            // Perform file upload
-            if ($this->upload->do_upload('userfile')) {
-                // Get the uploaded file data
-                $file_data = $this->upload->data();
-                $file_name = $file_data['file_name'];
-            } else {
-                // Handle upload errors
-                $this->session->set_flashdata('error', $this->upload->display_errors());
-                $data['category'] = $this->Manage_model->getCategory();
-                $this->load->view('asset/addContent', $data);
-                return;
-            }
-            // Get the staff_id from session
-              $staff_id = $this->session->userdata('staff_id');
-              $office_id = $this->session->userdata('office_id');
-              $org_id = $this->session->userdata('org_id');
-
-            // Prepare data for insertion
-            $data = [
-                'content_title'       => $this->input->post('content_title'),
-                'categoryId'          => $this->input->post('categoryId'),
-                'content_description' => $this->input->post('content_description'),
-                'book_type'           => $this->input->post('book_type'),
-                'ISBN'               => $this->input->post('ISBN'),
-                'num_of_pages'       => $this->input->post('num_of_pages'),
-                'genre'              => $this->input->post('genre'),
-                'filename'            => $file_name,  // Save the filename to the database
-                'staff_id'            => $staff_id,    // Add the staff_id to the data
-                'org_id'            => $org_id, 
-                'office_id'            => $office_id, 
-            ];
-
-            if ($this->Manage_model->add_content($data)) {
-                // Successfully inserted data
-                $this->session->set_flashdata('message', 'Content added successfully!');
-                $this->session->set_flashdata('success', 'Content added successfully!');
-                // print_r($data);
-                // die();
-                redirect(base_url() . 'Management/showcontent');
-            } else {
-                // Error in inserting data
-                $this->session->set_flashdata('error', 'Error in inserting data');
-                $this->session->set_flashdata('message', 'Failed to insert data');
-                redirect(base_url() . 'Management/content_add_form');
-            }
+        if ($this->Manage_model->add_content($data)) {
+            $this->session->set_flashdata('success', 'Content added successfully!');
+            redirect(base_url() . 'Management/showcontent/' .$office_id);
+        } else {
+            $this->session->set_flashdata('error', 'Error in inserting data');
+            redirect(base_url() . 'Management/content_add_form/' .$office_id);
         }
     }
+}
 
     // method for show Resources
-public function showcontent()
-    {  // Initialize $data array
+// public function showcontent()
+    // {  // Initialize $data array
+    //     $data = array();
+    //     $staff_id = $this->session->userdata('staff_id');
+    //     $office_id = $this->session->userdata('office_id');
+    //     $desig_level = $this->session->userdata('desig_level');
+    
+    //     if ($desig_level == 3) {
+    //         $data['contents'] = $this->Manage_model->show_all_contentbyOffice($office_id);
+    //     } 
+    //     elseif ($desig_level == 4) {
+    //         $data['contents'] = $this->Manage_model->show_catentbystaff($staff_id);
+    //     }
+    
+    //     $this->load->view('asset/contentTable', $data);
+    // }
+// working 
+public function showcontent($office_id = null)
+    {  
+        $office_id = $office_id ?? $this->session->userdata('office_id');
+      
         $data = array();
         $staff_id = $this->session->userdata('staff_id');
-        $office_id = $this->session->userdata('office_id');
         $desig_level = $this->session->userdata('desig_level');
-    
-        if ($desig_level == 3) {
-            $data['contents'] = $this->Manage_model->show_all_contentbyOffice($office_id);
-        } 
-        elseif ($desig_level == 4) {
-            $data['contents'] = $this->Manage_model->show_catentbystaff($staff_id);
+        
+        // Use office_id from URL if provided, otherwise fall back to session
+        if ($office_id === null) {
+            $office_id = $this->session->userdata('office_id');
+        }
+        
+        if (!$office_id) {
+            $this->session->set_flashdata('message', 'Invalid office selected.');
+            redirect(base_url() . 'Management/login');
+            return;
         }
     
+        if (($desig_level == 2) || ($desig_level == 3)) {
+            $data['contents'] = $this->Manage_model->show_all_contentbyOffice($office_id);
+        } elseif ($desig_level == 4) {
+            $data['contents'] = $this->Manage_model->show_catentbystaff($staff_id);
+        }
+        
+        echo 'data',json_encode($office_id);
         $this->load->view('asset/contentTable', $data);
     }
+        
 // public function showcontentbyOffice()    // methdd to show content by officeAdmin
     // {  $office_id = $this->session->userdata('office_id');
     //     $data['contents'] = $this->Manage_model->show_all_contentbyOffice($office_id);
