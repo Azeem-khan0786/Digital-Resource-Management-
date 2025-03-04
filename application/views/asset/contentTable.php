@@ -122,7 +122,7 @@
 
                     
                 </div>
-                <pre><?php print_r($office_id); ?></pre>
+                
 
                 <div style="margin-left: 930px; margin-top: 10px;" ><a href="<?=base_url('Management/content_add_form/' . ($office_id ?? ''))?>" class="btn btn-primary btn-sm mb-1"> <b>+Add Digital Assets</b></a></div>
             

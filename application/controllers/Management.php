@@ -686,7 +686,7 @@ public function getDesignation()
         $data['Designation_data'] = $this->Manage_model->getDesignationdata($org_id);
         // echo json_encode($data);
         $data['companies'] = $this->Manage_model->getOrgDataBystaffId($staff_id);
-        $data['office_name'] = $this->Manage_model->getOfficeName($office_id);
+        // $data['office_name'] = $this->Manage_model->getOfficeName($office_id);
         $this->load->view('asset/DesignationTable', $data);
         
     }
@@ -950,11 +950,6 @@ public function content_add_form($office_id = null)
 {
     // Check if office_id is coming from URL or session
     $office_id = $office_id ?? $this->session->userdata('office_id');
-
-    // Debugging to check values
-    echo "<pre>Office ID from URL: " . var_export($office_id, true) . "</pre>";
-    echo "<pre>Office ID from Session: " . var_export($this->session->userdata('office_id'), true) . "</pre>";
-    die(); // Stop execution to check values
     // Load the file upload library
     $this->load->library('upload');
 
@@ -1075,8 +1070,8 @@ public function showcontent($office_id = null)
         } elseif ($desig_level == 4) {
             $data['contents'] = $this->Manage_model->show_catentbystaff($staff_id);
         }
-        
-        echo 'data',json_encode($office_id);
+        $data['office_id'] = $office_id;
+        echo 'office_id',json_encode($office_id);
         $this->load->view('asset/contentTable', $data);
     }
         

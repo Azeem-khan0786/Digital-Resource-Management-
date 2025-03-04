@@ -138,7 +138,6 @@
                         <div class="col-xl-4 col-md-4  p-3">
                                         <div class="card text-white mb-4" style='background: #666699;'>
                                       
-                                         <?php echo 'office Id',$office_id ;?>
                                         <?php $content_count = $this->Manage_model->countContentByOffice($office_id);?>
                                             <div class="card-body">Total content:
                                                 <b><?php echo $content_count;  ?> records</b>
