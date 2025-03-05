@@ -828,7 +828,8 @@ public function showCategory($office_id = null)
         // $data['office_id'] = $office_id;
         // Fetch categories filtered by office_id
         $data['category'] = $this->Manage_model->getCategoryByOffice($office_id);
-    
+        $data['office_id'] = $office_id;
+        
         // Load the view with filtered categories
         $this->load->view('asset/show_catagory', $data);
     }

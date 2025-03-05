@@ -110,9 +110,10 @@
                                         <?php if ($this->session->userdata('desig_level') == 3) : ?>
                                         <div class="col-xl-4 col-md-4  p-3">
                                         <div class="card text-white mb-4" style='background: #4d88ff;'>
-                                            <div class="card-body"> Total Category :
-                                                <b><?php echo $this->db->count_all('categoryTable'); ?> records</b>
-                                            </div>
+                                        <?php $category_count = $this->Manage_model->countCategoryByOffice($office_id);?>
+                                            <div class="card-body">Total Category:
+                                                <b><?php echo $category_count;  ?> records</b>
+                                            </div> 
                                             <div class="card-footer d-flex align-items-center justify-content-between">
                                                 <a class="small text-white stretched-link"
                                                     href="<?=base_url().'Management/showCategory'?>">View as Table</a>

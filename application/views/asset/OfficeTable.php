@@ -28,7 +28,7 @@ tr {
             <div class="col-md-10">
             <?php $this->load->view('asset/base'); ?>
         
-            <?php $this->load->view('asset/cardPage'); ?>
+            <!-- <?php $this->load->view('asset/cardPage'); ?> -->
                 <!-- <h5 class="text-center"> Orgnisation's Office Table </h5><br> -->
                 <!-- <ol class=" text-center breadcrumb mb-2 mt-1 ">
                     <h5 class=" mr-auto text-center">Orgnisation's Office Table </h5>

@@ -249,6 +249,13 @@ public function show_all_contentbyOffice($office_id)
       $query = $this->db->get();
       return $query->result(); 
     }
+public function countCategoryByOffice($office_id) {
+  
+        $this->db->where('office_id', $office_id);
+        $this->db->where('is_active', 1);
+        // Count the results
+        return $this->db->count_all_results('categoryTable'); // Count records in DesignationTable
+    }    
 public function countContentByOffice($office_id) {
         $this->db->where('office_id', $office_id);
         $this->db->where('is_active', 1); // Count only active staff
@@ -425,13 +432,7 @@ public function countDesignationsByOffice($office_id) {
     // Count the results
     return $this->db->count_all_results('DesignationTable'); // Count records in DesignationTable
 }
-public function countCategoryByOffice($office_id) {
-  
-    $this->db->where('office_id', $office_id);
-    $this->db->where('is_active', 1);
-    // Count the results
-    return $this->db->count_all_results('categoryTable'); // Count records in DesignationTable
-}
+
 //Count total content by office admin
 public function countcontenbyoffices() {
     // $org_id = $this->session->userdata('org_id'); // Get org_id from session
