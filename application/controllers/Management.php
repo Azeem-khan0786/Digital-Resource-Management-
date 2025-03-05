@@ -784,7 +784,7 @@ public function addCategory($office_id = null)
 
     // Set validation rules
     $this->form_validation->set_rules('categoryName', 'Category Name', 'required');
-
+    $data['office_name'] = $this->Manage_model->getOfficeName($office_id);
     if ($this->form_validation->run() == FALSE) {
         // Load the form again with errors
         $data['validation_errors'] = validation_errors();
@@ -796,7 +796,7 @@ public function addCategory($office_id = null)
             'office_id' => $office_id,  // Ensure office_id is stored with category
             'org_id' => $org_id         // Associate category with the organization
         ];
-
+        $data['office_name'] = $this->Manage_model->getOfficeName($office_id);
         // Insert data into database
         if ($this->Manage_model->insert_category($data)) {
             // Redirect to show category page
@@ -828,6 +828,7 @@ public function showCategory($office_id = null)
         // $data['office_id'] = $office_id;
         // Fetch categories filtered by office_id
         $data['category'] = $this->Manage_model->getCategoryByOffice($office_id);
+        $data['office_name'] = $this->Manage_model->getOfficeName($office_id);
         $data['office_id'] = $office_id;
         
         // Load the view with filtered categories
@@ -975,6 +976,7 @@ public function content_add_form($office_id = null)
         return;
     }
     $data['office_id'] = $office_id;
+    $data['office_name'] = $this->Manage_model->getOfficeName($office_id);
     if (!$this->form_validation->run()) {
         $data['category'] = $this->Manage_model->getCategoryByOffice($office_id);
         $this->session->set_flashdata('error', validation_errors());
@@ -1018,6 +1020,7 @@ public function content_add_form($office_id = null)
             'office_id'           => $office_id,  // Using office_id from URL or session
         ];
         $data['office_id'] = $office_id; // Pass office_id to view
+        
 
         if ($this->Manage_model->add_content($data)) {
             $this->session->set_flashdata('success', 'Content added successfully!');
@@ -1072,7 +1075,8 @@ public function showcontent($office_id = null)
             $data['contents'] = $this->Manage_model->show_catentbystaff($staff_id);
         }
         $data['office_id'] = $office_id;
-        echo 'office_id',json_encode($office_id);
+        $data['office_name'] = $this->Manage_model->getOfficeName($office_id);
+        // echo 'office_id',json_encode($office_id);
         $this->load->view('asset/contentTable', $data);
     }
         

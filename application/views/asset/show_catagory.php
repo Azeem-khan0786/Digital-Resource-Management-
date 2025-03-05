@@ -27,6 +27,23 @@ body {
             </div>
             <div class="col-md-10 w-100 ">
             <?php $this->load->view('asset/base'); ?>
+            <div style="display: flex; justify-content: flex-end; gap: 10px; font-size: 18px; font-weight: bold; align-items: center;">
+                    <span>
+                        <?php if (!empty($org_name)): ?>
+                            <p style="margin: 0;"><?= $org_name; ?></p>
+                        <?php endif; ?>
+                    </span> 
+
+                    <?php if (!empty($org_name) && !empty($office_name)): ?>
+                        <span>/</span>
+                    <?php endif; ?>
+
+                    <span>
+                        <?php if (!empty($office_name)): ?>
+                            <p style="margin: 0;"><?= $office_name; ?></p>
+                        <?php endif; ?>
+                    </span>
+                </div>
                 <main>
                     <div class="">
                     <!-- <?php $this->load->view('asset/cardPage'); ?> -->

@@ -76,6 +76,23 @@
             </div>
             <div class="col-md-10">
             <?php $this->load->view('asset/base'); ?>
+            <div style="display: flex; justify-content: flex-end; gap: 10px; font-size: 18px; font-weight: bold; align-items: center;">
+                    <span>
+                        <?php if (!empty($org_name)): ?>
+                            <p style="margin: 0;"><?= $org_name; ?></p>
+                        <?php endif; ?>
+                    </span> 
+
+                    <?php if (!empty($org_name) && !empty($office_name)): ?>
+                        <span>/</span>
+                    <?php endif; ?>
+
+                    <span>
+                        <?php if (!empty($office_name)): ?>
+                            <p style="margin: 0;"><?= $office_name; ?></p>
+                        <?php endif; ?>
+                    </span>
+                </div>
                 <h4 class="text-center "><b>Add Digital Resources</b></h4>
                 <?php if ($this->session->flashdata('success')): ?>
                     <div class="alert alert-success">
