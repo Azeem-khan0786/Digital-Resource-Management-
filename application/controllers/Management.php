@@ -324,67 +324,84 @@ public function addStaff()
         }
     }
   // Add staff based on officeId  
-  public function addStaffByOfficeId($office_id)
+  public function addStaffByOfficeId($office_id = null)
   {   
       $org_id = $this->session->userdata('org_id');
+  
+      // Ensure office_id is set, prioritize URL parameter, fallback to session
+      if ($office_id === null) {
+          $office_id = $this->session->userdata('office_id');
+      }
+  
+      if (!$office_id) {
+          $this->session->set_flashdata('error', 'Invalid office selected.');
+          redirect(base_url() . 'Management/login');
+          return;
+      }
+  
+      // Form validation rules
+      $this->form_validation->set_rules('staff_name', 'Staff Name', 'required');
+      $this->form_validation->set_rules('staff_email', 'Staff Email', 'required|valid_email');
+      $this->form_validation->set_rules('staff_password', 'Staff Password', 'required');
+      $this->form_validation->set_rules('joining_date', 'Joining Date', 'required');
       
-      $this->form_validation->set_rules('staff_name', 'staff Name', 'required');
-      $this->form_validation->set_rules('staff_email', 'staff Email', 'required');
-      $this->form_validation->set_rules('staff_password', 'staff Password', 'required');
-      $this->form_validation->set_rules('joining_date', 'joining Date', 'required');
-      
-      if (! $this->form_validation->run()) {
-          
+      if (!$this->form_validation->run()) {
+          // Load necessary data
           $data['org_data'] = $this->Manage_model->getOrgDataById($org_id);
-          $data['selected_org_id'] = $org_id; // Pass the selected org_id
+          $data['selected_org_id'] = $org_id;
           $data['selected_depart'] = $office_id;
-          $data['Designation_data'] = $this->Manage_model->getDesignationdata($org_id);
+          $data['Designation_data'] = $this->Manage_model->getDesignationByOffice($office_id);
           $data['office'] = $this->Manage_model->getOfficeDataByOrg($org_id);
           $data['states'] = $this->db->get('statesTable')->result_array();
           $data['office_name'] = $this->Manage_model->getOfficeName($office_id);
           
-
-          
-          // Loop through each state
-          foreach ($data['states'] as $state) {
-             $state_id = $state['state_id']; // Make sure 'state_id' is the correct column name
-             $data['cities'] = $this->db->get_where('citiesTable', array('state_id' => $state_id))->result_array();   
+          // Fetch cities for the pre-selected state
+          $selected_state_id = $this->input->post('states');  
+          if ($selected_state_id) {
+              $data['cities'] = $this->db->get_where('citiesTable', ['state_id' => $selected_state_id])->result_array();
+          } else {
+              $data['cities'] = [];
           }
-          $this->load->view('asset/addStaff', $data);
+  
+          // Show form with validation errors
           $this->session->set_flashdata('error', validation_errors());
-          
+          $this->load->view('asset/addStaff', $data);
       } else {
-
-          $state_id = $this->input->post('states'); // The selected state_id
-          $state_data = $this->db->get_where('statesTable', array('state_id' => $state_id))->row();
-          $city_id = $this->input->post('cities');
-          $city_data = $this->db->get_where('citiesTable', array('city_id' => $city_id))->row();
+          // Fetch state & city details
+          $state_id = $this->input->post('states');
+          $state_data = $this->db->get_where('statesTable', ['state_id' => $state_id])->row();
           
-          $data = [
-              'staff_name' => $this->input->post('staff_name'),
-              'staff_email' => $this->input->post('staff_email'),
-              'staff_password' => $this->input->post('staff_password'),
+          $city_id = $this->input->post('cities');
+          $city_data = $this->db->get_where('citiesTable', ['city_id' => $city_id])->row();
+  
+          // Prepare data for insertion
+          $staff_data = [
+              'staff_name'   => $this->input->post('staff_name'),
+              'staff_email'  => $this->input->post('staff_email'),
+              'staff_password' => password_hash($this->input->post('staff_password'), PASSWORD_BCRYPT), // Hash password
               'joining_date' => $this->input->post('joining_date'),
-              'org_id' => $org_id,
+              'org_id'       => $org_id,
               'Designation_id' => $this->input->post('Designation_id'),
-              'desig_level' => 4,
-              'office_id' => $office_id,
+              'desig_level'  => 4,
+              'office_id'    => $office_id,
               'date_of_birth' => $this->input->post('date_of_birth'),
-              'salary' => $this->input->post('salary'),
-              'city_name' => $city_data->city_name, // Store city_name instead of city_id
-              'state_name' => $state_data->state_name, // Store state_name instead of state_id
-              'pincode' => $this->input->post('pincode'),
+              'salary'       => $this->input->post('salary'),
+              'city_name'    => $city_data->city_name ?? null, // Store city_name instead of city_id
+              'state_name'   => $state_data->state_name ?? null, // Store state_name instead of state_id
+              'pincode'      => $this->input->post('pincode'),
           ];
-          echo json_encode($data);
-          die();
-          if ($this->Manage_model->addStaffData($data)) {
+  
+          // Insert into the database
+          if ($this->Manage_model->addStaffData($staff_data)) {
               $this->session->set_flashdata('message', 'Registration successful. You can now login.');
               redirect(base_url() . 'Management/getStaff');
           } else {
               $this->session->set_flashdata('message', 'Registration failed. Please try again.');
+              redirect(base_url() . 'Management/addStaffByOfficeId/' . $office_id);
           }
       }
   }
+  
   
     // get state`city data while add staff
 public function getCities()

@@ -77,9 +77,9 @@ body {
                             <div>
                                 <a href="<?= base_url().'Management/'. ($office_id ? 'addStaffByOfficeId/'.$office_id : 'addStaff') ?>" class="btn btn-primary">+ Add Staff</a>
                             </div>
-                        <?php elseif ($this->session->userdata('desig_level') != 4): ?>
+                        <?php elseif ($this->session->userdata('desig_level') == 3): ?>
                             <div>
-                                <a href="<?= base_url().'Management/addStaff' ?>" class="btn btn-primary">+ Add Staff</a>
+                                <a href="<?= base_url().'Management/addStaffByOfficeId'?>" class="btn btn-primary">+ Add Staff</a>
                             </div>
                         <?php endif; ?>
 
